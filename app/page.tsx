@@ -20,8 +20,10 @@ export default async function Index() {
   const isSupabaseConnected = canInitSupabaseClient();
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+    <div className="flex-1 w-full flex flex-col gap-5 items-center justify-center bg-gradient-to-br from-sky-500 via-60% to-pink-800">
+      <h1 className="text-6xl animate-none">Portal under construction</h1>
+      <p className="text-2xl animate-none">Coming soon...</p>
+      {/* <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           <DeployButton />
           {isSupabaseConnected && <AuthButton />}
@@ -48,7 +50,7 @@ export default async function Index() {
             Supabase
           </a>
         </p>
-      </footer>
+      </footer> */}
     </div>
   );
 }
