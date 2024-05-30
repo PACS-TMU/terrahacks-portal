@@ -1,8 +1,10 @@
+
 import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
+
 
 export default function Login({
   searchParams,
@@ -51,9 +53,10 @@ export default function Login({
     return redirect("/login?message=Check email to continue sign in process");
   };
 
+
   return (
     //background gradient
-    <div className="bg-gradient-to-b from-[#afd6e3] via-[#c3aa8e] to-[#432c2b] min-h-screen w-full flex items-center justify-center">
+    <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center justify-center">
 
       <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md items-center justify-center gap-2">
         <Link
@@ -102,6 +105,7 @@ export default function Login({
             placeholder="super secret password"
             required
           />
+
           <SubmitButton
             formAction={signIn}
             className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
@@ -109,6 +113,7 @@ export default function Login({
           >
             Sign In
           </SubmitButton>
+
           <SubmitButton
             formAction={signUp}
             className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
@@ -116,12 +121,30 @@ export default function Login({
           >
             Sign Up
           </SubmitButton>
+
+
+
+
           {searchParams?.message && (
             <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
               {searchParams.message}
             </p>
           )}
+          <button
+            id="Github-Signin"
+            className="border flex flex-row justify-center items-center bg-white rounded-md px-4 py-2 text-black mb-2">
+            <img src="/images/google-logo.png" width={24} height={24} className="mr-4"></img>
+            Continue with Google
+          </button>
+          <button
+            id="Github-Signin"
+            className="border flex flex-row justify-center items-center bg-white rounded-md px-4 py-2 text-black mb-2">
+            <img src="/images/github-logo.png" width={24} height={24} className="mr-4"></img>
+            Continue with Github
+          </button>
+
         </form>
+
 
       </div>
     </div>
