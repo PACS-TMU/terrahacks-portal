@@ -3,7 +3,7 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { SubmitButton } from "./submit-button";
+import { SubmitButton } from "../../components/submit-button";
 
 
 export default function Login({
@@ -84,22 +84,22 @@ export default function Login({
 
 
         <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-          <h1 className="text-2xl text-bold pb-8 text-left">Application Portal</h1>
+          <h1 className="text-2xl text-bold pb-8 text-left  text-white">Application Portal</h1>
 
-          <label className="text-md" htmlFor="email">
+          <label className="text-md  text-white" htmlFor="email">
             Email
           </label>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6 placeholder-colour"
+            className="rounded-md px-4 py-2 bg-inherit border  border-white mb-6 placeholder-colour"
             name="email"
             placeholder="you@terrahacks.ca"
             required
           />
-          <label className="text-md" htmlFor="password">
+          <label className="text-md  text-white" htmlFor="password">
             Password
           </label>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6 placeholder-colour"
+            className="rounded-md px-4 py-2 bg-inherit border  border-white mb-6 placeholder-colour"
             type="password"
             name="password"
             placeholder="super secret password"
@@ -114,13 +114,13 @@ export default function Login({
             Sign In
           </SubmitButton>
 
-          <SubmitButton
-            formAction={signUp}
-            className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
-            pendingText="Signing Up..."
-          >
-            Sign Up
-          </SubmitButton>
+          <p className="pb-4">Don't have an account?
+            <span>
+              <Link href="/signup" className=" text-foreground hover:underline"> Sign up.</Link>
+            </span>
+          </p>
+
+
 
 
 
