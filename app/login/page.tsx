@@ -114,10 +114,9 @@ export default function Login({
             Sign In
           </SubmitButton>
 
-          <p className="pb-4">Don't have an account?
-            <span>
-              <Link href="/signup" className=" text-foreground hover:underline"> Sign up.</Link>
-            </span>
+          <p className="pb-4">Don't have an account? <span>
+            <Link href="/signup" className=" text-foreground font-bold underline hover:text-amber-400">Sign up.</Link>
+          </span>
           </p>
 
 

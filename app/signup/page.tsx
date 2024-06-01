@@ -116,9 +116,8 @@ export default function Signup({
                     </SubmitButton>
 
                     <p className="pb-4">
-                        Already have an account?
-                        <span>
-                            <Link href="/login" className=" text-foreground hover:underline"> Log in.
+                        Already have an account?                        <span>
+                            <Link href="/login" className=" text-foreground font-bold underline hover:text-amber-400">Log in.
                             </Link>
                         </span>
                     </p>
