@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../../components/submit-button";
+import OAuthButton from "../../components/oauth-button";
 
 export default function Login({
   searchParams,
@@ -58,7 +59,7 @@ export default function Login({
           className="w-screen mx-auto"
         />
 
-        <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+        <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
           <h1 className="text-2xl text-bold pb-8 text-left  text-white">
             Application Portal
           </h1>
@@ -108,31 +109,9 @@ export default function Login({
               {searchParams.message}
             </p>
           )}
-          <button
-            id="Github-Signin"
-            className="border flex flex-row justify-center items-center bg-white rounded-md px-4 py-2 text-black mb-2"
-          >
-            <img
-              src="/images/google-logo.png"
-              width={24}
-              height={24}
-              className="mr-4"
-            ></img>
-            Continue with Google
-          </button>
-          <button
-            id="Github-Signin"
-            className="border flex flex-row justify-center items-center bg-white rounded-md px-4 py-2 text-black mb-2"
-          >
-            <img
-              src="/images/github-logo.png"
-              width={24}
-              height={24}
-              className="mr-4"
-            ></img>
-            Continue with Github
-          </button>
         </form>
+        <OAuthButton provider="google" />
+        <OAuthButton provider="github" />
       </div>
     </div>
   );
