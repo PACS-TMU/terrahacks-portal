@@ -1,8 +1,10 @@
 import Link from "next/link";
+import OAuthButton from "../../components/oauth-button";
+import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../../components/submit-button";
-import OAuthButton from "../../components/oauth-button";
+import PasswordField from "./password";
 
 export default function Login({
   searchParams,
@@ -30,77 +32,54 @@ export default function Login({
 
   return (
     //background gradient
-    <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center justify-center">
-      <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md items-center justify-center gap-2">
-        <Link
-          href="/"
-          className="absolute left-8 top-8 py-2 px-4 rounded-md no-underline text-foreground bg-btn-background hover:bg-btn-background-hover flex items-center group text-sm"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>{" "}
-          Back
-        </Link>
+    <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center">
+      <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl items-center justify-center gap-2">
+        {/* h1 is hidden for SEO purposes */}
+        <h1 className="opacity-0">TerraHacks</h1>
 
-        <img
-          src="/images/Terrahacks_logo.png"
+        <Image
+          src="/assets/th-text.png"
+          priority={true}
           alt="Terrahacks logo"
-          className="w-screen mx-auto"
+          width={3000}
+          height={400}
+          className="w-full h-auto mx-auto"
         />
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold py-[5%] text-left text-background">Application Portal</h2>
 
-        <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-          <h1 className="text-2xl text-bold pb-8 text-left  text-white">
-            Application Portal
-          </h1>
-
-          <label className="text-md  text-white" htmlFor="email">
+        <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+          <label className="text-md text-background" htmlFor="email">
             Email
           </label>
           <input
-            className="rounded-md px-4 py-2 bg-inherit border  border-white mb-6 placeholder-colour"
+            className="rounded-md px-4 py-2 bg-inherit border border-background mb-6 placeholder-gray-200"
+            id="email"
             name="email"
-            placeholder="you@terrahacks.ca"
+            type="email"
+            placeholder="example@example.com"
+            autoComplete="email"
             required
           />
-          <label className="text-md  text-white" htmlFor="password">
+          <label className="text-md text-background" htmlFor="password">
             Password
           </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border  border-white mb-6 placeholder-colour"
-            type="password"
-            name="password"
-            placeholder="super secret password"
-            required
-          />
+          <PasswordField />
+
+          <Link aria-label="Forgot Password Link" href="#" className="text-sm lg:text-md text-background font-semibold underline hover:text-green-500 ease-in-out duration-300 pb-4 text-underline">Forgot Password?</Link>
 
           <SubmitButton
             formAction={signIn}
-            className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
+            className="bg-green-700 rounded-md px-4 py-2 text-background mb-2 ease-in-out duration-300 hover:bg-green-800"
             pendingText="Signing In..."
           >
             Sign In
           </SubmitButton>
 
-          <p className="pb-4">
-            Don't have an account?{" "}
+
+          <p className="pb-4 text-background">
+            Don't have an account? {" "}
             <span>
-              <Link
-                href="/signup"
-                className=" text-foreground font-bold underline hover:text-amber-400"
-              >
-                Sign up.
-              </Link>
+              <Link aria-label="Sign Up Link" href="/signup" className=" text-background font-semibold underline hover:text-green-500 ease-in-out duration-300">Sign up.</Link>
             </span>
           </p>
 

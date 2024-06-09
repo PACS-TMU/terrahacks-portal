@@ -7,23 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        btn: {
-          background: "hsl(var(--btn-background))",
-          "background-hover": "hsl(var(--btn-background-hover))",
-        },
+        background: "#FAFAFA",
+        foreground: "#1E1E1E",
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      const newUtilities = {
-        ".placeholder-colour::placeholder": {
-          color: "#ffffff",
-        },
-      };
-      addUtilities(newUtilities, ["responsive", "hover"]);
-    },
-  ],
 };
