@@ -5,39 +5,39 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../../components/submit-button";
 import OAuthButton from "@/components/oauth-button";
-import PasswordField from "../login/password";
+import PasswordField from "../../components/passwordField";
 
 export default function Signup({
-  searchParams,
+    searchParams,
 }: {
-  searchParams: { message: string };
+    searchParams: { message: string };
 }) {
-  const signUp = async (formData: FormData) => {
-    "use server";
+    const signUp = async (formData: FormData) => {
+        "use server";
 
-    const origin = headers().get("origin");
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
+        const origin = headers().get("origin");
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        const supabase = createClient();
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    });
+        const { error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                emailRedirectTo: `${origin}/auth/callback`,
+            },
+        });
 
-    if (error) {
-      return redirect("/login?message=Could not authenticate user");
-    }
-    
-    return redirect("/login?message=Check email to continue sign in process");
-  };
+        if (error) {
+            return redirect("/login?message=Could not authenticate user");
+        }
+
+        return redirect("/login?message=Check email to continue sign in process");
+    };
 
 
-  return (
-    //background gradient
+    return (
+        //background gradient
         <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center">
             <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl items-center justify-center gap-2">
                 {/* h1 is hidden for SEO purposes */}
@@ -80,7 +80,7 @@ export default function Signup({
                         Email
                     </label>
                     <input
-                        className="rounded-md px-4 py-2 bg-inherit border border-background mb-6 placeholder-gray-200"
+                        className="rounded-md px-4 py-2 bg-inherit border border-background mb-4 placeholder-gray-200"
                         id="email"
                         name="email"
                         type="email"
@@ -94,8 +94,8 @@ export default function Signup({
                     <PasswordField />
 
                     <SubmitButton
-                        formAction={signIn}
-                        className="bg-green-700 rounded-md px-4 py-2 text-background mb-2 ease-in-out duration-300 hover:bg-green-800"
+                        formAction={signUp}
+                        className="bg-green-700 rounded-md px-4 py-2 text-background mt-4 mb-2 ease-in-out duration-300 hover:bg-green-800"
                         pendingText="Signing In..."
                     >
                         Sign Up
@@ -104,19 +104,25 @@ export default function Signup({
                     <p className="pb-4 text-background">
                         Already have an account? {" "}
                         <span>
-                            <Link aria-label="Login Link" href="/login" className=" text-background font-semibold underline hover:text-green-500 ease-in-out duration-300">Log in.</Link>
+                            <Link
+                                aria-label="Login Link"
+                                href="/login"
+                                className="text-background font-semibold underline hover:text-green-500 ease-in-out duration-300"
+                            >
+                                Log in.
+                            </Link>
                         </span>
                     </p>
 
                     {searchParams?.message && (
-            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-              {searchParams.message}
-            </p>
-          )}
+                        <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+                            {searchParams.message}
+                        </p>
+                    )}
                 </form>
-        <OAuthButton provider="google" />
-        <OAuthButton provider="github" />
-      </div>
-    </div>
-  );
+                <OAuthButton provider="google" />
+                <OAuthButton provider="github" />
+            </div>
+        </div>
+    );
 }
