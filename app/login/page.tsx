@@ -1,11 +1,10 @@
 import Link from "next/link";
+import OAuthButton from "../../components/oauth-button";
 import Image from "next/image";
-import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../../components/submit-button";
 import PasswordField from "./password";
-
 
 export default function Login({
   searchParams,
@@ -30,30 +29,6 @@ export default function Login({
 
     return redirect("/dashboard");
   };
-
-  const signUp = async (formData: FormData) => {
-    "use server";
-
-    const origin = headers().get("origin");
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const supabase = createClient();
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${origin}/auth/callback`,
-      },
-    });
-
-    if (error) {
-      return redirect("/login?message=Could not authenticate user");
-    }
-
-    return redirect("/login?message=Check email to continue sign in process");
-  };
-
 
   return (
     //background gradient
@@ -100,6 +75,7 @@ export default function Login({
             Sign In
           </SubmitButton>
 
+
           <p className="pb-4 text-background">
             Don't have an account? {" "}
             <span>
@@ -112,35 +88,9 @@ export default function Login({
               {searchParams.message}
             </p>
           )}
-          <button
-            id="google-sign-in"
-            aria-label="Sign in with Google"
-            className="border flex flex-row justify-center items-center bg-background rounded-md px-4 py-2 text-black mb-2 hover:bg-gray-200 ease-in-out duration-300"
-          >
-            <Image
-              src="/assets/google-logo.png"
-              alt="Google Logo"
-              width={500}
-              height={500}
-              className="mr-4 w-6 h-6"
-            />
-            Continue with Google
-          </button>
-          <button
-            id="github-sign-in"
-            aria-label="Sign in with Github"
-            className="border flex flex-row justify-center items-center bg-background rounded-md px-4 py-2 text-black mb-2 hover:bg-gray-200 ease-in-out duration-300"
-          >
-            <Image
-              src="/assets/github-logo.png"
-              alt="GitHub Logo"
-              width={500}
-              height={500}
-              className="mr-4 w-6 h-6"
-            />
-            Continue with Github
-          </button>
         </form>
+        <OAuthButton provider="google" />
+        <OAuthButton provider="github" />
       </div>
     </div>
   );

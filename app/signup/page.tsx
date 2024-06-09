@@ -1,63 +1,43 @@
-
 import Link from "next/link";
 import Image from "next/image";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../../components/submit-button";
+import OAuthButton from "@/components/oauth-button";
 import PasswordField from "../login/password";
 
-
-
 export default function Signup({
-    searchParams,
+  searchParams,
 }: {
-    searchParams: { message: string };
+  searchParams: { message: string };
 }) {
-    const signIn = async (formData: FormData) => {
-        "use server";
+  const signUp = async (formData: FormData) => {
+    "use server";
 
-        const email = formData.get("email") as string;
-        const password = formData.get("password") as string;
-        const supabase = createClient();
+    const origin = headers().get("origin");
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const supabase = createClient();
 
-        const { error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-        });
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+      },
+    });
 
-        if (error) {
-            return redirect("/login?message=Could not authenticate user");
-        }
+    if (error) {
+      return redirect("/login?message=Could not authenticate user");
+    }
+    
+    return redirect("/login?message=Check email to continue sign in process");
+  };
 
-        return redirect("/dashboard");
-    };
 
-    const signUp = async (formData: FormData) => {
-        "use server";
-
-        const origin = headers().get("origin");
-        const email = formData.get("email") as string;
-        const password = formData.get("password") as string;
-        const supabase = createClient();
-
-        const { error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                emailRedirectTo: `${origin}/auth/callback`,
-            },
-        });
-
-        if (error) {
-            return redirect("/login?message=Could not authenticate user");
-        }
-
-        return redirect("/login?message=Check email to continue sign in process");
-    };
-
-    return (
-        //background gradient
+  return (
+    //background gradient
         <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center">
             <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl items-center justify-center gap-2">
                 {/* h1 is hidden for SEO purposes */}
@@ -129,40 +109,14 @@ export default function Signup({
                     </p>
 
                     {searchParams?.message && (
-                        <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-                            {searchParams.message}
-                        </p>
-                    )}
-                    <button
-                        id="google-sign-in"
-                        aria-label="Sign in with Google"
-                        className="border flex flex-row justify-center items-center bg-background rounded-md px-4 py-2 text-black mb-2 hover:bg-gray-200 ease-in-out duration-300"
-                    >
-                        <Image
-                            src="/assets/google-logo.png"
-                            alt="Google Logo"
-                            width={500}
-                            height={500}
-                            className="mr-4 w-6 h-6"
-                        />
-                        Continue with Google
-                    </button>
-                    <button
-                        id="github-sign-in"
-                        aria-label="Sign in with Github"
-                        className="border flex flex-row justify-center items-center bg-background rounded-md px-4 py-2 text-black mb-2 hover:bg-gray-200 ease-in-out duration-300"
-                    >
-                        <Image
-                            src="/assets/github-logo.png"
-                            alt="GitHub Logo"
-                            width={500}
-                            height={500}
-                            className="mr-4 w-6 h-6"
-                        />
-                        Continue with Github
-                    </button>
+            <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
+              {searchParams.message}
+            </p>
+          )}
                 </form>
-            </div>
-        </div>
-    );
+        <OAuthButton provider="google" />
+        <OAuthButton provider="github" />
+      </div>
+    </div>
+  );
 }
