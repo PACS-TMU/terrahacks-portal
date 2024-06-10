@@ -4,7 +4,7 @@ import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../../components/submit-button";
-import PasswordField from "./password";
+import PasswordField from "../../components/passwordField";
 
 export default function Login({
   searchParams,
@@ -65,7 +65,13 @@ export default function Login({
           </label>
           <PasswordField />
 
-          <Link aria-label="Forgot Password Link" href="/forgot-password" className="text-sm lg:text-md text-background font-semibold underline hover:text-green-500 ease-in-out duration-300 pb-4 text-underline">Forgot Password?</Link>
+          <Link
+            aria-label="Forgot Password Link"
+            href="#"
+            className="text-sm lg:text-md text-background font-medium underline hover:text-green-500 ease-in-out duration-300 pb-4 text-underline"
+          >
+            Forgot Password?
+          </Link>
 
           <SubmitButton
             formAction={signIn}
@@ -79,7 +85,13 @@ export default function Login({
           <p className="pb-4 text-background">
             Don't have an account? {" "}
             <span>
-              <Link aria-label="Sign Up Link" href="/signup" className=" text-background font-semibold underline hover:text-green-500 ease-in-out duration-300">Sign up.</Link>
+              <Link
+                aria-label="Sign Up Link"
+                href="/signup"
+                className="text-background font-semibold underline hover:text-green-500 ease-in-out duration-300"
+              >
+                Sign up.
+              </Link>
             </span>
           </p>
 

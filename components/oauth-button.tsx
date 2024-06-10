@@ -48,11 +48,12 @@ export default function OAuthButton({
 
   return (
     <button
+      aria-label={`Continue with ${provider}`}
       className="border flex flex-row justify-center items-center bg-white rounded-md px-4 py-2 text-black mb-2 w-full"
       onClick={signInWithOAuth}
     >
       <img
-        src={`/images/${provider}-logo.png`}
+        src={`/assets/${provider}-logo.png`}
         width={24}
         height={24}
         className="mr-4"
