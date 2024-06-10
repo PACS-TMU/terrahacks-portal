@@ -40,3 +40,26 @@
     transform: translateY(0);
   }
 }
+
+/* Animation for error */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-10px);
+  }
+  40%, 80% {
+    transform: translateX(10px);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 2s ease-out;
+}
+

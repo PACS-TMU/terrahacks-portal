@@ -1,6 +1,6 @@
 "use client";
+import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
-import { redirect } from "next/navigation";
 
 export default function OAuthButton({
   provider,
@@ -49,15 +49,16 @@ export default function OAuthButton({
   return (
     <button
       aria-label={`Continue with ${provider}`}
-      className="border flex flex-row justify-center items-center bg-white rounded-md px-4 py-2 text-black mb-2 w-full"
+      className="border flex flex-row justify-center items-center bg-white rounded-md px-4 py-2 text-black mb-2 w-full hover:bg-gray-200 ease-out duration-300"
       onClick={signInWithOAuth}
     >
-      <img
+      <Image
         src={`/assets/${provider}-logo.png`}
-        width={24}
-        height={24}
-        className="mr-4"
-      ></img>
+        alt={`${provider} logo`}
+        width={500}
+        height={500}
+        className="mr-4 w-6 h-6"
+      />
       Continue with {providerToText(provider)}
     </button>
   );

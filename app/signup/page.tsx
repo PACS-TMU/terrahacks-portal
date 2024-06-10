@@ -3,9 +3,10 @@ import Image from "next/image";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { SubmitButton } from "../../components/submit-button";
-import OAuthButton from "@/components/oauth-button";
-import PasswordField from "../../components/passwordField";
+import { SubmitButton } from "../../components/forms/submit-button";
+import OAuthButton from "@/components/auth/oauth-button";
+import PasswordField from "../../components/forms/password-field";
+import EmailField from "@/components/forms/email-field";
 
 export default function Signup({
     searchParams,
@@ -29,16 +30,16 @@ export default function Signup({
         });
 
         if (error) {
-            return redirect("/login?message=Could not authenticate user");
+            return redirect("/login?message=Error - user already exists. Please sign in.");
         }
 
-        return redirect("/login?message=Check email to continue sign in process");
+        return redirect("/login?message=Check email to continue sign in process.");
     };
 
 
     return (
         //background gradient
-        <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center">
+        <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center text-background">
             <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl items-center justify-center gap-2">
                 {/* h1 is hidden for SEO purposes */}
                 <h1 className="opacity-0 h-0">TerraHacks</h1>
@@ -76,21 +77,8 @@ export default function Signup({
                         autoComplete="family-name"
                         required
                     />
-                    <label className="text-md text-background" htmlFor="email">
-                        Email
-                    </label>
-                    <input
-                        className="rounded-md px-4 py-2 bg-inherit border border-background mb-4 placeholder-gray-200"
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="example@example.com"
-                        autoComplete="email"
-                        required
-                    />
-                    <label className="text-md  text-background" htmlFor="password">
-                        Password
-                    </label>
+
+                    <EmailField />
                     <PasswordField />
 
                     <SubmitButton

@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { SubmitButton } from "../../components/submit-button";
+import { SubmitButton } from "../../components/forms/submit-button";
 
 export default function ForgotPassword({
     searchParams,
@@ -21,7 +21,8 @@ export default function ForgotPassword({
         });
 
         if (error) {
-            return redirect("/login?message=Could not reset password");
+            console.error(error);
+            return redirect("/login?message=Error - please try again later.");
         }
 
         return redirect("/login?message=Check email to continue reset password process");
