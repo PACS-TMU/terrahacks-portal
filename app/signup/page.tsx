@@ -94,9 +94,9 @@ export default function Signup({
                     <PasswordField />
 
                     <SubmitButton
-                        formAction={signIn}
+                        formAction={signUp}
                         className="bg-green-700 rounded-md px-4 py-2 text-background mb-2 ease-in-out duration-300 hover:bg-green-800"
-                        pendingText="Signing In..."
+                        pendingText="Signing Up..."
                     >
                         Sign Up
                     </SubmitButton>
