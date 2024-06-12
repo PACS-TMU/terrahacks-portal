@@ -57,31 +57,20 @@ export const updateSession = async (request: NextRequest) => {
       },
     );
 
-    // Refresh session if expired
-    const { data: { session } } = await supabase.auth.getSession();
 
-    if (!session) {
-      // Redirect to login if no session exists and the path isn't already '/login'
-      if (request.nextUrl.pathname !== '/login' && request.nextUrl.pathname !== '/signup' && request.nextUrl.pathname !== '/forgot-password') {
-        return NextResponse.redirect(new URL('/login', request.url));
-      }
-    } else {
-      // Redirect to home if session exists and the path is '/login'
-      if (request.nextUrl.pathname === '/login') {
-        return NextResponse.redirect(new URL('/', request.url));
-      }
-    }
+    // This will refresh session if expired - required for Server Components
+    // https://supabase.com/docs/guides/auth/server-side/nextjs
+    await supabase.auth.getUser();
 
     return response;
   } catch (e) {
+    // If you are here, a Supabase client could not be created!
+    // This is likely because you have not set up environment variables.
+    // Check out http://localhost:3000 for Next Steps.
     return NextResponse.next({
       request: {
         headers: request.headers,
       },
     });
   }
-};
-
-export const config = {
-  matcher: ['/((?!_next/static|favicon.ico).*)'],
 };
