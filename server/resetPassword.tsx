@@ -8,6 +8,13 @@ export default async function resetPassword(formData: FormData) {
     const email = formData.get("email") as string;
     const supabase = createClient();
 
+    // Query the Supabase database to check if the email is valid
+    const { data: data, error: updateError } = await supabase.from("accounts").select('email').eq("email", email);
+
+    if (data?.length === 0) {
+        return redirect("/login?message=Error - Email does not exist in our records. Please try again.");
+    }
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${origin}/new-password`,
     });
@@ -17,5 +24,5 @@ export default async function resetPassword(formData: FormData) {
         return redirect("/login?message=Error - please try again later. If the problem persists, contact support.");
     }
 
-    return redirect("/login?message=If your email exists, you will receive email to continue reset password process!");
+    return redirect("/login?message=Check your email continue reset password process!");
 };
