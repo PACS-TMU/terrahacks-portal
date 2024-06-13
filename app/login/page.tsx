@@ -51,7 +51,7 @@ export default function Login({
 
                 <form className="flex flex-col w-full justify-center gap-2 text-foreground">
                     <EmailField />
-                    <PasswordField />
+                    <PasswordField name="password" />
 
                     <Link
                         aria-label="Forgot Password Link"

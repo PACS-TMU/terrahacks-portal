@@ -79,12 +79,12 @@ export default function Signup({
                     />
 
                     <EmailField />
-                    <PasswordField />
+                    <PasswordField name="password" />
 
                     <SubmitButton
                         formAction={signUp}
                         className="bg-green-700 rounded-md px-4 py-2 text-background mt-4 mb-2 ease-in-out duration-300 hover:bg-green-800"
-                        pendingText="Signing In..."
+                        pendingText="Signing Up..."
                     >
                         Sign Up
                     </SubmitButton>
