@@ -7,21 +7,26 @@ import { SubmitButton } from "../../components/forms/submit-button";
 import OAuthButton from "@/components/auth/oauth-button";
 import PasswordField from "../../components/forms/password-field";
 import EmailField from "@/components/forms/email-field";
+import ErrorMessage from "@/components/auth/error-message";
 
-export default function Signup({
-    searchParams,
-}: {
-    searchParams: { message: string };
-}) {
+export default function Signup({ searchParams }: { searchParams: { message: string } }) {
     const signUp = async (formData: FormData) => {
         "use server";
 
         const origin = headers().get("origin");
+        const firstName = formData.get("firstname") as string;
+        const lastName = formData.get("lastname") as string;
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
+        const confirmPassword = formData.get("confirm-password") as string;
         const supabase = createClient();
 
-        const { error } = await supabase.auth.signUp({
+        if (password !== confirmPassword) {
+            return redirect("/signup?message=Error - Passwords do not match.");
+        }
+
+        // Attempt to sign up the user using Supabase Auth
+        const { data: signUpData, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
@@ -30,12 +35,31 @@ export default function Signup({
         });
 
         if (error) {
-            return redirect("/login?message=Error - user already exists. Please sign in.");
+            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
+        }
+
+        if (!signUpData.user) {
+            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
+        }
+
+        // If sign-up is successful, insert the user data into the custom accounts table
+        const { error: updateError } = await supabase.from("accounts").insert({
+            account_id: signUpData.user.id,
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            applied: false,
+        });
+
+        if (updateError && updateError.message.includes("violates foreign key constraint")) {
+            return redirect("/login?message=Error - User already exists. Please sign in.");
+        }
+        if (updateError) {
+            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
 
         return redirect("/login?message=Check email to continue sign in process.");
     };
-
 
     return (
         //background gradient
@@ -62,7 +86,7 @@ export default function Signup({
                     <input
                         id="firstname"
                         className="rounded-md px-4 py-2 bg-inherit border border-background mb-4 placeholder-gray-200"
-                        name="First Name"
+                        name="firstname"
                         placeholder="First Name"
                         autoComplete="given-name"
                         required
@@ -71,6 +95,7 @@ export default function Signup({
                         Last Name
                     </label>
                     <input
+                        id="lastname"
                         className="rounded-md px-4 py-2 bg-inherit border border-background mb-4 placeholder-gray-200"
                         name="lastname"
                         placeholder="Last Name"
@@ -80,6 +105,7 @@ export default function Signup({
 
                     <EmailField />
                     <PasswordField name="password" />
+                    <PasswordField name="confirm-password" />
 
                     <SubmitButton
                         formAction={signUp}
@@ -101,16 +127,13 @@ export default function Signup({
                             </Link>
                         </span>
                     </p>
-
-                    {searchParams?.message && (
-                        <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-                            {searchParams.message}
-                        </p>
-                    )}
                 </form>
                 <OAuthButton provider="google" />
                 <OAuthButton provider="github" />
             </div>
+            {searchParams?.message && (
+                <ErrorMessage key={Date.now()} searchParams={searchParams} />
+            )}
         </div>
     );
 }

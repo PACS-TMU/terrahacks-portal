@@ -8,11 +8,7 @@ import PasswordField from "../../components/forms/password-field";
 import ErrorMessage from "@/components/auth/error-message";
 import EmailField from "@/components/forms/email-field";
 
-export default function Login({
-    searchParams,
-}: {
-    searchParams: { message: string };
-}) {
+export default function Login({ searchParams }: { searchParams: { message: string } }) {
     const signIn = async (formData: FormData) => {
         "use server";
 
@@ -31,7 +27,7 @@ export default function Login({
 
         return redirect("/");
     };
-
+    
     return (
         // background gradient
         <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex flex-col items-center lg:text-lg xl:text-xl justify-center text-background">
@@ -84,8 +80,8 @@ export default function Login({
                 </form>
                 <OAuthButton provider="google" />
                 <OAuthButton provider="github" />
-                <p className="text-background text-sm xl:text-md">
-                  Having problems? Please contact us at <a href="mailto:contact@terrahacks.ca" className="underline hover:text-green-500 ease-in-out duration-300">contact@terrahacks.ca</a> to get help.
+                <p className="text-background text-sm xl:text-md text-center">
+                    Having problems? Please contact us at <a href="mailto:contact@terrahacks.ca" className="underline hover:text-green-500 ease-in-out duration-300">contact@terrahacks.ca</a> to get help.
                 </p>
             </div>
             {searchParams?.message && (
