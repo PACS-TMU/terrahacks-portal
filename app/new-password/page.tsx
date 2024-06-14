@@ -3,51 +3,19 @@ import { SubmitButton } from "@/components/forms/submit-button";
 import PasswordField from "@/components/forms/password-field";
 import newPassword from "@/server/newPassword";
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import ErrorMessage from "@/components/auth/error-message";
 
-type Props = {
-  searchParams: { code?: string, token?: string };
-};
-
-const isUUID = (str: string) => {
-  const regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  return regex.test(str);
-};
-
-export default async function NewPasswordPage({ searchParams }: Props) {
-
-  // Get the token from the search params
-  const token = searchParams.token;
+export default async function NewPasswordPage({ searchParams }: { searchParams: { code?: string, message: string } }) {
+  // Get the authorization code from the search params
   const code = searchParams.code;
-  if (!token || !isUUID(token)) {
-    return redirect("/login?message=Error - Invalid token");
-  }
 
-  // Create a new Supabase server client
-  const supabase = createClient();
-  
-  // Get the token from the form data
-  const { data, error } = await supabase.from("password_reset_tokens").select("*").eq("token", token);
-
-  if (error) {
-    console.error(error);
-    return redirect("/login?message=Error - Invalid token");
-  }
-
-  if (data.length === 0) {
-    return redirect("/login?message=Error - Invalid token");
-  }
-
-  const tokenData = data[0];
-  const now = new Date();
-  if (now > tokenData.expiry_time) {
-    console.log(now);
-    console.log(tokenData.expiry_time);
-    return redirect("/login?message=Error - Token expired");
+  // Exchange the authorization code for a session
+  if (!code) {
+    return redirect("/login?message=Error - Invalid token. Please ensure you opened the correct link.");
   }
 
   return (
-    <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center text-background">
+    <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex flex-col items-center lg:text-lg xl:text-xl justify-center text-background">
       <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl items-center justify-center gap-2">
         <h1 className="opacity-0">TerraHacks</h1>
 
@@ -63,8 +31,7 @@ export default async function NewPasswordPage({ searchParams }: Props) {
           Confirm New Password
         </h2>
 
-        <form  method="POST" className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-          <input type="hidden" name="token" value={token} />
+        <form method="POST" className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
           <PasswordField name="password" />
           <input type="hidden" name="code" value={code} />
           <PasswordField name="confirm-password" />
@@ -78,6 +45,9 @@ export default async function NewPasswordPage({ searchParams }: Props) {
           </SubmitButton>
         </form>
       </div>
+      {searchParams?.message && (
+        <ErrorMessage key={Date.now()} searchParams={searchParams} />
+      )}
     </div>
   );
 }

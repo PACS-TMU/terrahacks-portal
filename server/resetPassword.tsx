@@ -2,36 +2,32 @@
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import { v4 as uuidv4 } from 'uuid';
 
 export default async function resetPassword(formData: FormData) {
     const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const supabase = createClient();
-    
-    // Create token for password reset
-    const token = uuidv4();
-    const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 1);
 
-    // Store token in database
-    const { data, error: dbError } = await supabase.from("password_reset_tokens").insert([
-        { email, token, expiry_time: expiresAt }
-    ]);
+    // Query the Supabase database to check if the email is valid
+    const { data: existingUser, error: getUserError } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .single();
 
-    if (dbError) {
-        console.error(dbError);
-        return redirect("/login?message=Error - try again later. If this issue persists, please contact us.");
+    // Error code PGRST116 is thrown when the request returns no results
+    if (getUserError && getUserError.code === "PGRST116") {
+        return redirect("/login?message=Error - Email does not exist in our records. Please try again.");
     }
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${origin}/new-password?token=${token}`,
+        redirectTo: `${origin}/new-password`,
     });
 
     if (error) {
         console.error(error);
-        return redirect("/login?message=Error - please try again later.");
+        return redirect("/login?message=Error - please try again later. If the problem persists, contact support.");
     }
 
-    return redirect("/login?message=Check email to continue reset password process");
+    return redirect("/login?message=Check your email continue reset password process!");
 };

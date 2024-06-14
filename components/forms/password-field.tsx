@@ -12,7 +12,7 @@ export default function PasswordField({ name }: { name: string }) {
             </label>
             <div className="relative flex flex-row border items-center border-background rounded-md mb-2 text-sm lg:text-md xl:text-lg tracking-wider">
                 <input
-                    className="bg-inherit placeholder-gray-300 w-[90%] px-4 py-2 rounded-md focus:border-none focus:ring-0 focus:outline-none"
+                    className="bg-inherit placeholder-gray-300 w-[93%] px-4 py-2 rounded-md focus:border-none focus:ring-0 focus:outline-none"
                     id={name}
                     type={
                         showPassword ? "text" : "password"

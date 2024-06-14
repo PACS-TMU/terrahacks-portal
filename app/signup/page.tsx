@@ -7,35 +7,62 @@ import { SubmitButton } from "../../components/forms/submit-button";
 import OAuthButton from "@/components/auth/oauth-button";
 import PasswordField from "../../components/forms/password-field";
 import EmailField from "@/components/forms/email-field";
+import ErrorMessage from "@/components/auth/error-message";
 
-export default function Signup({
-    searchParams,
-}: {
-    searchParams: { message: string };
-}) {
+export default function Signup({ searchParams }: { searchParams: { message: string } }) {
     const signUp = async (formData: FormData) => {
         "use server";
 
         const origin = headers().get("origin");
+        const firstName = formData.get("firstname") as string;
+        const lastName = formData.get("lastname") as string;
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
+        const confirmPassword = formData.get("confirm-password") as string;
         const supabase = createClient();
 
-        const { error } = await supabase.auth.signUp({
+        if (password !== confirmPassword) {
+            return redirect("/signup?message=Error - Passwords do not match.");
+        }
+
+        // Check if email is already in use
+        const { data: existingUser, error: getUserError } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', email)
+            .single();
+
+        // Error code PGRST116 is thrown when the request returns no results
+        if (getUserError && getUserError.code !== "PGRST116") {
+            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
+        }
+        
+        if (existingUser) {
+            return redirect("/login?message=Error - Email already exists. Please sign in.");
+        }
+
+        // Attempt to sign up the user using Supabase Auth
+        const { data: signUpData, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
                 emailRedirectTo: `${origin}/auth/callback`,
+                data: {
+                    full_name: `${firstName} ${lastName}`,
+                }
             },
         });
 
         if (error) {
-            return redirect("/login?message=Error - user already exists. Please sign in.");
+            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
+        }
+
+        if (!signUpData.user) {
+            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
 
         return redirect("/login?message=Check email to continue sign in process.");
     };
-
 
     return (
         //background gradient
@@ -62,7 +89,7 @@ export default function Signup({
                     <input
                         id="firstname"
                         className="rounded-md px-4 py-2 bg-inherit border border-background mb-4 placeholder-gray-200"
-                        name="First Name"
+                        name="firstname"
                         placeholder="First Name"
                         autoComplete="given-name"
                         required
@@ -71,6 +98,7 @@ export default function Signup({
                         Last Name
                     </label>
                     <input
+                        id="lastname"
                         className="rounded-md px-4 py-2 bg-inherit border border-background mb-4 placeholder-gray-200"
                         name="lastname"
                         placeholder="Last Name"
@@ -79,12 +107,13 @@ export default function Signup({
                     />
 
                     <EmailField />
-                    <PasswordField />
+                    <PasswordField name="password" />
+                    <PasswordField name="confirm-password" />
 
                     <SubmitButton
                         formAction={signUp}
                         className="bg-green-700 rounded-md px-4 py-2 text-background mt-4 mb-2 ease-in-out duration-300 hover:bg-green-800"
-                        pendingText="Signing In..."
+                        pendingText="Signing Up..."
                     >
                         Sign Up
                     </SubmitButton>
@@ -101,16 +130,13 @@ export default function Signup({
                             </Link>
                         </span>
                     </p>
-
-                    {searchParams?.message && (
-                        <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
-                            {searchParams.message}
-                        </p>
-                    )}
                 </form>
                 <OAuthButton provider="google" />
                 <OAuthButton provider="github" />
             </div>
+            {searchParams?.message && (
+                <ErrorMessage key={Date.now()} searchParams={searchParams} />
+            )}
         </div>
     );
 }

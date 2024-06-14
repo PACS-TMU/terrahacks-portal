@@ -14,6 +14,8 @@ export default function ErrorMessage({ searchParams }: { searchParams: { message
             return () => clearTimeout(timer);
         }
         else {
+            // Scroll to the bottom when the component appears
+            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
             const timer = setTimeout(() => {
                 setShowMessage(false);
             }, 15000);

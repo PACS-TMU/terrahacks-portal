@@ -2,6 +2,7 @@ import DeployButton from "@/components/DeployButton";
 import { createClient } from "@/utils/supabase/server";
 import FetchDataSteps from "@/components/tutorial/FetchDataSteps";
 import { redirect } from "next/navigation";
+import AuthButton from "@/components/AuthButton";
 
 export default async function Dashboard() {
   const supabase = createClient();
@@ -24,6 +25,7 @@ export default async function Dashboard() {
         <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
           <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
             <DeployButton />
+            <AuthButton />
           </div>
         </nav>
       </div>
