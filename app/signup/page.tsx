@@ -34,7 +34,6 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
 
         // Error code PGRST116 is thrown when the request returns no results
         if (getUserError && getUserError.code !== "PGRST116") {
-            console.error(getUserError);
             return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
         
@@ -55,7 +54,6 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
         });
 
         if (error) {
-            console.error(error);
             return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
 

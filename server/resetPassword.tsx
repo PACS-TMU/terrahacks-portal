@@ -9,9 +9,14 @@ export default async function resetPassword(formData: FormData) {
     const supabase = createClient();
 
     // Query the Supabase database to check if the email is valid
-    const { data: data, error: updateError } = await supabase.from("accounts").select('email').eq("email", email);
+    const { data: existingUser, error: getUserError } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .single();
 
-    if (data?.length === 0) {
+    // Error code PGRST116 is thrown when the request returns no results
+    if (getUserError && getUserError.code === "PGRST116") {
         return redirect("/login?message=Error - Email does not exist in our records. Please try again.");
     }
 
