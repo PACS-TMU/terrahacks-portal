@@ -25,36 +25,41 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
             return redirect("/signup?message=Error - Passwords do not match.");
         }
 
+        // Check if email is already in use
+        const { data: existingUser, error: getUserError } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', email)
+            .single();
+
+        // Error code PGRST116 is thrown when the request returns no results
+        if (getUserError && getUserError.code !== "PGRST116") {
+            console.error(getUserError);
+            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
+        }
+        
+        if (existingUser) {
+            return redirect("/login?message=Error - Email already exists. Please sign in.");
+        }
+
         // Attempt to sign up the user using Supabase Auth
         const { data: signUpData, error } = await supabase.auth.signUp({
             email,
             password,
             options: {
                 emailRedirectTo: `${origin}/auth/callback`,
+                data: {
+                    full_name: `${firstName} ${lastName}`,
+                }
             },
         });
 
         if (error) {
+            console.error(error);
             return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
 
         if (!signUpData.user) {
-            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
-        }
-
-        // If sign-up is successful, insert the user data into the custom accounts table
-        const { error: updateError } = await supabase.from("accounts").insert({
-            account_id: signUpData.user.id,
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            applied: false,
-        });
-
-        if (updateError && updateError.message.includes("violates foreign key constraint")) {
-            return redirect("/login?message=Error - User already exists. Please sign in.");
-        }
-        if (updateError) {
             return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
 
