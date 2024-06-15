@@ -1,8 +1,5 @@
-
 import { createClient } from "@/utils/supabase/server";
-import FetchDataSteps from "@/components/tutorial/FetchDataSteps";
 import { redirect } from "next/navigation";
-import AuthButton from "@/components/SignoutButton";
 
 export default async function Dashboard() {
   const supabase = createClient();
@@ -17,25 +14,31 @@ export default async function Dashboard() {
 
   return (
     <>
-      <div className="w-full">
-        <div className="py-6 font-bold bg-purple-950 text-center">
-          This is a protected page that you can only see as an authenticated
-          user
-        </div>
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-            {/* <AuthButton /> */}
-          </div>
-        </nav>
-      </div>
-
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          <FetchDataSteps />
-        </main>
+      <div className="md:sticky top-0 z-10 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
+        <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">{user.user_metadata.full_name.split(' ')[0]}'s Home</h1>
+        <p className="text-md md:text-xl text-gray-500 md:mt-4 font-sans whitespace-pre-line">Welcome to your user dashboard!</p>
+        <p className="text-gray-800 mt-2">Having trouble? Please contact us at through {" "}
+          <a
+            aria-label="Send us an email"
+            href="mailto:contact@terrahacks.ca"
+            target="_blank"
+            rel="nooppener noreferrer"
+            className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
+          >
+            Email
+          </a>
+          {" "} or get help in our support channels on {" "}
+          <a
+            aria-label="Join our Discord server"
+            href="https://discord.gg/982AkBQea7"
+            target="_blank"
+            rel="nooppener noreferrer"
+            className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
+          >
+            Discord
+          </a>.
+        </p>
       </div>
     </>
-
   );
 }

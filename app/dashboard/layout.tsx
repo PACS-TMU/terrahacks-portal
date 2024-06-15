@@ -8,9 +8,9 @@ const raleway = Raleway({
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
-        <section className={`flex h-full w-full ${raleway.className}`}>
+        <section className={`${raleway.className}`}>
             <Sidenav />
-            <div className="md:ml-72 lg:ml-80 flex-col">
+            <div className="md:pl-72 lg:pl-80">
                 {children}
                 <Footer />
             </div>

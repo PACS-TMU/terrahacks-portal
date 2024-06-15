@@ -4,12 +4,11 @@ export default function Footer() {
             <p>
                 Powered by{" "}
                 <a
-                    href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-                    target="_blank"
+                    href="#"
                     className="font-bold hover:underline"
                     rel="noreferrer"
                 >
-                    Supabase
+                    PACS
                 </a>
             </p>
         </footer>
