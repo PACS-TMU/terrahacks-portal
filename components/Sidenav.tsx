@@ -71,7 +71,7 @@ export default function Sidenav() {
 
     return (
         <nav className="h-screen p-4 bg-[#63ACC4] text-background transition-all duration-300 gap-12 flex-col w-[60px] font-medium hidden md:block md:fixed md:inset-y-0 md:z-10 md:w-72 2xl:w-80 border-r-2 border-r-gray-300 2xl:text-lg">
-            {!user || !navItems ? <Loading /> : (
+            {!user || !navItems ? <Loading darkbg /> : (
                 <>
                     <div className="flex items-start justify-start p-4">
                         <Link aria-label="TerraHacks Home" href="/dashboard" className="flex gap-4 items-center justify-start">

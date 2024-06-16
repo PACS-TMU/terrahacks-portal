@@ -1,10 +1,11 @@
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import Image from "next/image";
 
-export default function Loading() {
+export default function Loading({darkbg} : {darkbg?: boolean}) {
     return (
-        <div className={`h-screen flex flex-col gap-6 items-center justify-center`}>
-                <p className="text-2xl font-medium text-cadetBlue text-foreground">Loading...</p>
-                <div className="text-foreground animate-spin"><AiOutlineLoading3Quarters size={32} /></div>
+        <div className={`h-screen flex flex-col gap-2 items-center justify-center`}>
+                <Image src="/assets/th-text.png" width={3000} height={500} alt="Logo" className="w-3/4 max-w-[400px] animate-bounce mb-2" />
+                <p className={`text-2xl font-medium ${darkbg ? 'text-background' : 'text-gray-800'}`}>Loading...</p>
+                <p className={`text-base text-center font-medium ${darkbg ? 'text-gray-200' : 'text-gray-600'}`}>Please be patient, don't refresh!</p>
         </div>
     );
 }
