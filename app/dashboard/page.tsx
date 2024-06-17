@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default async function Dashboard() {
   const supabase = createClient();
@@ -36,7 +37,7 @@ export default async function Dashboard() {
     <>
       <div className="md:sticky top-0 z-10 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
         <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">{user.user_metadata.full_name.split(' ')[0]}'s Home</h1>
-        <p className="text-md md:text-xl text-gray-500 md:mt-4 font-sans whitespace-pre-line">Welcome to your user dashboard!</p>
+        <p className="md:text-xl text-gray-500 md:mt-4 font-sans whitespace-pre-line">Welcome to your user dashboard!</p>
         <p className="text-gray-800 mt-2">Having trouble? Please contact us at through {" "}
           <a
             aria-label="Send us an email"
@@ -58,6 +59,23 @@ export default async function Dashboard() {
             Discord
           </a>.
         </p>
+        {!applicationStatus ? (
+          <div className="bg-highlight text-background rounded-md mt-2 md:mt-4 font-sans p-2 flex flex-col justify-center items-center w-[90%] md:w-1/2 lg:w-1/3 mx-auto">
+            <p className="md:text-xl whitespace-pre-line text-center my-2">No application submitted yet!</p>
+            <p className="md:text-xl whitespace-pre-line text-center my-2">Deadline: <span className="font-semibold">July 15th, 2024, 11:59 PM</span></p>
+            <Link
+              aria-label="Apply to TerraHacks"
+              href="/dashboard/apply"
+              target="_blank"
+              className="underline font-semibold text-background text-lg md:text-xl duration-300 ease-in-out hover:text-sky-400 my-2"
+            >
+              Apply Now!
+            </Link>
+          </div>
+        ) : (
+          <p className="text-base md:text-lg text-gray-800 whitespace-pre-line my-2">We got your application! Review the details below.</p>
+        )}
+
       </div>
       <div className="px-6 py-6">
         <div className="items-center gap-8 space-y-4 mb-4">
