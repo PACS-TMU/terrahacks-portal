@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SignoutButton from "@/components/SignoutButton";
 import Loading from "@/components/Loading";
-import { IoHomeOutline, IoCalendarClearOutline, IoTicketOutline, IoLocationOutline, IoDocumentsOutline, IoMailOpenOutline } from 'react-icons/io5';
+import { IoHomeOutline, IoCalendarClearOutline, IoTicketOutline, IoLocationOutline, IoDocumentsOutline, IoMailOpenOutline, IoLockClosedOutline } from 'react-icons/io5';
 import { AiOutlineTeam } from 'react-icons/ai';
 import { Twirl as Hamburger } from 'hamburger-react';
 import { useClickAway } from "react-use";
@@ -16,7 +16,7 @@ const iconMapping: Record<string, ReactNode> = {
     "<AiOutlineTeam />": <AiOutlineTeam size={28} />,
     "<IoTicketOutline />": <IoTicketOutline size={28} />,
     "<IoLocationOutline />": <IoLocationOutline size={28} />,
-    "<IoMailOpenOutline />": <IoMailOpenOutline size={28} />,
+    "<IoMailOpenOutline />": <IoMailOpenOutline size={28} />
 };
 
 export default function Sidenav() {
@@ -25,6 +25,7 @@ export default function Sidenav() {
         name: string;
         path: string;
         icon: string;
+        status: string;
     };
 
     type User = {
@@ -36,6 +37,8 @@ export default function Sidenav() {
 
     const [navItems, setNavItems] = useState<NavItem[]>([]);
     const [user, setUser] = useState<User | null>(null);
+    const [role, setRole] = useState<string | null>(null);
+    const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
     const [isExpandedMobile, setIsExpandedMobile] = useState(false);
     const ref = useRef(null);
 
@@ -63,6 +66,7 @@ export default function Sidenav() {
 
                 if (response.ok) {
                     setUser(result.user);
+                    setRole(result.user.role);
                 } else {
                     console.error('Failed to fetch user data: ', result.error);
                 }
@@ -71,7 +75,24 @@ export default function Sidenav() {
             }
         };
 
+        const fetchApplicationStatus = async () => {
+            try {
+                const response = await fetch('/api/getApplicationStatus');
+                const result = await response.json();
+
+                if (response.ok) {
+                    setApplicationStatus(result.applicationStatus.toLowerCase());
+                } else {
+                    console.error('Failed to fetch application status: ', result.error);
+                }
+            } catch (err) {
+                console.error('Failed to fetch application status: ', err);
+            }
+        };
+
         fetchUserData();
+
+        fetchApplicationStatus();
 
         fetchNavItems();
     }, []);
@@ -95,6 +116,7 @@ export default function Sidenav() {
                                 <h1 className="opacity-0">TerraHacks</h1>
                             </Link>
                         </div>
+                        {console.log("Application status: ", applicationStatus)}
 
                         <hr className="border-t-2 border-t-gray-300 w-full" />
 
@@ -107,20 +129,28 @@ export default function Sidenav() {
                         <aside className="flex flex-col items-start justify-between h-[83%] overflow-y-auto">
                             <ul className="flex flex-col gap-4 w-full">
                                 {navItems.map((item) => (
-                                    <Link key={item.id} aria-label={`Path to ${item.name}`} href={item.path} className="w-full" rel="noopener noreferrer">
-                                        <li className="p-4 hover:bg-background duration-300 ease-in-out rounded-md w-full hover:text-foreground cursor-pointer flex items-center justify-start gap-2">
+                                    <Link key={item.id} aria-label={`Path to ${item.name}`} href={item.path} className={`w-full ${item.status.toLowerCase() === "not applied" ? 'flex' : (applicationStatus === item.status.toLowerCase() ? 'flex' : 'hidden')}`} rel="noopener noreferrer">
+                                        <li className={`p-4 hover:bg-background duration-300 ease-in-out rounded-md w-full hover:text-foreground cursor-pointer flex items-center justify-start gap-2`}>
                                             {iconMapping[item.icon]}
                                             {item.name}
                                         </li>
                                     </Link>
                                 ))}
+                                {role === "admin" && (
+                                    <Link aria-label="Path to Admin Dashboard" href="/admin" className="w-full" rel="noopener noreferrer">
+                                        <li className="p-4 hover:bg-background duration-300 ease-in-out rounded-md w-full hover:text-foreground cursor-pointer flex items-center justify-start gap-2">
+                                            <IoLockClosedOutline size={28} />
+                                            Admin Dashboard
+                                        </li>
+                                    </Link>
+                                )}
                             </ul>
                             <SignoutButton />
                         </aside>
                     </>
                 )}
             </nav>
-            {/* Navbar for small screens */}
+            {/* Navbar for small (mobile) screens */}
             <nav className="flex items-center justify-between p-4 text-background border-b-2 border-b-gray-300 bg-[#63ACC4] md:hidden">
                 <div className="flex items-center justify-start">
                     <Link aria-label="TerraHacks Home" href="/dashboard" className="flex gap-4 items-center z-10">
@@ -149,16 +179,23 @@ export default function Sidenav() {
                 </button>
                 <div className="flex flex-col items-start justify-start divide-y divide-gray-300">
                     {navItems.map((item) => (
-                        <Link key={item.id} aria-label={`Path to ${item.name}`} href={item.path} className="w-full" rel="noopener noreferrer">
-                            <li className="p-4 hover:bg-background duration-300 ease-in-out rounded-sm w-full hover:text-foreground cursor-pointer flex items-center justify-start gap-2">
+                        <Link key={item.id} aria-label={`Path to ${item.name}`} href={item.path} className={`w-full ${item.status.toLowerCase() === "not applied" ? 'flex' : (applicationStatus === item.status.toLowerCase() ? 'flex' : 'hidden')}`} rel="noopener noreferrer">
+                            <li className={`p-4 hover:bg-background duration-300 ease-in-out rounded-md w-full hover:text-foreground cursor-pointer flex items-center justify-start gap-2`}>
                                 {iconMapping[item.icon]}
                                 {item.name}
                             </li>
                         </Link>
                     ))}
+                    {role === "admin" && (
+                        <Link aria-label="Path to Admin Dashboard" href="/admin" className="w-full" rel="noopener noreferrer">
+                            <li className="p-4 hover:bg-background duration-300 ease-in-out rounded-md w-full hover:text-foreground cursor-pointer flex items-center justify-start gap-2">
+                                <IoLockClosedOutline size={28} />
+                                Admin Dashboard
+                            </li>
+                        </Link>
+                    )}
                 </div>
             </div>
         </>
-
     );
 }

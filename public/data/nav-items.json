@@ -4,55 +4,48 @@
         "name": "Home",
         "path": "/dashboard",
         "icon": "<IoHomeOutline />",
-        "accepted": false,
-        "admin": false
+        "status": "Not Applied"
     },
     {
         "id": 2,
         "name": "My Application",
         "path": "/dashboard/application",
         "icon": "<IoDocumentsOutline />",
-        "accepted": false,
-        "admin": false
+        "status": "Not Applied"
     },
     {
         "id": 3,
         "name": "Schedule",
         "path": "/dashboard/schedule",
         "icon": "<IoCalendarClearOutline />",
-        "accepted": true,
-        "admin": false
+        "status": "Accepted"
     },
     {
         "id": 4,
         "name": "Team",
         "path": "/dashboard/team",
         "icon": "<AiOutlineTeam />",
-        "accepted": true,
-        "admin": false
+        "status": "Accepted"
     },
     {
         "id": 5,
         "name": "Ticket",
         "path": "/dashboard/ticket",
         "icon": "<IoTicketOutline />",
-        "accepted": true,
-        "admin": false
+        "status": "Accepted"
     },
     {
         "id": 6,
         "name": "Location",
         "path": "/dashboard/location",
         "icon": "<IoLocationOutline />",
-        "accepted": true,
-        "admin": false
+        "status": "Accepted"
     },
     {
         "id": 7,
         "name": "Contact",
         "path": "/dashboard/contact",
         "icon": "<IoMailOpenOutline />",
-        "accepted": false,
-        "admin": false
+        "status": "Not Applied"
     }
 ]

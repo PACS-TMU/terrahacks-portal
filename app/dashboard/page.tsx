@@ -13,6 +13,17 @@ export default async function Dashboard() {
     return redirect("/login");
   }
 
+  // Get the application deadline and format it
+  const deadline = new Date(process.env.NEXT_PUBLIC_APPLICATION_DEADLINE!);
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+  };
+  const formattedDeadline = new Intl.DateTimeFormat('en-US', options).format(deadline);
+
   // Get the user application information and status
   let applicationInformation = null;
   let applicationStatus = null;
@@ -60,9 +71,9 @@ export default async function Dashboard() {
           </a>.
         </p>
         {!applicationStatus ? (
-          <div className="bg-highlight text-background rounded-md mt-2 md:mt-4 font-sans p-2 flex flex-col justify-center items-center w-[90%] md:w-1/2 lg:w-1/3 mx-auto">
+          <div className="bg-highlight text-background rounded-md my-2 md:mb-0 md:mt-4 font-sans p-2 flex flex-col justify-center items-center w-[90%] md:w-2/3 xl:w-1/2 mx-auto">
             <p className="md:text-xl whitespace-pre-line text-center my-2">No application submitted yet!</p>
-            <p className="md:text-xl whitespace-pre-line text-center my-2">Deadline: <span className="font-semibold">July 15th, 2024, 11:59 PM</span></p>
+            <p className="md:text-xl whitespace-pre-line text-center my-2">Deadline: <span className="font-semibold">{formattedDeadline}</span></p>
             <Link
               aria-label="Apply to TerraHacks"
               href="/dashboard/apply"
