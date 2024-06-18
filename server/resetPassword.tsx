@@ -14,9 +14,12 @@ export default async function resetPassword(formData: FormData) {
         .select('*')
         .eq('email', email)
         .single();
+    
+    console.log(existingUser);
 
     // Error code PGRST116 is thrown when the request returns no results
     if (getUserError && getUserError.code === "PGRST116") {
+        console.error(getUserError);
         return redirect("/login?message=Error - Email does not exist in our records. Please try again.");
     }
 
