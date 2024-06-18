@@ -30,8 +30,8 @@ export default function SignoutButton() {
   }
 
   return (
-    <button onClick={handleSignOut} className="flex items-center justify-start text-2xl p-4 gap-2 hover:bg-slate-100 hover:text-black ease-in-out duration-300 rounded-md w-full mb-5">
-      <PiSignOut />
+    <button onClick={handleSignOut} className="flex items-center justify-start p-4 gap-2 text-lg md:text-xl text-background hover:bg-background hover:text-black ease-in-out duration-300 rounded-md w-full mb-5">
+      <PiSignOut size={32} />
       {signingOut ? 'Signing out...' : 'Sign out'}
     </button>
   );
