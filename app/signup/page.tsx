@@ -46,7 +46,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
             email,
             password,
             options: {
-                emailRedirectTo: `${origin}/auth/callback`,
+                emailRedirectTo: `${origin}/login?message=Email verified. Please sign in to continue.`,
                 data: {
                     full_name: `${firstName} ${lastName}`,
                 }

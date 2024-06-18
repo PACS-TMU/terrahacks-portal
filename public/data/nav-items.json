@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "name": "Home",
+        "path": "/dashboard",
+        "icon": "<IoHomeOutline />",
+        "status": "Not Applied"
+    },
+    {
+        "id": 2,
+        "name": "My Application",
+        "path": "/dashboard/application",
+        "icon": "<IoDocumentsOutline />",
+        "status": "Not Applied"
+    },
+    {
+        "id": 3,
+        "name": "Schedule",
+        "path": "/dashboard/schedule",
+        "icon": "<IoCalendarClearOutline />",
+        "status": "Accepted"
+    },
+    {
+        "id": 4,
+        "name": "Team",
+        "path": "/dashboard/team",
+        "icon": "<AiOutlineTeam />",
+        "status": "Accepted"
+    },
+    {
+        "id": 5,
+        "name": "Ticket",
+        "path": "/dashboard/ticket",
+        "icon": "<IoTicketOutline />",
+        "status": "Accepted"
+    },
+    {
+        "id": 6,
+        "name": "Location",
+        "path": "/dashboard/location",
+        "icon": "<IoLocationOutline />",
+        "status": "Accepted"
+    },
+    {
+        "id": 7,
+        "name": "Contact",
+        "path": "/dashboard/contact",
+        "icon": "<IoMailOpenOutline />",
+        "status": "Not Applied"
+    }
+]
