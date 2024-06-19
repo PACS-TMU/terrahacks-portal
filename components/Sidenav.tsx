@@ -107,7 +107,7 @@ export default function Sidenav() {
     return (
         <>
             {/* Navbar for medium+ screens */}
-            <nav className="h-screen p-4 bg-[#63ACC4] text-background transition-all duration-300 gap-12 flex-col w-[60px] font-medium hidden md:block md:fixed md:inset-y-0 md:z-10 md:w-72 2xl:w-80 border-r-2 border-r-gray-300 2xl:text-lg">
+            <nav className="h-screen p-4 bg-highlightLight text-background transition-all duration-300 gap-12 flex-col w-[60px] font-medium hidden md:block md:fixed md:inset-y-0 md:z-10 md:w-72 2xl:w-80 border-r-2 border-r-gray-300 2xl:text-lg">
                 {!user || !navItems ? <Loading darkbg /> : (
                     <>
                         <div className="flex items-start justify-center p-4">
@@ -156,7 +156,7 @@ export default function Sidenav() {
                 )}
             </nav>
             {/* Navbar for small (mobile) screens */}
-            <nav className="flex items-center justify-between p-4 text-background border-b-2 border-b-gray-300 bg-[#63ACC4] md:hidden">
+            <nav className="flex items-center justify-between p-4 text-background border-b-2 border-b-gray-300 bg-highlightLight md:hidden">
                 <div className="flex items-center justify-start">
                     <a aria-label="TerraHacks Home" href="https://terrahacks.ca/" target="_blank" className="flex gap-2 items-center z-10">
                         <Image
