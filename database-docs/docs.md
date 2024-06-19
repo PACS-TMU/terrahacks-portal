@@ -91,7 +91,7 @@ Upon removal request the user's application is deleted from `public.applications
 
 ## 5. User Gets Accepted into Hackathon
 
-## 6. User Gets Rejects from Hackathon
+## 6. User Gets Rejected from Hackathon
 
 ## 7. Accepted User RSVPS for Hackathon
 
