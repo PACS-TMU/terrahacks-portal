@@ -25,7 +25,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
             return redirect("/login?message=Error - could not authenticate user. Please check your credentials and try again.");
         }
 
-        return redirect("/");
+        return redirect("/dashboard");
     };
     
     return (
