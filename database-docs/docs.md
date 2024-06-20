@@ -28,7 +28,9 @@ List of Triggers in Database
 # Scenarios
 
 ## 1. Adding User to Database
-  To add a user three tables are used `auth.users`, `public.users`, and `public.meals`. Upon account creation, Auth creates and validates a user. Also, user info is also automatically pushed to the user table using the `on_auth_user_created` trigger.
+  To add a user three tables are used `auth.users`, `public.users`, and `public.meals`. Upon account creation:
+  - Auth creates and validates a user
+  - User info is also automatically pushed to the user table using the `on_auth_user_created` trigger
 
 ## 2. User requests to delete account from Database <mark>Not Implemented </mark> <mark>TO BE CHANGED </mark>
 Upon deletion request we Auth removes all user data from `auth.users` and related tables. Additionally the trigger `on_auth_user_deleted` deletes all information related to user from `public.users`, `public.applications`, `public.applicant_details`, `public.meals`, `public.responses`, `public.tmu_students`, `public.rejected`, `public.accepted_apps`, `public.accommodations` then updates a table called `public.account_deletions` with the account_id of the user and the time of account deletion.
