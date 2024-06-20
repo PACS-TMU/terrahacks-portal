@@ -46,10 +46,10 @@ Upon deletion request we Auth removes all user data from `auth.users` and relate
 
 
 ### Table showing `public.application_details` data mapping
-| Fourm Data | Column Name | Description |
+| Form Data | Column Name | Description |
 | ----------- | ----------- | ----------- |
 | - | application_id | Taken from applications table (Not on form) 
-| - |  account_id | Take current user account id (Not shown on forum)
+| - |  account_id | Take current user account id (Not shown on form)
 | Gender | gender | Drop down of options with other
 | Pronouns | pronouns | Drop down of options with other
 | Race | race | Drop down of options with other
@@ -60,13 +60,13 @@ Upon deletion request we Auth removes all user data from `auth.users` and relate
 | Current Education Level | level_of_study | Drop down of options with other
 | Current/Anticipated Graduation Year| grad_year | Drop down of options
 | City | city | Drop down of options only support US and CA, Other to input custom info
-| Providence/State | province_state | Drop down of options only support US and CA, Other to input custom info
+| Province/State | province_state | Drop down of options only support US and CA, Other to input custom info
 | Country | country | Drop down of options only support US and CA, Other to input custom info
 | Are You a TMU Student | tmu_student | Boolean if yes ask for student number 
 | Would You need Accommodation of any Kind | accommodation | Boolean if yes allow text to record accommodations
 
 ### Table showing `public.tmu_students` data mapping
-| Fourm Data | Column Name | Description |
+| Form Data | Column Name | Description |
 | ----------- | ----------- | ----------- |
 | - | application_id | Take application_id created from the application table using account_id (Not shown on form)
 | - |account_id | Take current user account_id
@@ -74,18 +74,18 @@ Upon deletion request we Auth removes all user data from `auth.users` and relate
 | Student School Email | email | Text inputted by User with proper valadiations 
 
 ### Table showing `public.responses` data mapping
-| Fourm Data | Column Name | Description |
+| Form Data | Column Name | Description |
 | ----------- | ----------- | ----------- |
 | - | application_id | Taken from applications table (Not on form) 
-| - | account_id | Take current user account id (Not shown on forum)
+| - | account_id | Take current user account id (Not shown on form)
 | - | question_id | Taken from `public.questions` each question has associated id (Not shown on form)
 | Response| response | Text inputted by user for respective question
 
 ### Table showing `public.accommodations` data mapping
-| Fourm Data | Column Name | Description |
+| Form Data | Column Name | Description |
 | ----------- | ----------- | ----------- |
 | -  | application_id | Taken from applications table (Not on form) 
-| -  | account_id | Take current user account id (Not shown on forum)
+| -  | account_id | Take current user account id (Not shown on form)
 | Accommodation Details  | description | Text inputted by user
 
 ## 4. User Rescinds application. <mark>Not Implemented </mark>
