@@ -127,9 +127,9 @@ Two tables are used in this process `public.applications` and `public.meals`
 ## 9. RSVPed User UnRSVPs <mark>Not Implemented </mark>
 Two tables are used in this process `public.applications` and `public.meals`
 - If a user clicks the RSVP button once their application is accepted it will update the `rsvp` column to the enum type `recinded`.
-- This then activates the trigger `meals_on_rsvp_remove` which adds 5 meals for the user.
-- 
-## 10. Users Create Team
+- This then activates the trigger `meals_on_rsvp_remove` which removes 5 meals from the user.
+  
+## 10. Users Create Team <mark>Not Implemented </mark>
 
 ## 11. User adds team members <mark>Not Implemented </mark>
 
