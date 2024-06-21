@@ -15,9 +15,10 @@ List of Tables in Database
 12. auth.users
 13. public.account_deletions <mark>Not Implemented </mark>
 14. public.app_deletions <mark>Not Implemented </mark>
-15. public.waitlisted_apps <mark>Not Implemented </mark>
+15. public.waitlisted_apps
 16. public.team_data <mark>Not Implemented </mark>
 17. public.user_teams <mark>Not Implemented </mark>
+18. public.checkin
 
 List of Triggers in Database
 1. on_application_submitted
@@ -25,7 +26,9 @@ List of Triggers in Database
 3. on_auth_user_deleted
 4. meals_on_rsvp <mark>Not Implemented </mark>
 5. meals_on_rsvp_remove <mark>Not Implemented </mark>
-6. user_app_removal <mark>Not Implemented </mark> 
+6. user_app_removal <mark>Not Implemented </mark>
+7. team_removal <mark>Not Implemented </mark>
+8. application_update <mark>Not Implemented </mark>
 
 
 # Scenarios
@@ -74,6 +77,9 @@ Six tables are used if necessary `public.applications`, `public.applicant_detail
 | Country | country | Drop down of options only support US and CA, Other to input custom info
 | Are You a TMU Student | tmu_student | Boolean if yes ask for student number 
 | Would You need Accommodation of any Kind | accommodation | Boolean if yes allow text to record accommodations
+|GitHub||
+|LinkedIn||
+|Upload your Resume ||
 
 ### Table showing `public.tmu_students` data mapping
 | Form Data | Column Name | Description |
