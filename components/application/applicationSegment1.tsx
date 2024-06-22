@@ -12,146 +12,197 @@ const ApplicationSegment1 = () => {
     const [accommodationsBool, setAccommodationsBool] = useState('');
 
     return (
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 '>
 
-            <div id="pronouns-field" className='flex flex-col'>
-                <label
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
-                    htmlFor="pronouns">
-                    Pronouns
-                </label>
-                <select id="pronouns-select" name="pronouncs"
-                    onChange={(e) => { setPronouns(e.target.value) }}
-                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
-                    <option value="" selected disabled hidden >Select</option>
-                    <option value="Man" >She/Her</option>
-                    <option value="Woman">He/Him</option>
-                    <option value="Nonbinary">They/Them</option>
-                    <option value="She/They">She/They</option>
-                    <option value="He/They">He/They</option>
-                    <option value="Other">Other</option>
-                    <option value="Prefer not to answer">Prefer not to answer</option>
-                </select>
-                {pronouns === 'Other' && (
-                    <input
-                        id="otherPronouns"
-                        className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
-                        name="otherPronouns"
-                        placeholder="If other, please specify"
+            <div id='demographic-information' className='lg:grid lg:grid-cols-2 gap-8'>
+                <div id="pronouns-field" className='flex flex-col'>
+                    <label
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
+                        htmlFor="pronouns">
+                        Pronouns
+                    </label>
+                    <select id="pronouns-select" name="pronouncs"
+                        onChange={(e) => { setPronouns(e.target.value) }}
+                        className="rounded-md px-4 py-2 bg-white mb-4 w-2/3" required>
+                        <option value="" selected disabled hidden >Select</option>
+                        <option value="Man" >She/Her</option>
+                        <option value="Woman">He/Him</option>
+                        <option value="Nonbinary">They/Them</option>
+                        <option value="She/They">She/They</option>
+                        <option value="He/They">He/They</option>
+                        <option value="Other">Other</option>
+                        <option value="Prefer not to answer">Prefer not to answer</option>
+                    </select>
+                    {pronouns === 'Other' && (
+                        <input
+                            id="otherPronouns"
+                            className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
+                            name="otherPronouns"
+                            placeholder="If other, please specify"
+                            required
+                        />)}
+                </div>
+
+                <div id="gender-field" className='flex flex-col'>
+                    <label
+                        htmlFor='gender'
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        Gender
+                    </label>
+                    <select
+                        id="gender-select" name="gender"
+                        onChange={(e) => { setGender(e.target.value) }}
+                        className="rounded-md px-4 py-2 bg-white  mb-4 w-2/3" required>
+                        <option value="" selected disabled hidden >Select</option>
+                        <option value="Man" >Male</option>
+                        <option value="Woman">Female</option>
+                        <option value="Nonbinary">Non-binary</option>
+                        <option value="Other">Prefer to self-describe</option>
+                        <option value="Prefer not to answer">Prefer not to answer</option>
+                    </select>
+                    {gender === 'Other' && (
+                        <input
+                            id="otherGender"
+                            className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
+                            name="otherGender"
+                            placeholder="Describe here"
+                            required
+                        />)}
+                </div>
+
+                <div id="race-field" className='flex flex-col'>
+                    <label
+                        htmlFor="race"
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        Race/Ethnicity
+                    </label>
+                    <select
+                        id="race-select" name="race"
+                        onChange={(e) => { setRace(e.target.value) }}
+                        className="rounded-md px-4 py-2 bg-white  mb-4 w-2/3" required>
+                        <option value="" selected disabled hidden >Select</option>
+                        <option value="Asian Indian">Asian Indian</option>
+                        <option value="Black or African">Black or African</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Filipino">Filipino</option>
+                        <option value="Guamanian or Chamorro">Guamanian or Chamorro</option>
+                        <option value="Hispanic / Latino / Spanish Origin">Hispanic / Latino / Spanish Origin</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Middle Eastern">Middle Eastern</option>
+                        <option value="Native American or Alaskan Native">Native American or Alaskan Native</option>
+                        <option value="Native Hawaiian">Native Hawaiian</option>
+                        <option value="Samoan">Samoan</option>
+                        <option value="Vietnamese">Vietnamese</option>
+                        <option value="White">White </option>
+                        <option value="Other Asian">Other Asian</option>
+                        <option value="Other Pacific Islander">Other Pacific Islander</option>
+                        <option value="Other">Other</option>
+                        <option value="Prefer not to answer">Prefer not to answer</option>
+                    </select>
+                    {race === 'Other' && (
+                        <input
+                            id="otherRace"
+                            className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
+                            name="otherRace"
+                            placeholder="If other, please specify"
+                            required
+                        />)}
+                </div>
+
+
+
+                <div id="sexuality-field" className='flex flex-col'>
+                    <label
+                        htmlFor='sexuality'
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        Do you consider yourself to be any of the following?
+                    </label>
+                    <select
+                        id="sexuality-select" name="sexuality"
+                        onChange={(e) => { setSexuality(e.target.value) }}
+                        className="rounded-md px-4 py-2 bg-white mb-4 w-2/3" required>
+                        <option value="" selected disabled hidden >Select</option>
+                        <option value="Heterosexual or Straight" >Heterosexual or Straight</option>
+                        <option value="Gay or lesbian">Gay or lesbian</option>
+                        <option value="Bisexual">Bisexual</option>
+                        <option value="Different identity">Different identity</option>
+                        <option value="Prefer not to answer">Prefer not to answer</option>
+                    </select>
+                    {sexuality === 'Different identity' && (<input
+                        id="otherSexuality"
+                        className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-2/3"
+                        name="otherSexuality"
+                        placeholder="Please specify"
                         required
                     />)}
-            </div>
+                </div>
 
-            <div id="gender-field" className='flex flex-col'>
-                <label
-                    htmlFor='gender'
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    Gender
-                </label>
-                <select
-                    id="gender-select" name="gender"
-                    onChange={(e) => { setGender(e.target.value) }}
-                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
-                    <option value="" selected disabled hidden >Select</option>
-                    <option value="Man" >Male</option>
-                    <option value="Woman">Female</option>
-                    <option value="Nonbinary">Non-binary</option>
-                    <option value="Other">Prefer to self-describe</option>
-                    <option value="Prefer not to answer">Prefer not to answer</option>
-                </select>
-                {gender === 'Other' && (
+
+
+                <div id="phonenumber-field" className='flex flex-col'>
+                    <label
+                        htmlFor="phoneNumber"
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        Phone number
+                    </label>
                     <input
-                        id="otherGender"
-                        className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
-                        name="otherGender"
-                        placeholder="Describe here"
+                        id="phoneNumber"
+                        className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-2/3"
+                        name="phoneNumber"
+                        placeholder="(123) 456-7890)"
+                        pattern="\(\d{3}\) \d{3}-\d{4}"
+                        title="Phone number should be in the format (123) 456-7890"
                         required
-                    />)}
-            </div>
+                    />
+                </div>
 
-            <div id="race-field" className='flex flex-col'>
-                <label
-                    htmlFor="race"
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    Race/Ethnicity
-                </label>
-                <select
-                    id="race-select" name="race"
-                    onChange={(e) => { setRace(e.target.value) }}
-                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
-                    <option value="" selected disabled hidden >Select</option>
-                    <option value="Asian Indian">Asian Indian</option>
-                    <option value="Black or African">Black or African</option>
-                    <option value="Chinese">Chinese</option>
-                    <option value="Filipino">Filipino</option>
-                    <option value="Guamanian or Chamorro">Guamanian or Chamorro</option>
-                    <option value="Hispanic / Latino / Spanish Origin">Hispanic / Latino / Spanish Origin</option>
-                    <option value="Japanese">Japanese</option>
-                    <option value="Korean">Korean</option>
-                    <option value="Middle Eastern">Middle Eastern</option>
-                    <option value="Native American or Alaskan Native">Native American or Alaskan Native</option>
-                    <option value="Native Hawaiian">Native Hawaiian</option>
-                    <option value="Samoan">Samoan</option>
-                    <option value="Vietnamese">Vietnamese</option>
-                    <option value="White">White </option>
-                    <option value="Other Asian">Other Asian</option>
-                    <option value="Other Pacific Islander">Other Pacific Islander</option>
-                    <option value="Other">Other</option>
-                    <option value="Prefer not to answer">Prefer not to answer</option>
-                </select>
-                {race === 'Other' && (
+                <div id='city-field' className='flex flex-col'>
+                    <label
+                        htmlFor="city"
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        City
+                    </label>
                     <input
-                        id="otherRace"
-                        className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
-                        name="otherRace"
-                        placeholder="If other, please specify"
+                        id="city"
+                        className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-2/3"
+                        name="city"
+                        placeholder="Toronto"
                         required
-                    />)}
-            </div>
+                    />
+                </div>
 
-            <div id="phonenumber-field" className='flex flex-col'>
-                <label
-                    htmlFor="phoneNumber"
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    Phone number
-                </label>
-                <input
-                    id="phoneNumber"
-                    className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
-                    name="phoneNumber"
-                    placeholder="(123) 456-7890)"
-                    pattern="\(\d{3}\) \d{3}-\d{4}"
-                    title="Phone number should be in the format (123) 456-7890"
-                    required
-                />
-            </div>
+                <div id='provinceState-field' className='flex flex-col'>
+                    <label
+                        htmlFor="provinceState"
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        Province/ State
+                    </label>
+                    <input
+                        id="provinceState"
+                        className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-2/3"
+                        name="provinceState"
+                        placeholder="ON"
+                        required
+                    />
+                </div>
 
-            <div id="sexuality-field" className='flex flex-col'>
-                <label
-                    htmlFor='sexuality'
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    Do you consider yourself to be any of the following?
-                </label>
-                <select
-                    id="sexuality-select" name="sexuality"
-                    onChange={(e) => { setSexuality(e.target.value) }}
-                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
-                    <option value="" selected disabled hidden >Select</option>
-                    <option value="Heterosexual or Straight" >Heterosexual or Straight</option>
-                    <option value="Gay or lesbian">Gay or lesbian</option>
-                    <option value="Bisexual">Bisexual</option>
-                    <option value="Different identity">Different identity</option>
-                    <option value="Prefer not to answer">Prefer not to answer</option>
-                </select>
-                {sexuality === 'Different identity' && (<input
-                    id="otherSexuality"
-                    className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
-                    name="otherSexuality"
-                    placeholder="Please specify"
-                    required
-                />)}
-            </div>
+                <div id="country-field" className='flex flex-col'>
+                    <label
+                        htmlFor="country"
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        Country
+                    </label>
+                    <input
+                        id="country"
+                        className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-2/3"
+                        name="country"
+                        placeholder="Canada"
+                        required
+                    />
+                </div>
 
+            </div>
             <div id='fieldOfStudy-field' className='flex flex-col'>
                 <label
                     htmlFor="fieldOfStudy"
@@ -161,7 +212,7 @@ const ApplicationSegment1 = () => {
                 <select
                     id="fieldOfStudy-select" name="fieldOfStudy"
                     onChange={(e) => { setFieldOfStudy(e.target.value) }}
-                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
+                    className="rounded-md px-4 py-2 bg-white  mb-4 w-2/3" required>
                     <option value="" selected disabled hidden >Select</option>
                     <option value="Computer science, computer engineering, or software engineering " >Computer science, computer engineering, or software engineering </option>
                     <option value="Another engineering discipline (such as civil, electrical, mechanical, etc.) ">Another engineering discipline (such as civil, electrical, mechanical, etc.) </option>
@@ -203,81 +254,40 @@ const ApplicationSegment1 = () => {
                 />
             </div>
 
-            <div id='levelOfStudy-field' className='flex flex-col'>
-                <label
-                    htmlFor="levelOfStudy"
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    Level of study (as of Fall 2024)
-                </label>
-                <select id="expectedGraduationYear-select" name="expectedGraduationYear" className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
-                    <option value="" selected disabled hidden >Select</option>
-                    <option value="1st Year">1st Year</option>
-                    <option value="2nd Year">2nd Year</option>
-                    <option value="3rd Year">3rd Year</option>
-                    <option value="4th Year">4th Year</option>
-                    <option value="5th Year">5th Year</option>
-                </select>
-            </div>
+            <div id='school-information' className='lg:grid lg:grid-cols-2 gap-8'>
 
-            <div id="expectedGraduationYear-field" className='flex flex-col'>
-                <label
-                    htmlFor="expectedGraduationYear"
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    Expected graduation year
-                </label>
-                <select id="expectedGraduationYear-select" name="expectedGraduationYear" className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
-                    <option value="" selected disabled hidden >Select</option>
-                    <option value="2025">2025</option>
-                    <option value="2026">2026</option>
-                    <option value="2027">2027</option>
-                    <option value="2028">2028</option>
-                    <option value="2029">2029</option>
-                </select>
-            </div>
+                <div id='levelOfStudy-field' className='flex flex-col'>
+                    <label
+                        htmlFor="levelOfStudy"
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        Level of study (as of Fall 2024)
+                    </label>
+                    <select id="expectedGraduationYear-select" name="expectedGraduationYear" className="rounded-md px-4 py-2 bg-white  mb-4 w-2/3" required>
+                        <option value="" selected disabled hidden >Select</option>
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                        <option value="5th Year">5th Year</option>
+                    </select>
+                </div>
 
-            <div id='city-field' className='flex flex-col'>
-                <label
-                    htmlFor="city"
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    City
-                </label>
-                <input
-                    id="city"
-                    className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
-                    name="city"
-                    placeholder="Toronto"
-                    required
-                />
-            </div>
+                <div id="expectedGraduationYear-field" className='flex flex-col'>
+                    <label
+                        htmlFor="expectedGraduationYear"
+                        className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
+                        Expected graduation year
+                    </label>
+                    <select id="expectedGraduationYear-select" name="expectedGraduationYear" className="rounded-md px-4 py-2 bg-white  mb-4 w-2/3" required>
+                        <option value="" selected disabled hidden >Select</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                    </select>
+                </div>
 
-            <div id='provinceState-field' className='flex flex-col'>
-                <label
-                    htmlFor="provinceState"
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    Province/ State
-                </label>
-                <input
-                    id="provinceState"
-                    className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
-                    name="provinceState"
-                    placeholder="ON"
-                    required
-                />
-            </div>
-
-            <div id="country-field" className='flex flex-col'>
-                <label
-                    htmlFor="country"
-                    className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
-                    Country
-                </label>
-                <input
-                    id="country"
-                    className="rounded-md px-4 py-2 bg-white  mb-4 placeholder-grey-500 w-1/2"
-                    name="country"
-                    placeholder="Canada"
-                    required
-                />
             </div>
 
             <div id='tmuStudentBool-field' className='flex flex-col'>
@@ -288,7 +298,7 @@ const ApplicationSegment1 = () => {
                 <select
                     id="tmuStudentBool-select" name="tmuStudentBool"
                     onChange={(e) => { setTmuStudentBool(e.target.value) }}
-                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/3 " required>
+                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2 " required>
                     <option value="" selected disabled hidden >Select</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
@@ -310,7 +320,7 @@ const ApplicationSegment1 = () => {
                 <select
                     id="accomodations-select" name="accomodations"
                     onChange={(e) => { setAccommodationsBool(e.target.value) }}
-                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/3" required>
+                    className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
                     <option value="" selected disabled hidden >Select</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
@@ -330,7 +340,7 @@ const ApplicationSegment1 = () => {
                     className="text-md text-white pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
                     Dietary Restrictions
                 </label>
-                <select id="dietary-select" name="dietaryRestrictions" className="rounded-md px-4 py-2 bg-white  mb-4 w-1/3" required>
+                <select id="dietary-select" name="dietaryRestrictions" className="rounded-md px-4 py-2 bg-white  mb-4 w-1/2" required>
                     <option value="" selected disabled hidden >Select</option>
                     <option value="Yes">Vegetarian</option>
                     <option value="Vegan">Vegan</option>

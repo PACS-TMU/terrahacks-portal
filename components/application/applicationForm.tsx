@@ -24,7 +24,7 @@ export default function ApplicationForm() {
                     <p className='text-xl'>2</p>
                 </div>
             </div>
-            <div id='container' className='bg-[#2A6C82] rounded-lg p-32 m-8 '>
+            <div id='container' className='bg-[#2A6C82] rounded-lg p-8 m-8 pt-16 pb-8'>
 
                 <form >
                     {(page === '1') ? (<ApplicationSegment1 />) : (<ApplicationSegment2 />)}
