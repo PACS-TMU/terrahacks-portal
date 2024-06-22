@@ -77,9 +77,10 @@ Six tables are used if necessary `public.applications`, `public.applicant_detail
 | Country | country | Drop down of options only support US and CA, Other to input custom info
 | Are You a TMU Student | tmu_student | Boolean if yes ask for student number 
 | Would You need Accommodation of any Kind | accommodation | Boolean if yes allow text to record accommodations
-|GitHub||
-|LinkedIn||
-|Upload your Resume ||
+|GitHub|github| Text box to input link
+|LinkedIn|linkedin| Text box to input link
+|Upload your Resume |resume_path| User uploads pdf containing resume no larger than 3mb
+|Any Dietary Restrictions|dietary_restrictions| Drop down to select option
 
 ### Table showing `public.tmu_students` data mapping
 | Form Data | Column Name | Description |
