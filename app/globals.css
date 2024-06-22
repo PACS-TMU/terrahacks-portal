@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    --background: #F7FAFC;
-    --foreground: #1E1E1E;
-    --highlight: #2A6C82;
+    --background: #f7fafc;
+    --foreground: #1e1e1e;
+    --highlight: #2a6c82;
     --highlightLight: "#63ACC4";
   }
 
@@ -43,13 +43,16 @@
 
 /* Animation for error */
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
-  20%, 60% {
+  20%,
+  60% {
     transform: translateX(-10px);
   }
-  40%, 80% {
+  40%,
+  80% {
     transform: translateX(10px);
   }
 }
@@ -63,3 +66,7 @@
   transition: opacity 2s ease-out;
 }
 
+select:invalid,
+select option[value=""] {
+  color: #999999;
+}
