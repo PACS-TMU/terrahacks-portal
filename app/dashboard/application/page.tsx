@@ -17,16 +17,20 @@ export default async function Application({ searchParams }: { searchParams: { me
     }
 
     // Check if the user has already submitted an application
-    const { data: applied, error } = await supabase.from("users").select("applied").eq("id", user.id);
+    const { data: appliedData, error } = await supabase.from("users").select("applied").eq("id", user.id);
 
     if (error) {
         console.error("Error fetching application: ", error);
     }
 
-    console.log(applied);
+    
+    if (!appliedData || appliedData.length === 0) {
+        return redirect("/dashboard/application?page=1");
+    }
 
-    if (applied) {
-        console.log(applied);
+    // If the user has already applied, redirect them to the application status page
+    const applicationStatus = appliedData[0].applied;
+    if (applicationStatus === "Applied") {
         return redirect("/dashboard/application/applied");
     }
 

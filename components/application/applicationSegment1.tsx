@@ -580,6 +580,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                 type='button'
             >
                 <p className='text-background text-2xl'>Have you met our mascots?</p>
+                <p className='text-background text-lg mt-4'>Click to see more!</p>
                 <Image
                     src={`/assets/moles/${images[image]}.png`}
                     alt={`Mole mascot - ${images[image]}`}

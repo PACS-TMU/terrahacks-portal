@@ -76,8 +76,7 @@ export default async function Dashboard() {
             <p className="md:text-xl whitespace-pre-line text-center my-2">Deadline: <span className="font-semibold">{formattedDeadline}</span></p>
             <Link
               aria-label="Apply to TerraHacks"
-              href="/dashboard/apply"
-              target="_blank"
+              href="/dashboard/application"
               className="underline font-semibold text-background text-lg md:text-xl duration-300 ease-in-out hover:text-sky-400 my-2"
             >
               Apply Now!

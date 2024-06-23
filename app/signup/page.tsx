@@ -19,11 +19,18 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
         const confirmPassword = formData.get("confirm-password") as string;
-        const supabase = createClient();
 
         if (password !== confirmPassword) {
             return redirect("/signup?message=Error - Passwords do not match.");
         }
+
+        // Check if the password meets the minimum requirements
+        if (password.length < 6) {
+            return redirect(`/signup?message=Error - Password needs to be at least 6 characters long.`);
+        }
+
+        // Create a Supabase client
+        const supabase = createClient();
 
         // Check if email is already in use
         const { data: existingUser, error: getUserError } = await supabase
@@ -36,7 +43,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
         if (getUserError && getUserError.code !== "PGRST116") {
             return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
-        
+
         if (existingUser) {
             return redirect("/login?message=Error - Email already exists. Please sign in.");
         }
