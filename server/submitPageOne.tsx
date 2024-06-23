@@ -76,7 +76,7 @@ export default async function submitPageOne(formData: FormData) {
     const levelOfStudy = formData.get('levelOfStudy');
     const graduationYear = formData.get('graduationYear');
     const fieldOfStudy = formData.get('fieldOfStudy');
-    const school = formData.get('school');
+    const school = formData.get('school') === "Other" ? formData.get('otherSchool') : formData.get('school');
     const tmuStudentBool = formData.get('tmuStudentBool') === "Yes" ? true : false;
     const tmuStudentID = tmuStudentBool ? formData.get('tmuStudentID') : null;
     const accommodationsBool = formData.get('accommodationsBool') === "Yes" ? true : false;

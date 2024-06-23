@@ -1,5 +1,7 @@
 'use client';
 import { canadianUniversities } from './universities';
+import { useState } from 'react';
+import Image from 'next/image';
 
 type ApplicationSegment1Props = {
     formData: {
@@ -18,6 +20,7 @@ type ApplicationSegment1Props = {
         graduationYear: number,
         fieldOfStudy: string,
         school: string,
+        otherSchool: string,
         tmuStudentBool: string,
         tmuStudentID: string,
         accommodationsBool: string,
@@ -47,6 +50,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
         graduationYear,
         fieldOfStudy,
         school,
+        otherSchool,
         tmuStudentBool,
         tmuStudentID,
         accommodationsBool,
@@ -56,8 +60,11 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
         linkedinURL,
     } = formData;
 
+    const [image, setImage] = useState(0);
+    const images = ['Celina', 'Gregory',  'Dan', 'Sandra']
+
     return (
-        <div className='flex flex-col gap-2 font-medium text-xs md:text-sm lg:text-base 2xl:text-lg'>
+        <div className='flex flex-col gap-2 font-medium text-xs md:text-sm lg:text-base 2xl:text-lg relative'>
             <div id='demographic-information' className='grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6'>
                 <div id="full-name-field" className='flex flex-col'>
                     <label
@@ -347,7 +354,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3 cursor-pointer"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="2025">2024</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
                         <option value="2027">2027</option>
@@ -414,12 +421,23 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         ))}
                         <option value="Other">Other</option>
                     </select>
+                    {(school === "Other") && (
+                        <input
+                            id="otherSchool"
+                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-1/2"
+                            name="otherSchool"
+                            value={otherSchool}
+                            onChange={handleInputChange}
+                            placeholder="Please enter your school"
+                            required
+                        />
+                    )}
                 </div>
 
                 <div id='tmu-student-field' className='flex flex-col'>
                     <label
                         htmlFor="tmuStudent"
-                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
+                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500 w-full lg:w-1/2"
                     >
                         Are you a student at Toronto Metropolitan University?
                     </label>
@@ -451,7 +469,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                 <div id='accommodations-field' className='flex flex-col'>
                     <label
                         htmlFor="accommodationsBool"
-                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
+                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500 w-full lg:w-1/2"
                     >
                         Will you be needing any accommodations?
                     </label>
@@ -556,6 +574,21 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     />
                 </div>
             </div>
+            <button
+                onClick={() => setImage((image + 1) % 4)}
+                className='hidden xl:inline absolute z-20 right-[5%] bottom-[5%] w-1/3'
+                type='button'
+            >
+                <p className='text-background text-2xl'>Have you met our mascots?</p>
+                <Image
+                    src={`/assets/moles/${images[image]}.png`}
+                    alt={`Mole mascot - ${images[image]}`}
+                    width={1000}
+                    height={1000}
+                    className=''
+                />
+                <p className='text-background text-3xl'>{images[image]}</p>
+            </button>
         </div>
     )
 }

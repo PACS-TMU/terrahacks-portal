@@ -27,7 +27,6 @@ export default async function Application({ searchParams }: { searchParams: { me
         return redirect("/dashboard/application/applied");
     }
 
-
     return (
         <>
             <ApplicationForm />

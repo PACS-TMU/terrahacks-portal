@@ -24,6 +24,7 @@ interface ApplicationFormData {
     graduationYear: number;
     fieldOfStudy: string;
     school: string;
+    otherSchool: string;
     tmuStudentBool: string;
     tmuStudentID: string;
     accommodationsBool: string;
@@ -51,9 +52,10 @@ export default function ApplicationForm() {
         city: '',
         province: '',
         levelOfStudy: '',
-        graduationYear: 0,
+        graduationYear: 2024,
         fieldOfStudy: '',
         school: '',
+        otherSchool: '',
         tmuStudentBool: '',
         tmuStudentID: '',
         accommodationsBool: '',
@@ -98,9 +100,32 @@ export default function ApplicationForm() {
 
     return (
         <>
-            <h1 className='text-[#2A6C82] text-4xl font-bold'>Application</h1>
-            <br />
-            <div id="section-viewers" className='flex justify-center gap-2'>
+            <div className="lg:sticky z-30 top-0 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
+                <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">My Application</h1>
+                <p className="md:text-xl text-gray-500 md:mt-4 font-sans whitespace-pre-line">Welcome to your TerraHacks 2024 application!</p>
+                <p className="text-gray-800 mt-2">Having trouble? Please contact us at through {" "}
+                    <a
+                        aria-label="Send us an email"
+                        href="mailto:contact@terrahacks.ca"
+                        target="_blank"
+                        rel="nooppener noreferrer"
+                        className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
+                    >
+                        Email
+                    </a>
+                    {" "} or get help in our support channels on {" "}
+                    <a
+                        aria-label="Join our Discord server"
+                        href="https://discord.gg/982AkBQea7"
+                        target="_blank"
+                        rel="nooppener noreferrer"
+                        className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
+                    >
+                        Discord
+                    </a>.
+                </p>
+            </div>
+            <div id="section-viewers" className='flex justify-center gap-2 mt-4 lg:mt-6'>
                 <button
                     id="section-1"
                     onClick={() => router.push('/dashboard/application?page=1')}
@@ -108,17 +133,18 @@ export default function ApplicationForm() {
                 >
                     <p className='text-xl'>1</p>
                 </button>
-                <button
+                <SubmitButton
                     id="section-2"
-                    onClick={() => router.push('/dashboard/application?page=2')}
+                    form='section-one'
+                    formAction={submitPageOne}
                     className={`rounded-full w-10 h-10 flex justify-center items-center hover:scale-105 ease-in-out duration-300 ${(page === 2) ? 'bg-[#2A6C82] text-background' : 'bg-gray-200 text-[#2a6c82]'}`}
                 >
                     <p className='text-xl'>2</p>
-                </button>
+                </SubmitButton>
             </div>
             <div id='container' className='bg-[#2A6C82] rounded-lg p-8 m-8 pt-16 pb-8'>
                 {page === 1 ? (
-                    <form className='font-mono'>
+                    <form className='font-mono' id='section-one'>
                         <ApplicationSegment1 formData={formData} handleInputChange={handleInputChange} />
                         <div className='flex justify-center'>
                             <SubmitButton
@@ -139,7 +165,7 @@ export default function ApplicationForm() {
                         <div id='resume-field' className='flex flex-col'>
                             <label
                                 htmlFor="resume"
-                                className="text-base lg:text-lg text-background pb-2"
+                                className="text-base lg:text-lg text-background pb-2 mt-6"
                             >
                                 Upload Your Resume (Optional, PDF Only)
                             </label>
@@ -149,7 +175,7 @@ export default function ApplicationForm() {
                                 name="resume"
                                 onChange={handleFileChange}
                                 accept='application/pdf'
-                                className="block w-full text-lg text-background
+                                className="w-fit lg:text-lg text-background
                                     file:mr-4 file:py-2 file:px-4      
                                     file:rounded-md file:border-0      
                                     file:text-sm file:font-semibold      
@@ -162,7 +188,7 @@ export default function ApplicationForm() {
                             />
                         </div >
 
-                        <div className='flex justify-between'>
+                        <div className='flex flex-col lg:flex-row lg:justify-between'>
                             <button
                                 type="button"
                                 onClick={() => router.push('/dashboard/application?page=1')}
