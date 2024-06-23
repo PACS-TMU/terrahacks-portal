@@ -52,7 +52,6 @@ export default function Sidenav() {
             try {
                 const response = await fetch("/data/nav-items.json");
                 const data = await response.json();
-                console.log("Nav items: ", data);
                 setNavItems(data);
             }
             catch (error) {

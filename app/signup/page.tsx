@@ -83,7 +83,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
 
                 <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
                     <h1 className="opacity-0">TerraHacks</h1>
-                    <label className="text-md text-background" htmlFor="firstname">
+                    <label className="text-base text-background" htmlFor="firstname">
                         First Name
                     </label>
                     <input
@@ -94,7 +94,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
                         autoComplete="given-name"
                         required
                     />
-                    <label className="text-md text-background" htmlFor="lastname">
+                    <label className="text-base text-background" htmlFor="lastname">
                         Last Name
                     </label>
                     <input

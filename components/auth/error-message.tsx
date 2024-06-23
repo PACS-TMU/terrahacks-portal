@@ -26,13 +26,13 @@ export default function ErrorMessage({ searchParams }: { searchParams: { message
     return (
         <>
             {searchParams.message.slice(0, 5) === "Error" ? (
-                <div className={`absolute bottom-6 right-6 max-w-[50%] lg:max-w-[20%] bg-red-500 rounded-md p-3 ${showMessage ? "shake" : "fade-out"} text-sm lg:text-md 2xl:text-lg`}>
+                <div className={`absolute bottom-6 right-6 max-w-[50%] lg:max-w-[20%] bg-red-500 rounded-md p-3 ${showMessage ? "shake" : "fade-out"} text-sm lg:text-base 2xl:text-lg`}>
                     <p className="text-background text-center">
                         {searchParams.message}
                     </p>
                 </div>
             ) : (
-                <div className={`items-center justify-center bg-green-500 text-background p-3 my-10 rounded-md ${showMessage ? "shake" : "fade-out"} text-left text-sm lg:text-md 2xl:text-lg`}>
+                <div className={`items-center justify-center bg-green-500 text-background p-3 my-10 rounded-md ${showMessage ? "shake" : "fade-out"} text-left text-sm lg:text-base 2xl:text-lg`}>
                     <p>
                         {searchParams.message}
                     </p>

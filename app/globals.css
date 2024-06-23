@@ -8,6 +8,8 @@
     --foreground: #1e1e1e;
     --highlight: #2a6c82;
     --highlightLight: "#63ACC4";
+    --btn: "#4DB2D4";
+    --btnHover: "#5CCCF1";
   }
 
   /* @media (prefers-color-scheme: dark) {
@@ -64,9 +66,4 @@
 .fade-out {
   opacity: 0;
   transition: opacity 2s ease-out;
-}
-
-select:invalid,
-select option[value=""] {
-  color: #999999;
 }

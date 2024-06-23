@@ -7,10 +7,10 @@ export default function PasswordField({ name }: { name: string }) {
 
     return (
         <>
-            <label className="text-md text-background" htmlFor={name}>
+            <label className="text-base text-background" htmlFor={name}>
                 {name === "password" ? "Password" : "Confirm Password"}
             </label>
-            <div className="relative flex flex-row border items-center border-background rounded-md mb-2 text-sm lg:text-md xl:text-lg tracking-wider">
+            <div className="relative flex flex-row border items-center border-background rounded-md mb-2 text-sm lg:text-base xl:text-lg tracking-wider">
                 <input
                     className="bg-inherit placeholder-gray-300 w-[93%] px-4 py-2 rounded-md focus:border-none focus:ring-0 focus:outline-none"
                     id={name}

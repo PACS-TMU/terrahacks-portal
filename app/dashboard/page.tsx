@@ -90,11 +90,11 @@ export default async function Dashboard() {
       </div>
       <div className="px-6 py-6">
         <div className="items-center gap-8 space-y-4 mb-4">
-          <h3 className="text-md md:text-2xl font-bold">Application Status</h3>
+          <h3 className="text-base md:text-2xl font-bold">Application Status</h3>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="bg-highlight text-background shadow-md p-4 rounded-lg">
-            <h4 className="text-md md:text-xl font-bold">Application Information</h4>
+            <h4 className="text-base md:text-xl font-bold">Application Information</h4>
             <div className={`text-gray-200 ${applicationStatus ? 'text-base lg:text-lg' : 'text-sm lg:text-base'} mt-2`}>
               {applicationInformation ? (
                 <div>
@@ -144,7 +144,7 @@ export default async function Dashboard() {
             </div>
           </div>
           <div className="bg-highlight text-background shadow-md p-4 rounded-lg">
-            <h4 className="text-md md:text-xl font-bold">Application Status</h4>
+            <h4 className="text-base md:text-xl font-bold">Application Status</h4>
             <div className={`text-gray-200 ${applicationStatus ? 'text-lg lg:text-2xl' : 'text-sm lg:text-base'} mt-2`}>
               {applicationStatus ? (
                 <p className="mt-4">
