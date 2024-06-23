@@ -116,6 +116,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
                     <EmailField />
                     <PasswordField name="password" />
                     <PasswordField name="confirm-password" />
+                    <p className="text-sm lg:text-base text-background"><span className="font-semibold">Note:</span> Passwords must be at least 6 characters long.</p>
 
                     <SubmitButton
                         formAction={signUp}
