@@ -55,7 +55,7 @@ export default function Sidenav() {
                 setNavItems(data);
             }
             catch (error) {
-                console.log("Error fetching nav items: ", error);
+                console.error("Error fetching nav items: ", error);
             }
         };
 
