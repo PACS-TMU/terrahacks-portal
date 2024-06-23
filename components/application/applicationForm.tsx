@@ -9,7 +9,8 @@ import submitPageTwo from '@/server/submitPageTwo';
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
 
 interface ApplicationFormData {
-    fullName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     pronouns: string;
     otherPronouns: string;
@@ -18,14 +19,14 @@ interface ApplicationFormData {
     sexuality: string;
     phoneNumber: string;
     country: string;
+    otherCountry: string;
     city: string;
     province: string;
     levelOfStudy: string;
-    graduationYear: number;
+    graduationYear: string;
     fieldOfStudy: string;
     school: string;
     otherSchool: string;
-    tmuStudentBool: string;
     tmuStudentID: string;
     accommodationsBool: string;
     accommodationsDescription: string;
@@ -40,7 +41,8 @@ interface ApplicationFormData {
 
 export default function ApplicationForm() {
     const [formData, setFormData] = useState<ApplicationFormData>({
-        fullName: '',
+        firstName: '',
+        lastName: '',
         email: '',
         pronouns: '',
         otherPronouns: '',
@@ -49,14 +51,14 @@ export default function ApplicationForm() {
         sexuality: '',
         phoneNumber: '',
         country: '',
+        otherCountry: '',
         city: '',
         province: '',
         levelOfStudy: '',
-        graduationYear: 2024,
+        graduationYear: '',
         fieldOfStudy: '',
         school: '',
         otherSchool: '',
-        tmuStudentBool: '',
         tmuStudentID: '',
         accommodationsBool: '',
         accommodationsDescription: '',
@@ -102,7 +104,7 @@ export default function ApplicationForm() {
         <>
             <div className="lg:sticky z-30 top-0 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
                 <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">My Application</h1>
-                <p className="md:text-xl text-gray-500 md:mt-4 font-sans whitespace-pre-line">Welcome to your TerraHacks 2024 application!</p>
+                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">Welcome to your TerraHacks 2024 application!</p>
                 <p className="text-gray-800 mt-2">Having trouble? Please contact us at through {" "}
                     <a
                         aria-label="Send us an email"

@@ -17,7 +17,7 @@ export default function ApplicationSegment2({ formData, handleInputChange } : Ap
                 </label>
                 <textarea
                     id="questionOneText"
-                    className="rounded-md px-4 py-2 bg-background min-h-[20vh] mb-4 placeholder-grey-500"
+                    className="rounded-md px-4 py-2 bg-background min-h-[20vh] mb-4 placeholder-gray-400"
                     name="questionOne"
                     value={questionOne}
                     onChange={handleInputChange}
@@ -32,7 +32,7 @@ export default function ApplicationSegment2({ formData, handleInputChange } : Ap
                 </label>
                 <textarea
                     id="questionTwoText"
-                    className="rounded-md px-4 py-2 bg-background min-h-[20vh] mb-4 placeholder-grey-500"
+                    className="rounded-md px-4 py-2 bg-background min-h-[20vh] mb-4 placeholder-gray-400"
                     name="questionTwo"
                     value={questionTwo}
                     onChange={handleInputChange}

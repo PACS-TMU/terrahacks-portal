@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default async function Applied() {
     // Create a new Supabase server client
@@ -35,7 +36,7 @@ export default async function Applied() {
                     at <a href="mailto:contact@terrahacks.ca" className="underline hover:text-gray-400 ease-in-out duration-300">contact@terrahacks.ca</a>.
                 </p>
                 <p className="lg:text-lg text-center text-background font-mono mt-4">
-                    Your application details can be found on the homepage of your dashboard.
+                    Your application details can be found on the <Link href={`/dashboard`} aria-label="Redirect to homepage">homepage</Link> of your dashboard.
                     We look forward to reviewing your application! Good luck!
                 </p>
             </div>

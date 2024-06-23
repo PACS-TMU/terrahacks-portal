@@ -2,10 +2,12 @@
 import { canadianUniversities } from './universities';
 import { useState } from 'react';
 import Image from 'next/image';
+import { canadianCities } from './cities';
 
 type ApplicationSegment1Props = {
     formData: {
-        fullName: string,
+        firstName: string,
+        lastName: string,
         email: string,
         pronouns: string,
         otherPronouns: string,
@@ -14,14 +16,14 @@ type ApplicationSegment1Props = {
         sexuality: string,
         phoneNumber: string,
         country: string,
+        otherCountry: string,
         city: string,
         province: string,
         levelOfStudy: string,
-        graduationYear: number,
+        graduationYear: string,
         fieldOfStudy: string,
         school: string,
         otherSchool: string,
-        tmuStudentBool: string,
         tmuStudentID: string,
         accommodationsBool: string,
         accommodationsDescription: string,
@@ -35,7 +37,8 @@ type ApplicationSegment1Props = {
 
 export default function ApplicationSegment1({ formData, handleInputChange }: ApplicationSegment1Props) {
     const {
-        fullName,
+        firstName,
+        lastName,
         email,
         pronouns,
         otherPronouns,
@@ -44,6 +47,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
         sexuality,
         phoneNumber,
         country,
+        otherCountry,
         city,
         province,
         levelOfStudy,
@@ -51,7 +55,6 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
         fieldOfStudy,
         school,
         otherSchool,
-        tmuStudentBool,
         tmuStudentID,
         accommodationsBool,
         accommodationsDescription,
@@ -61,27 +64,47 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
     } = formData;
 
     const [image, setImage] = useState(0);
-    const images = ['Celina', 'Gregory',  'Dan', 'Sandra']
+    const images = ['Celina', 'Gregory', 'Dan', 'Sandra']
 
     return (
         <div className='flex flex-col gap-2 font-medium text-xs md:text-sm lg:text-base 2xl:text-lg relative'>
             <div id='demographic-information' className='grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6'>
-                <div id="full-name-field" className='flex flex-col'>
+                <div id="first-name-field" className='flex flex-col'>
                     <label
-                        htmlFor="fullName"
+                        htmlFor="firstName"
                         className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
                     >
-                        Full Name
+                        First Name
                     </label>
                     <input
-                        id="fullName"
-                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-2/3"
-                        name="fullName"
-                        value={fullName}
+                        id="firstName"
+                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-2/3"
+                        name="firstName"
+                        value={firstName}
                         onChange={handleInputChange}
-                        placeholder="Sandra The Mole"
-                        title="Please enter your full name"
-                        autoComplete='name'
+                        placeholder="Sandra"
+                        title="Please enter your first name"
+                        autoComplete='given-name'
+                        required
+                    />
+                </div>
+
+                <div id="last-name-field" className='flex flex-col'>
+                    <label
+                        htmlFor="lastName"
+                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
+                    >
+                        Last Name
+                    </label>
+                    <input
+                        id="lastName"
+                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-2/3"
+                        name="lastName"
+                        value={lastName}
+                        onChange={handleInputChange}
+                        placeholder="The Mole"
+                        title="Please enter your last name"
+                        autoComplete='family-name'
                         required
                     />
                 </div>
@@ -91,16 +114,17 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         htmlFor="email"
                         className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
                     >
-                        Email
+                        {school === "Toronto Metropolitan (Ryerson) University" ?  'TMU Email' : 'Email'}
                     </label>
                     <input
                         id="email"
-                        className="rounded-md px-4 py-2 bg-background mb-4 placeholder-grey-500 w-full lg:w-2/3"
+                        className="rounded-md px-4 py-2 bg-background mb-4 placeholder-gray-400 w-full lg:w-2/3"
                         name="email"
                         value={email}
                         onChange={handleInputChange}
-                        placeholder="sandra@terrhacks.ca"
-                        title="please input a valid email address"
+                        placeholder={school === "Toronto Metropolitan (Ryerson) University" ? "sandra@torontomu.ca" : "sandra@terrhacks.ca"}
+                        title={"Please enter your " + (school === "Toronto Metropolitan (Ryerson) University" ? 'TMU email' : 'email')}
+                        pattern={school === "Toronto Metropolitan (Ryerson) University" ? "^[a-zA-Z0-9._%+-]+@torontmu\\.ca$" : undefined}
                         type='email'
                         autoComplete='email'
                         required
@@ -134,7 +158,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     {pronouns === "Other" && (
                         <input
                             id="otherPronouns"
-                            className="rounded-md px-4 py-2 bg-background mb-4 placeholder-grey-500 w-full lg:w-1/2"
+                            className="rounded-md px-4 py-2 bg-background mb-4 placeholder-gray-400 w-full lg:w-1/2"
                             name="otherPronouns"
                             value={otherPronouns}
                             onChange={handleInputChange}
@@ -235,7 +259,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     </label>
                     <input
                         id="phoneNumber"
-                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-2/3"
+                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-2/3"
                         name="phoneNumber"
                         value={phoneNumber}
                         onChange={handleInputChange}
@@ -252,34 +276,32 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     >
                         Country
                     </label>
-                    <input
+                    <select
                         id="country"
-                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-2/3"
                         name="country"
                         value={country}
                         onChange={handleInputChange}
-                        placeholder="Canada"
-                        autoComplete="off"
+                        className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3"
+                        autoComplete='country-name'
                         required
-                    />
-                </div>
-
-                <div id='city-field' className='flex flex-col'>
-                    <label
-                        htmlFor="city"
-                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
                     >
-                        City
-                    </label>
-                    <input
-                        id="city"
-                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-2/3"
-                        name="city"
-                        value={city}
-                        onChange={handleInputChange}
-                        placeholder="Toronto"
-                        required
-                    />
+                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="Canada">Canada</option>
+                        <option value="United States">United States</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    {country === "Other" && (
+                        <input
+                            id="otherCountry"
+                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-2/3"
+                            name="otherCountry"
+                            value={otherCountry}
+                            onChange={handleInputChange}
+                            placeholder="Trinidad and Tobago"
+                            autoComplete="off"
+                            required
+                        />
+                    )}
                 </div>
 
                 <div id='provinceState-field' className='flex flex-col'>
@@ -289,6 +311,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     >
                         Province
                     </label>
+                    {(country === "Canada") ? (
                     <select
                         id="province"
                         name="province"
@@ -298,7 +321,6 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         required
                     >
                         <option value="" disabled hidden>-- Select --</option>
-                        <option value="Not in Canada">Not in Canada</option>
                         <option value="Alberta">Alberta</option>
                         <option value="British Columbia">British Columbia</option>
                         <option value="Manitoba">Manitoba</option>
@@ -313,6 +335,52 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         <option value="Saskatchewan">Saskatchewan</option>
                         <option value="Yukon">Yukon</option>
                     </select>
+                    ) : (
+                        <input
+                            id="province"
+                            className="rounded-md px-4 py-2 bg-background mb-4 text-gray-400 w-full lg:w-2/3"
+                            name="province"
+                            value={"Not in Canada"}
+                            onChange={handleInputChange}
+                            placeholder="Not in Canada"
+                            disabled
+                        />
+                    )}
+                </div>
+
+                <div id='city-field' className='flex flex-col'>
+                    <label
+                        htmlFor="city"
+                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
+                    >
+                        City
+                    </label>
+                    {(country === "Canada") ? (
+                        <select
+                            id="city"
+                            name="city"
+                            value={city}
+                            onChange={handleInputChange}
+                            className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3"
+                            required
+                        >
+                            <option value="" disabled hidden>-- Select --</option>
+                            {canadianCities.map((city) => (
+                                <option key={city} value={city}>{city}</option>
+                            ))}
+                            <option value="Other">Other</option>
+                        </select>
+                    ) : (
+                        <input
+                            id="city"
+                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-2/3"
+                            name="city"
+                            value={city}
+                            onChange={handleInputChange}
+                            placeholder="Toronto"
+                            required
+                        />
+                    )}
                 </div>
 
                 <div id='level-field' className='flex flex-col'>
@@ -354,7 +422,8 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3 cursor-pointer"
                         required
                     >
-                        <option value="2025">2024</option>
+                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="2024">2024</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
                         <option value="2027">2027</option>
@@ -409,7 +478,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     </label>
                     <select
                         id="school"
-                        className="rounded-md px-4 py-2 bg-background mb-4 placeholder-grey-500 w-full lg:w-1/2 cursor-pointer"
+                        className="rounded-md px-4 py-2 bg-background mb-4 placeholder-gray-400 w-full lg:w-1/2 cursor-pointer"
                         name="school"
                         value={school}
                         onChange={handleInputChange}
@@ -424,7 +493,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     {(school === "Other") && (
                         <input
                             id="otherSchool"
-                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-1/2"
+                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                             name="otherSchool"
                             value={otherSchool}
                             onChange={handleInputChange}
@@ -432,31 +501,10 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                             required
                         />
                     )}
-                </div>
-
-                <div id='tmu-student-field' className='flex flex-col'>
-                    <label
-                        htmlFor="tmuStudent"
-                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500 w-full lg:w-1/2"
-                    >
-                        Are you a student at Toronto Metropolitan University?
-                    </label>
-                    <select
-                        id="tmuStudent"
-                        name="tmuStudentBool"
-                        value={tmuStudentBool}
-                        onChange={handleInputChange}
-                        className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-1/2 cursor-pointer"
-                        required
-                    >
-                        <option value="" disabled hidden>-- Select --</option>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    {tmuStudentBool === "Yes" && (
+                    {school === "Toronto Metropolitan (Ryerson) University" && (
                         <input
                             id="tmuStudentID"
-                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-1/2"
+                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                             name="tmuStudentID"
                             value={tmuStudentID}
                             onChange={handleInputChange}
@@ -488,7 +536,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     {accommodationsBool === 'Yes' && (
                         <input
                             id="accommodationsDescription"
-                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-1/2"
+                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                             name="accommodationsDescription"
                             value={accommodationsDescription}
                             onChange={handleInputChange}
@@ -526,7 +574,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     {dietaryRestrictions === 'Other' && (
                         <input
                             id="otherDietaryRestriction"
-                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-1/2"
+                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                             name="otherDietaryRestriction"
                             value={accommodationsDescription}
                             onChange={handleInputChange}
@@ -548,7 +596,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         name="githubURL"
                         value={githubURL}
                         onChange={handleInputChange}
-                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-1/2"
+                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                         placeholder="https://github.com/username"
                         pattern="https?://(www\.)?github\.com/[A-Za-z0-9_-]+/?"
                         title="Please enter a valid GitHub URL (e.g., https://www.github.com/username)"
@@ -564,7 +612,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                     </label>
                     <input
                         id="linkedinURL"
-                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-grey-500 w-full lg:w-1/2"
+                        className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                         name="linkedinURL"
                         value={linkedinURL}
                         onChange={handleInputChange}
@@ -576,7 +624,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
             </div>
             <button
                 onClick={() => setImage((image + 1) % 4)}
-                className='hidden xl:inline absolute z-20 right-[5%] bottom-[5%] w-1/3'
+                className='hidden xl:inline absolute z-20 right-[5%] bottom-0 w-1/3'
                 type='button'
             >
                 <p className='text-background text-2xl'>Have you met our mascots?</p>
