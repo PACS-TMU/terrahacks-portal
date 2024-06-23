@@ -10,7 +10,7 @@ export default function ApplicationSegment2({ formData, handleInputChange } : Ap
     const { questionOne, questionTwo } = formData;
 
     return (
-        <div className='flex flex-col gap-6'>
+        <div className='flex flex-col gap-6 font-medium'>
             <div id='questionOne' className='flex flex-col'>
                 <label className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500" htmlFor="questionOneText">
                     Why do you want to participate in TerraHacks? (3-5 sentences)

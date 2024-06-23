@@ -37,11 +37,6 @@ export default async function submitPageOne(formData: FormData) {
             return redirect('/dashboard/application?message=Error - please try again later. If the problem persists, contact support.');
         }
 
-        if (!applicationData) {
-            console.error('Application data not found');
-            return redirect('/dashboard/application?message=Error - please try again later. If the problem persists, contact support.');
-        }
-
         // Get the application id
         const { data: newApplicationData, error: newApplicationError } = await supabase.from('applications').select().eq('account_id', userID);
 

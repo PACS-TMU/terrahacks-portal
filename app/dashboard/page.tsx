@@ -108,7 +108,7 @@ export default async function Dashboard() {
                         </span>
                         <br />
                         <span className="font-mono text-lg lg:text-xl">
-                          {applicationId}
+                          {applicationId.toUpperCase()}
                         </span>
                       </p>
                       <p>

@@ -145,6 +145,7 @@ export default function ApplicationForm() {
                 </SubmitButton>
             </div>
             <div id='container' className='bg-[#2A6C82] rounded-lg p-8 m-8 pt-16 pb-8'>
+                <h3 className='text-background font-semibold lg:text-lg xl:text-xl 2xl:text-2xl pb-4'>IMPORTANT: If you leave this page, you will lose your progress.</h3>
                 {page === 1 ? (
                     <form className='font-mono' id='section-one'>
                         <ApplicationSegment1 formData={formData} handleInputChange={handleInputChange} />

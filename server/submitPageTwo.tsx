@@ -18,30 +18,6 @@ export default async function submitPageTwo(formData: FormData) {
     const questionTwo = formData.get('questionTwo') as string;
     const resume = formData.get('resume') as File ;
 
-    // All the logic for submitting a resume will go here
-    const resumePath = resume ? `${userID}/${resume.name}` : null;
-
-    if (resumePath && resume) {
-        const { data: resumeData, error: resumeError } = await supabase.storage
-            .from('resumes')
-            .upload(resumePath, resume);
-
-        if (resumeError) {
-            console.error(resumeError);
-            return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
-        }
-    }
-
-    // Update applicant details with new resume path
-    const { data: updateApplicantData, error: updateApplicantError } = await supabase.from('applicant_details').update({
-        resume_path: resumePath,
-    }).match({ account_id: userID });
-
-    if (updateApplicantError) {
-        console.error(updateApplicantError);
-        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
-    }
-
     // Add the long answer questions to the database
     const { data: applicationData, error: applicationDataError } = await supabase.from('applications').select().eq('account_id', userID);
 
@@ -74,6 +50,30 @@ export default async function submitPageTwo(formData: FormData) {
 
     if (longAnswerError) {
         console.error(longAnswerError);
+        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+    }
+
+    // All the logic for submitting a resume will go here
+    const resumePath = resume ? `${userID}/${resume.name}` : null;
+
+    if (resumePath && resume) {
+        const { data: resumeData, error: resumeError } = await supabase.storage
+            .from('resumes')
+            .upload(resumePath, resume);
+
+        if (resumeError) {
+            console.error(resumeError);
+            return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+        }
+    }
+
+    // Update applicant details with new resume path
+    const { data: updateApplicantData, error: updateApplicantError } = await supabase.from('applicant_details').update({
+        resume_path: resumePath,
+    }).match({ account_id: userID });
+
+    if (updateApplicantError) {
+        console.error(updateApplicantError);
         return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
     }
 

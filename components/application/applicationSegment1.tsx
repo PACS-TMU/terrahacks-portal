@@ -146,7 +146,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="She/Her" >She/Her</option>
                         <option value="He/Him">He/Him</option>
                         <option value="They/Them">They/Them</option>
@@ -183,7 +183,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3 cursor-pointer"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="Male" >Male</option>
                         <option value="Female">Female</option>
                         <option value="Non-binary">Non-binary</option>
@@ -207,7 +207,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3 cursor-pointer"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="Black or African">Black / African</option>
                         <option value="Caucasian">Caucasian</option>
                         <option value="East Asian">East Asian</option>
@@ -217,8 +217,8 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         <option value="Native American or Alaskan Native">Native American or Alaskan Native</option>
                         <option value="Native Hawaiian">Native Hawaiian</option>
                         <option value="Samoan">Samoan</option>
-                        <option value="Other Asian">South Asian</option>
-                        <option value="Vietnamese">Vietnamese</option>
+                        <option value="South Asian">South Asian</option>
+                        <option value="Southeast Asian">Southeast Asian</option>
                         <option value="Other Asian">Other Asian</option>
                         <option value="Other Pacific Islander">Other Pacific Islander</option>
                         <option value="Other">Other</option>
@@ -241,7 +241,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="Heterosexual or Straight" >Heterosexual or Straight</option>
                         <option value="Gay or lesbian">Gay or lesbian</option>
                         <option value="Bisexual">Bisexual</option>
@@ -285,7 +285,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         autoComplete='country-name'
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="Canada">Canada</option>
                         <option value="United States">United States</option>
                         <option value="Other">Other</option>
@@ -320,7 +320,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="Alberta">Alberta</option>
                         <option value="British Columbia">British Columbia</option>
                         <option value="Manitoba">Manitoba</option>
@@ -364,7 +364,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                             className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3"
                             required
                         >
-                            <option value="" disabled hidden>-- Select --</option>
+                            <option value="" disabled>-- Select --</option>
                             {canadianCities.map((city) => (
                                 <option key={city} value={city}>{city}</option>
                             ))}
@@ -398,7 +398,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3 cursor-pointer"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="1st Year">1st Year</option>
                         <option value="2nd Year">2nd Year</option>
                         <option value="3rd Year">3rd Year</option>
@@ -422,7 +422,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3 cursor-pointer"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="2024">2024</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
@@ -449,7 +449,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-1/2 cursor-pointer"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="Computer science">Computer Science</option>
                         <option value="Mathematics or statistics">Mathematics or statistics</option>
                         <option value="A natural science (such as biology, chemistry, physics, etc.) ">A natural science (such as biology, chemistry, physics, etc.) </option>
@@ -484,7 +484,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         onChange={handleInputChange}
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         {canadianUniversities.map((uni) => (
                             <option key={uni} value={uni}>{uni}</option>
                         ))}
@@ -529,7 +529,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-1/2 cursor-pointer"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
@@ -561,7 +561,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-1/2 cursor-pointer"
                         required
                     >
-                        <option value="" disabled hidden>-- Select --</option>
+                        <option value="" disabled>-- Select --</option>
                         <option value="Vegetarian">Vegetarian</option>
                         <option value="Vegan">Vegan</option>
                         <option value="Celiac Disease">Celiac Disease</option>
