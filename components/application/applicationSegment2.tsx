@@ -19,6 +19,7 @@ export default function ApplicationSegment2({ formData, handleInputChange } : Ap
                     id="questionOneText"
                     className="rounded-md px-4 py-2 bg-background min-h-[20vh] mb-4 placeholder-grey-500"
                     name="questionOne"
+                    value={questionOne}
                     onChange={handleInputChange}
                     placeholder="I wish to participate in TerraHacks because..."
                     required
@@ -33,6 +34,7 @@ export default function ApplicationSegment2({ formData, handleInputChange } : Ap
                     id="questionTwoText"
                     className="rounded-md px-4 py-2 bg-background min-h-[20vh] mb-4 placeholder-grey-500"
                     name="questionTwo"
+                    value={questionTwo}
                     onChange={handleInputChange}
                     placeholder="I have experience in..."
                     required

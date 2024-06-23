@@ -17,13 +17,16 @@ export default async function Application({ searchParams }: { searchParams: { me
     }
 
     // Check if the user has already submitted an application
-    const { data: application, error } = await supabase.from("applications").select().eq("account_id", user.id);
+    const { data: applied, error } = await supabase.from("users").select("applied").eq("id", user.id);
 
     if (error) {
         console.error("Error fetching application: ", error);
     }
 
-    if (application && application.length > 0) {
+    console.log(applied);
+
+    if (applied) {
+        console.log(applied);
         return redirect("/dashboard/application/applied");
     }
 
