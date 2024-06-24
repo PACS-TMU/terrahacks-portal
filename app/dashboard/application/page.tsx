@@ -1,9 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import ApplicationForm from "@/components/application/applicationForm";
-import ErrorMessage from "@/components/auth/error-message";
+import ApplicationError from "@/components/application/applicationError";
 
-export default async function Application({ searchParams }: { searchParams: { message: string } }) {
+export default async function Application({ searchParams }: { searchParams: {page: string, message: string } }) {
 
     // Check that the user is authenticated
     const supabase = createClient();
@@ -38,7 +38,7 @@ export default async function Application({ searchParams }: { searchParams: { me
         <>
             <ApplicationForm />
             {searchParams?.message && (
-                <ErrorMessage key={Date.now()} searchParams={searchParams} />
+                <ApplicationError key={Date.now()} searchParams={searchParams} />
             )}
         </>
         

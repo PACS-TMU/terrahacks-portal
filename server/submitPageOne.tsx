@@ -3,6 +3,89 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function submitPageOne(formData: FormData) {
+    const validate = (formData: FormData) => {
+        let isStudentNumValid = false;
+        let isTMUEmailValid = false;
+        let isPhoneValid = false;
+        let isGithubValid = false;
+        let isLinkedInValid = false;
+
+        // Check if TMU email is valid
+        const uni = formData.get('school') === "Other" ? formData.get('otherSchool') : formData.get('school');
+        if (uni === "Toronto Metropolitan (Ryerson) University") {
+            // Add your validation logic here
+            const emailPattern = /^[a-z0-9._%+-]+@torontomu\.ca$/;
+            const studentIdPattern = /^\d{9}$/;
+
+            const tmuEmail = formData.get('tmuEmail') as string;
+            const studentID = formData.get('tmuStudentID') as string;
+
+            isTMUEmailValid = emailPattern.test(tmuEmail);
+            isStudentNumValid = studentIdPattern.test(studentID);
+
+            if (!isStudentNumValid) {
+                return { valid: false, message: "Error - Please enter a valid TMU student number." }
+            }
+            if (!isTMUEmailValid) {
+                return { valid: false, message: "Error - Please enter a valid TMU email." }
+            }
+        }
+        else {
+            isTMUEmailValid = true;
+        }
+
+        // Check if phone number is valid
+        const phonePattern = /\([0-9]{3}\) [0-9]{3}-[0-9]{4}/;
+        const phoneNumber = formData.get('phoneNumber') as string;
+        isPhoneValid = phonePattern.test(phoneNumber);
+        if (!isPhoneValid) {
+            return { valid: false, message: "Error - Please enter a valid phone number." }
+        }
+
+        // Check if Github URL is valid
+        const githubPattern = /^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9-]+$/;
+        const githubURL = formData.get('githubURL') as string;
+        if (githubURL === "") {
+            isGithubValid = true;
+        }
+        else {
+            isGithubValid = githubPattern.test(githubURL);
+            if (!isGithubValid) {
+                return { valid: false, message: "Error - Please enter a valid Github URL." }
+            }
+        }
+
+        // Check if LinkedIn URL is valid
+        const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+$/;
+        const linkedinURL = formData.get('linkedinURL') as string;
+        if (linkedinURL === "") {
+            isLinkedInValid = true;
+        }
+        else {
+            isLinkedInValid = linkedinPattern.test(linkedinURL);
+            if (!isLinkedInValid) {
+                return { valid: false, message: "Error - Please enter a valid LinkedIn URL." }
+            }
+
+            if (isTMUEmailValid && isPhoneValid && isGithubValid && isLinkedInValid) {
+                return { valid: true, message: "" }
+            }
+        }
+
+        if (isTMUEmailValid && isPhoneValid && isGithubValid && isLinkedInValid) {
+            return { valid: true, message: "" }
+        }
+    };
+
+    // Validate the form data
+    const validation = validate(formData);
+    if (!validation) {
+        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+    }
+    if (!validation.valid) {
+        return redirect(`/dashboard/application?page=1&message=${validation.message}`);
+    }
+
     // Create a new Supabase server client
     const supabase = createClient();
 

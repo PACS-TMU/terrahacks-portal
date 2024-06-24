@@ -66,7 +66,89 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
     } = formData;
 
     const [image, setImage] = useState(0);
-    const images = ['Celina', 'Gregory', 'Dan', 'Sandra']
+    const images = ['Celina', 'Gregory', 'Dan', 'Sandra'];
+
+    const normalizePhone = (value: string, previousValue: string) => {
+        // return nothing if no value
+        if (!value) return value; 
+      
+        // only allows 0-9 inputs
+        const currentValue = value.replace(/[^\d]/g, '');
+        const cvLength = currentValue.length; 
+      
+        if (!previousValue || value.length > previousValue.length) {
+      
+          // returns: "x", "xx", "xxx"
+          if (cvLength < 4) return currentValue; 
+      
+          // returns: "(xxx)", "(xxx) x", "(xxx) xx", "(xxx) xxx",
+          if (cvLength < 7) return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3)}`; 
+      
+          // returns: "(xxx) xxx-", (xxx) xxx-x", "(xxx) xxx-xx", "(xxx) xxx-xxx", "(xxx) xxx-xxxx"
+          return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3, 6)}-${currentValue.slice(6, 10)}`; 
+        }
+      };
+
+    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const phoneNumber = normalizePhone(e.target.value, formData.phoneNumber);
+        handleInputChange({ target: { name: 'phoneNumber', value: phoneNumber } } as React.ChangeEvent<HTMLInputElement>);
+    }
+
+    const normalizeStudentId = (value: string, previousValue: string) => {
+        // return nothing if no value
+        if (!value) return value; 
+      
+        // only allows 0-9 inputs
+        const currentValue = value.replace(/[^\d]/g, '');
+        const currentLength = currentValue.length;
+
+        if (currentLength > 9) {
+            return previousValue;
+        }
+        else {
+            return currentValue;
+        }
+    }
+
+    const handleStudentIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const tmuStudentID = normalizeStudentId(e.target.value, formData.tmuStudentID);
+        handleInputChange({ target: { name: 'tmuStudentID', value: tmuStudentID } } as React.ChangeEvent<HTMLInputElement>);
+    }
+
+    const normalizeTMUEmail = (value: string) => {
+        // Base domain that should always be present
+        const domain = "@torontomu.ca";
+    
+        // Remove any existing domain part
+        let userPart = value.replace(domain, '');
+    
+        // If user tries to type the domain, remove it
+        if (userPart.includes('@')) {
+            userPart = userPart.split('@')[0];
+        }
+    
+        // Concatenate user part with the domain
+        return `${userPart}${domain}`;
+    }
+
+    const handleTMUEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const input = e.target;
+        const cursorPosition = input.selectionStart || 0;
+        const tmuEmail = normalizeTMUEmail(input.value);
+    
+        handleInputChange({ target: { name: 'tmuEmail', value: tmuEmail } } as React.ChangeEvent<HTMLInputElement>);
+    
+        const userPartLength = tmuEmail.indexOf('@');
+        if (cursorPosition <= userPartLength) {
+            setTimeout(() => {
+                input.setSelectionRange(cursorPosition, cursorPosition);
+            }, 0);
+        } else {
+            setTimeout(() => {
+                input.setSelectionRange(userPartLength, userPartLength);
+            }, 0);
+        }
+    }
 
     return (
         <div className='flex flex-col gap-2 font-medium text-xs md:text-sm lg:text-base 2xl:text-lg relative'>
@@ -263,8 +345,9 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-2/3"
                         name="phoneNumber"
                         value={phoneNumber}
-                        onChange={handleInputChange}
+                        onChange={handlePhoneChange}
                         placeholder="(123) 456-7890"
+                        pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}"
                         title="Phone number should be in the format (123) 456-7890"
                         required
                     />
@@ -509,8 +592,10 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                                 className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                                 name="tmuStudentID"
                                 value={tmuStudentID}
-                                onChange={handleInputChange}
+                                onChange={handleStudentIdChange}
                                 placeholder="Please enter your TMU student ID"
+                                pattern='[0-9]{9}'
+                                title='Please enter a valid 9-digit TMU student ID'
                                 required
                             />
                             <input
@@ -518,9 +603,10 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                                 className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                                 name="tmuEmail"
                                 value={tmuEmail}
-                                onChange={handleInputChange}
+                                onChange={handleTMUEmailChange}
                                 placeholder="Please enter your TMU email"
-                                pattern='[a-z0-9._%+-]+@torontomu\.ca$'
+                                pattern='[A-Za-z0-9._%+-]+@torontomu\.ca$'
+                                title='Please enter a valid TMU email (e.g., name@torontomu.ca)'
                                 required
                             />
                         </>

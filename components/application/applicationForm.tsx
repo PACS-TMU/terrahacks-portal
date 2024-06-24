@@ -224,7 +224,7 @@ export default function ApplicationForm() {
                         </div>
                     </form>
                 )}
-            </div >
+            </div>
         </>
     );
 }
