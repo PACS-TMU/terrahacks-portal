@@ -605,7 +605,6 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                                 value={tmuEmail}
                                 onChange={handleTMUEmailChange}
                                 placeholder="Please enter your TMU email"
-                                pattern='[A-Za-z0-9._%+-]+@torontomu\.ca$'
                                 title='Please enter a valid TMU email (e.g., name@torontomu.ca)'
                                 required
                             />
@@ -697,7 +696,6 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         onChange={handleInputChange}
                         className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                         placeholder="https://github.com/username"
-                        pattern="https?://(www\.)?github\.com/[A-Za-z0-9_-]+/?"
                         title="Please enter a valid GitHub URL (e.g., https://www.github.com/username)"
                     />
                 </div>
@@ -716,7 +714,6 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         value={linkedinURL}
                         onChange={handleInputChange}
                         placeholder="https://linkedin.com/in/username"
-                        pattern="https?://(www\.)?linkedin\.com/in/[A-Za-z0-9_-]+/?"
                         title="Please enter a valid LinkedIn URL (e.g., https://www.linkedin.com/in/username)"
                     />
                 </div>
