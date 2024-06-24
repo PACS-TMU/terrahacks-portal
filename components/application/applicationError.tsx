@@ -4,7 +4,7 @@ import { IoClose } from 'react-icons/io5';
 import { useClickAway } from 'react-use';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function ApplicationError({ searchParams }: { searchParams: { page: string, message: string } }) {
+export default function ApplicationError({ searchParams }: { searchParams: { page?: string, message: string } }) {
     const [message, setMessage] = useState(searchParams.message);
     const contentRef = useRef(null);
     const router = useRouter();

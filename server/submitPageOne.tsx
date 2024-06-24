@@ -92,7 +92,7 @@ export default async function submitPageOne(formData: FormData) {
     // Get the user's id
     const user = await supabase.auth.getUser();
     if (!user) {
-        redirect('/login');
+        return redirect('/login');
     }
     const userID = user.data.user!.id;
 
@@ -139,7 +139,7 @@ export default async function submitPageOne(formData: FormData) {
     // All the logic for submitting an application will go here
     const firstName = formData.get('firstName');
     const lastName = formData.get('lastName');
-    const pronouns = formData.get('pronouns');
+    const pronouns = formData.get('pronouns') === "Other" ? formData.get('otherPronouns') : formData.get('pronouns');
     const otherPronouns = formData.get('otherPronouns');
     const gender = formData.get('gender');
     const race = formData.get('race');
@@ -177,7 +177,7 @@ export default async function submitPageOne(formData: FormData) {
             first_name: firstName,
             last_name: lastName,
             email,
-            pronouns: pronouns === "Other" ? otherPronouns : pronouns,
+            pronouns: pronouns,
             race,
             sexuality,
             field_of_study: fieldOfStudy,

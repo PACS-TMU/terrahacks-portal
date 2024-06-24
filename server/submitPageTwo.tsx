@@ -9,7 +9,7 @@ export default async function submitPageTwo(formData: FormData) {
     // Get the user's id
     const user = await supabase.auth.getUser();
     if (!user) {
-        redirect('/login');
+        return redirect('/login');
     }
     const userID = user.data.user!.id;
 

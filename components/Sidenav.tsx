@@ -117,7 +117,8 @@ export default function Sidenav() {
                                     width={3000}
                                     height={500}
                                     className="w-full h-auto"
-                                    priority={true}
+                                    blurDataURL="/assets/th-text.png"
+                                    placeholder="blur"
                                 />
                             </a>
                         </div>
