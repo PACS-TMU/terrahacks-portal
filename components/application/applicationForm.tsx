@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import ApplicationSegment1 from './applicationSegment1';
 import ApplicationSegment2 from './applicationSegment2';
@@ -41,6 +41,17 @@ interface ApplicationFormData {
 }
 
 export default function ApplicationForm() {
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            window.confirm();
+        }
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
     const [formData, setFormData] = useState<ApplicationFormData>({
         firstName: '',
         lastName: '',
