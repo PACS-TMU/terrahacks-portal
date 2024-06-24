@@ -22,6 +22,20 @@ export default function ApplicationError({ searchParams }: { searchParams: { pag
         }
     }, [message, router, currentSearchParams]);
 
+    useEffect(() => {
+        const handleEscape = () => {
+            setMessage("");
+        };
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                handleEscape();
+            }
+        });
+        return () => {
+            window.removeEventListener('keydown', handleEscape);
+        };
+    }, []);
+
     if (!message) {
         return null;
     }
