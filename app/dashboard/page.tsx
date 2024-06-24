@@ -30,19 +30,26 @@ export default async function Dashboard() {
   let applicationId = null;
   let dateApplied = null;
 
-  const { data: application, error } = await supabase.from("applications").select().eq("account_id", user.id);
+  const { data: userApplication, error: userApplicationError } = await supabase.from("users").select("applied").eq("id", user.id);
 
-  if (error) {
-    console.error("Error fetching application: ", error);
+  if (userApplicationError) {
+    console.error("Error fetching user application: ", userApplicationError);
   }
 
-  if (application && application.length > 0) {
-    applicationInformation = "Thank you for applying! You can view your application details below:";
-    applicationStatus = application[0].status;
-    applicationId = application[0].application_id;
-    dateApplied = application[0].applied_date;
-  }
+  if (userApplication![0].applied === "Applied") {
+    const { data: application, error } = await supabase.from("applications").select().eq("account_id", user.id);
 
+    if (error) {
+      console.error("Error fetching application: ", error);
+    }
+
+    if (application && application.length > 0) {
+      applicationInformation = "Thank you for applying! You can view your application details below:";
+      applicationStatus = application[0].status;
+      applicationId = application[0].application_id;
+      dateApplied = application[0].applied_date;
+    }
+  }
 
   return (
     <>
