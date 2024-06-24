@@ -218,7 +218,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         <option value="Native Hawaiian">Native Hawaiian</option>
                         <option value="Samoan">Samoan</option>
                         <option value="South Asian">South Asian</option>
-                        <option value="Southeast Asian">Southeast Asian</option>
+                        <option value="South East Asian">South East Asian</option>
                         <option value="Other Asian">Other Asian</option>
                         <option value="Other Pacific Islander">Other Pacific Islander</option>
                         <option value="Other">Other</option>

@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     return (
         <section className={`${raleway.className}`}>
             <Sidenav />
-            <div className="md:pl-72 lg:pl-80">
+            <div className="md:pl-72 2xl:pl-80">
                 {children}
                 <Footer />
             </div>
