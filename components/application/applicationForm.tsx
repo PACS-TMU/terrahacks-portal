@@ -28,6 +28,7 @@ interface ApplicationFormData {
     school: string;
     otherSchool: string;
     tmuStudentID: string;
+    tmuEmail: string;
     accommodationsBool: string;
     accommodationsDescription: string;
     dietaryRestrictions: string;
@@ -36,7 +37,7 @@ interface ApplicationFormData {
     linkedinURL: string;
     questionOne: string;
     questionTwo: string;
-    resumeUrl: string | null;
+    resume: File | null;
 }
 
 export default function ApplicationForm() {
@@ -60,6 +61,7 @@ export default function ApplicationForm() {
         school: '',
         otherSchool: '',
         tmuStudentID: '',
+        tmuEmail: '',
         accommodationsBool: '',
         accommodationsDescription: '',
         dietaryRestrictions: '',
@@ -68,7 +70,7 @@ export default function ApplicationForm() {
         linkedinURL: '',
         questionOne: '',
         questionTwo: '',
-        resumeUrl: null,
+        resume: null,
     });
 
     const searchParams = useSearchParams();
@@ -91,11 +93,19 @@ export default function ApplicationForm() {
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {
-            const resumeUrl = URL.createObjectURL(file);
+        if (file?.type !== 'application/pdf') {
+            alert('Please upload a PDF file.');
             setFormData({
                 ...formData,
-                resumeUrl
+                resume: null
+            });
+            e.target.value = '';
+            return;
+        }
+        if (file) {
+            setFormData({
+                ...formData,
+                resume: file
             });
         }
     };
@@ -145,7 +155,8 @@ export default function ApplicationForm() {
                 </SubmitButton>
             </div>
             <div id='container' className='bg-[#2A6C82] rounded-lg p-8 m-8 pt-16 pb-8'>
-                <h3 className='text-background font-semibold lg:text-lg xl:text-xl 2xl:text-2xl pb-4'>IMPORTANT: If you leave this page, you will lose your progress.</h3>
+                <h3 className='text-background font-semibold lg:text-lg xl:text-xl 2xl:text-2xl pb-2'>IMPORTANT: If you leave this page, you will lose your progress.</h3>
+                <p className='text-background text-sm lg:text-base 2xl:text-lg pb-4'>Don't worry, your progress is saved between pages!</p>
                 {page === 1 ? (
                     <form className='font-mono' id='section-one'>
                         <ApplicationSegment1 formData={formData} handleInputChange={handleInputChange} />

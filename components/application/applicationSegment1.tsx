@@ -25,6 +25,7 @@ type ApplicationSegment1Props = {
         school: string,
         otherSchool: string,
         tmuStudentID: string,
+        tmuEmail: string,
         accommodationsBool: string,
         accommodationsDescription: string,
         dietaryRestrictions: string,
@@ -56,6 +57,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
         school,
         otherSchool,
         tmuStudentID,
+        tmuEmail,
         accommodationsBool,
         accommodationsDescription,
         dietaryRestrictions,
@@ -114,7 +116,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         htmlFor="email"
                         className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
                     >
-                        {school === "Toronto Metropolitan (Ryerson) University" ?  'TMU Email' : 'Email'}
+                        Email
                     </label>
                     <input
                         id="email"
@@ -122,9 +124,8 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         name="email"
                         value={email}
                         onChange={handleInputChange}
-                        placeholder={school === "Toronto Metropolitan (Ryerson) University" ? "sandra@torontomu.ca" : "sandra@terrhacks.ca"}
-                        title={"Please enter your " + (school === "Toronto Metropolitan (Ryerson) University" ? 'TMU email' : 'email')}
-                        pattern={school === "Toronto Metropolitan (Ryerson) University" ? "^[a-zA-Z0-9._%+-]+@torontmu\\.ca$" : undefined}
+                        placeholder="sandra@terrhacks.ca"
+                        title='Please enter your email'
                         type='email'
                         autoComplete='email'
                         required
@@ -312,29 +313,29 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         Province
                     </label>
                     {(country === "Canada") ? (
-                    <select
-                        id="province"
-                        name="province"
-                        value={province}
-                        onChange={handleInputChange} // Corrected the set function
-                        className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3"
-                        required
-                    >
-                        <option value="" disabled>-- Select --</option>
-                        <option value="Alberta">Alberta</option>
-                        <option value="British Columbia">British Columbia</option>
-                        <option value="Manitoba">Manitoba</option>
-                        <option value="New Brunswick">New Brunswick</option>
-                        <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
-                        <option value="Northwest Territories">Northwest Territories</option>
-                        <option value="Nova Scotia">Nova Scotia</option>
-                        <option value="Nunavut">Nunavut</option>
-                        <option value="Ontario">Ontario</option>
-                        <option value="Prince Edward Island">Prince Edward Island</option>
-                        <option value="Quebec">Quebec</option>
-                        <option value="Saskatchewan">Saskatchewan</option>
-                        <option value="Yukon">Yukon</option>
-                    </select>
+                        <select
+                            id="province"
+                            name="province"
+                            value={province}
+                            onChange={handleInputChange} // Corrected the set function
+                            className="rounded-md px-4 py-2 bg-background mb-4 w-full lg:w-2/3"
+                            required
+                        >
+                            <option value="" disabled>-- Select --</option>
+                            <option value="Alberta">Alberta</option>
+                            <option value="British Columbia">British Columbia</option>
+                            <option value="Manitoba">Manitoba</option>
+                            <option value="New Brunswick">New Brunswick</option>
+                            <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                            <option value="Northwest Territories">Northwest Territories</option>
+                            <option value="Nova Scotia">Nova Scotia</option>
+                            <option value="Nunavut">Nunavut</option>
+                            <option value="Ontario">Ontario</option>
+                            <option value="Prince Edward Island">Prince Edward Island</option>
+                            <option value="Quebec">Quebec</option>
+                            <option value="Saskatchewan">Saskatchewan</option>
+                            <option value="Yukon">Yukon</option>
+                        </select>
                     ) : (
                         <input
                             id="province"
@@ -502,15 +503,27 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         />
                     )}
                     {school === "Toronto Metropolitan (Ryerson) University" && (
-                        <input
-                            id="tmuStudentID"
-                            className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
-                            name="tmuStudentID"
-                            value={tmuStudentID}
-                            onChange={handleInputChange}
-                            placeholder="Please enter your TMU student ID"
-                            required
-                        />
+                        <>
+                            <input
+                                id="tmuStudentID"
+                                className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
+                                name="tmuStudentID"
+                                value={tmuStudentID}
+                                onChange={handleInputChange}
+                                placeholder="Please enter your TMU student ID"
+                                required
+                            />
+                            <input
+                                id="tmuEmail"
+                                className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
+                                name="tmuEmail"
+                                value={tmuEmail}
+                                onChange={handleInputChange}
+                                placeholder="Please enter your TMU email"
+                                pattern='[a-z0-9._%+-]+@torontomu\.ca$'
+                                required
+                            />
+                        </>
                     )}
                 </div>
 

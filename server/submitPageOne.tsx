@@ -56,7 +56,6 @@ export default async function submitPageOne(formData: FormData) {
     // All the logic for submitting an application will go here
     const firstName = formData.get('firstName');
     const lastName = formData.get('lastName');
-    const email = formData.get('email');
     const pronouns = formData.get('pronouns');
     const otherPronouns = formData.get('otherPronouns');
     const gender = formData.get('gender');
@@ -65,13 +64,14 @@ export default async function submitPageOne(formData: FormData) {
     const phoneNumber = formData.get('phoneNumber');
     const country = formData.get('country') === "Other" ? formData.get('otherCountry') : formData.get('country');
     const city = formData.get('city');
-    const province = formData.get('province');
+    const province = formData.get('province') === '' ? 'Not in Canada' : formData.get('province');
     const levelOfStudy = formData.get('levelOfStudy');
     const graduationYear = Number(formData.get('graduationYear'));
     const fieldOfStudy = formData.get('fieldOfStudy');
     const school = formData.get('school') === "Other" ? formData.get('otherSchool') : formData.get('school');
     const tmuStudentBool = school === "Toronto Metropolitan (Ryerson) University" ? true : false;
     const tmuStudentID = tmuStudentBool ? formData.get('tmuStudentID') : 'Error retrieving student number.';
+    const email = tmuStudentBool ? formData.get('tmuEmail') : formData.get('email');
     const accommodationsBool = formData.get('accommodationsBool') === "Yes" ? true : false;
     const accommodationsDescription = accommodationsBool ? formData.get('accommodationsDescription') : null;
     const dietaryRestrictions = formData.get('dietaryRestrictions') === "Other" ? formData.get('otherDietaryRestriction') : formData.get('dietaryRestrictions');

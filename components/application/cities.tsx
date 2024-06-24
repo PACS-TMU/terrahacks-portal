@@ -1,5 +1,4 @@
 export const canadianCities: string[] = [
-    "Toronto",
     "Airdrie",
     "Ajax",
     "Alma",
@@ -114,6 +113,7 @@ export const canadianCities: string[] = [
     "Summerside",
     "Surrey",
     "Sydney",
+    "Toronto",
     "Terrebonne",
     "The Pas",
     "Thompson",
