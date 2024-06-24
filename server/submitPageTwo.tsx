@@ -54,7 +54,7 @@ export default async function submitPageTwo(formData: FormData) {
     }
 
     // All the logic for submitting a resume will go here
-    if (resume) {
+    if (resume.type === 'application/pdf') {
         const resumePath = resume ? `${userID}/${resume.name}` : null;
 
         if (resumePath && resume) {
