@@ -64,7 +64,7 @@ export default async function submitPageOne(formData: FormData) {
     const phoneNumber = formData.get('phoneNumber');
     const country = formData.get('country') === "Other" ? formData.get('otherCountry') : formData.get('country');
     const city = formData.get('city');
-    const province = formData.get('province') === '' ? 'Not in Canada' : formData.get('province');
+    const province = !formData.get('province') ? 'Not in Canada' : formData.get('province');
     const levelOfStudy = formData.get('levelOfStudy');
     const graduationYear = Number(formData.get('graduationYear'));
     const fieldOfStudy = formData.get('fieldOfStudy');
