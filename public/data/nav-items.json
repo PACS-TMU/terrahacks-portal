@@ -9,7 +9,7 @@
     {
         "id": 2,
         "name": "My Application",
-        "path": "/dashboard/application",
+        "path": "/dashboard/application?page=1",
         "icon": "<IoDocumentsOutline />",
         "status": "Not Applied"
     },

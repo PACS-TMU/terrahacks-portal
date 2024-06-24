@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import ApplicationSegment1 from './applicationSegment1';
 import ApplicationSegment2 from './applicationSegment2';
 import { SubmitButton } from '../forms/submit-button';
@@ -41,16 +41,51 @@ interface ApplicationFormData {
 }
 
 export default function ApplicationForm() {
+    const unloadRouter = useRouter();
+    const pathname = usePathname();
+    const [isNavigating, setIsNavigating] = useState(false);
 
     useEffect(() => {
-        const handleBeforeUnload = () => {
-            window.confirm();
-        }
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            if (!isNavigating) {
+                event.preventDefault();
+                event.returnValue = 'Are you sure you want to exit? You will lose your progress if you leave this page.';
+            }
+        };
+
+        const handleRouteChange = (url: string) => {
+            const currentPath = new URL(pathname, window.location.origin).pathname;
+            const newPath = new URL(url, window.location.origin).pathname;
+            
+            if (currentPath === '/dashboard/application' && newPath === '/dashboard/application') {
+                return true;
+            }
+            
+            if (!window.confirm('Are you sure you want to navigate away? You will lose your progress if you leave this page.')) {
+                setIsNavigating(false);
+                return false;
+            }
+
+            setIsNavigating(true);
+            return true;
+        };
+
         window.addEventListener('beforeunload', handleBeforeUnload);
+
+        const originalPush = unloadRouter.push;
+        unloadRouter.push = (...args) => {
+            if (handleRouteChange(args[0])) {
+                return originalPush(...args);
+            }
+            return Promise.resolve(false);
+        };
+
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
+            unloadRouter.push = originalPush; // Restore original push method
         };
-    }, []);
+    }, [unloadRouter, pathname, isNavigating]);
+
 
     const [formData, setFormData] = useState<ApplicationFormData>({
         firstName: '',
