@@ -5,9 +5,15 @@ import AcceptedSection from "./acceptedSection";
 export default function Intro({ user, applicationStatus, formattedDeadline, rsvpStatus }:
     { user: any, applicationStatus: any, formattedDeadline: any, rsvpStatus: any }
 ) {
+    let userFirstName = user.user_metadata.full_name;
+    try {
+        userFirstName = user.user_metadata.full_name.split(' ')[0];
+    } catch (e) {
+        console.error(e);
+    }
     return (
         <div className="md:sticky top-0 z-10 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
-            <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">Your Home</h1>
+            <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">{userFirstName}'s Home</h1>
             <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">Welcome to your user dashboard!</p>
             <p className="text-gray-800 mt-2">Having trouble? Please contact us at through {" "}
                 <a
