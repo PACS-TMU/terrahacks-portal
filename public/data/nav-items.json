@@ -47,5 +47,12 @@
         "path": "/dashboard/contact",
         "icon": "<IoMailOpenOutline />",
         "status": "Not Applied"
+    },
+    {
+        "id": 8,
+        "name": "Data Request",
+        "path": "/dashboard/data-request",
+        "icon": "<AiOutlineDatabase />",
+        "status": "Not Applied"
     }
 ]

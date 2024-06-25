@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
-import dataRequest from '@/server/request-data';
+import dataRequest from '@/server/dataRequest';
 import { SubmitButton } from '@/components/forms/submit-button';
 import ErrorMessage from '@/components/auth/error-message';
 
@@ -17,7 +17,9 @@ export default async function DataRequest({ searchParams }: { searchParams: { me
         <>
             <div className="md:sticky top-0 z-10 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
                 <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">Data Request Form</h1>
-                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">You can request to view/edit/delete your data here.</p>
+                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">
+                    You can request to view/edit/delete your user data here.
+                </p>
                 <p className="text-gray-800 mt-2">If you have any questions or concers email us at {" "}
 
                     <a
@@ -28,7 +30,15 @@ export default async function DataRequest({ searchParams }: { searchParams: { me
                         className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
                     >
                         contact@terrahacks.ca
-                    </a>!
+                    </a>! You can review our privacy policy {" "}
+                    <a
+                        aria-label="View our privacy policy"
+                        href="/assets/privacy-policy.pdf"
+                        target='_blank'
+                        className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
+                    >
+                        here
+                    </a>.
                 </p>
             </div>
             <form className='flex flex-col mx-auto w-11/12 md:w-3/4 xl:w-1/2 gap-6 bg-highlight p-4 font-medium rounded-md shadow-sm m-4'>
