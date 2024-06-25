@@ -13,7 +13,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
     const signUp = async (formData: FormData) => {
         "use server";
 
-        const origin = headers().get("origin");
+        const origin = process.env.NEXT_PUBLIC_BASE_URL ? `https://${process.env.NEXT_PUBLIC_BASE_URL}` : "http://localhost:3000";
         const firstName = formData.get("firstname") as string;
         const lastName = formData.get("lastname") as string;
         const email = formData.get("email") as string;
@@ -64,7 +64,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
 
         if (error) {
             console.error(error);
-            return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
+            return redirect("/signup?message=Error - haha An error occurred, please try again later. If issue persists, contact us.");
         }
 
         if (!signUpData.user) {

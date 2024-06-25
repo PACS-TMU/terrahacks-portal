@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function resetPassword(formData: FormData) {
-    const origin = headers().get("origin");
+    const origin = process.env.NEXT_PUBLIC_BASE_URL ? `https://${process.env.NEXT_PUBLIC_BASE_URL}` : "http://localhost:3000";
     const email = formData.get("email") as string;
     const supabase = createClient();
 
