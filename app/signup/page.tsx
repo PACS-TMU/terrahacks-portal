@@ -41,10 +41,12 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
 
         // Error code PGRST116 is thrown when the request returns no results
         if (getUserError && getUserError.code !== "PGRST116") {
+            console.error(getUserError);
             return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
 
         if (existingUser) {
+            console.error("Email already exists");
             return redirect("/login?message=Error - Email already exists. Please sign in.");
         }
 
@@ -61,14 +63,16 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
         });
 
         if (error) {
+            console.error(error);
             return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
 
         if (!signUpData.user) {
+            console.error("User not created");
             return redirect("/signup?message=Error - An error occurred, please try again later. If issue persists, contact us.");
         }
 
-        return redirect("/login?message=Check email to continue sign in process.");
+        return redirect("/login?message=Check email to continue sign in process. It may take a few minutes. If you do not receive an email, please check your spam folder. If issue persists, please contact us.");
     };
 
     return (
@@ -120,11 +124,22 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
 
                     <SubmitButton
                         formAction={signUp}
-                        className="bg-green-700 rounded-md px-4 py-2 text-background mt-4 mb-2 ease-in-out duration-300 hover:bg-green-800"
+                        className="bg-green-700 rounded-md px-4 py-2 text-background mt-4 ease-in-out duration-300 hover:bg-green-800"
                         pendingText="Signing Up..."
                     >
                         Sign Up
                     </SubmitButton>
+                    <p className="text-sm lg:text-base text-background pb-2 mb-2">
+                        By signing up, you agree to our {""}
+                        <Link
+                            aria-label="Terms of Service Link"
+                            href="/assets/privacy-policy.pdf"
+                            target="_blank"
+                            className="text-background font-semibold underline hover:text-green-500 ease-in-out duration-300"
+                        >
+                            Privacy Policy
+                        </Link>.
+                    </p>
 
                     <p className="pb-4 text-background">
                         Already have an account? {" "}

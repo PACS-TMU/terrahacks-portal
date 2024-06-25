@@ -35,7 +35,7 @@ export default function ErrorMessage({ searchParams }: { searchParams: { message
                     </p>
                 </div>
             ) : (
-                <div className={`items-center justify-center bg-green-500 text-background p-3 my-10 rounded-md ${showMessage ? "shake" : "fade-out"} text-left text-sm lg:text-base 2xl:text-lg`}>
+                <div className={`items-center justify-center bg-green-500 text-background max-w-[90%] lg:max-w-[50%] p-3 my-10 rounded-md ${showMessage ? "shake" : "fade-out"} text-left text-sm lg:text-base 2xl:text-lg`}>
                     <p>
                         {searchParams.message}
                     </p>
