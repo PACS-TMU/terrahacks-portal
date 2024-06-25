@@ -1,7 +1,7 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
-const defaultUrl = process.env.NEXT_PUBLIC_BASE_URL!
+const defaultUrl = process.env.NEXT_PUBLIC_BASE_URL ? `https://${process.env.NEXT_PUBLIC_BASE_URL}` : "http://localhost:3000";
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
