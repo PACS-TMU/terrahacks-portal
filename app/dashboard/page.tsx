@@ -15,7 +15,7 @@ export default async function Dashboard({ searchParams }: { searchParams: { mess
   }
 
   // Get the application deadline and format it
-  const deadline = new Date(`${process.env.NEXT_PUBLIC_APPLICATION_DEADLINE!}`);
+  const deadline = new Date("2024-07-25T23:59:59");
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
