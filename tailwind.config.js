@@ -10,7 +10,9 @@ module.exports = {
         background: "#F7FAFC",
         foreground: "#1E1E1E",
         highlight: "#2A6C82",
-        highlightLight: "#63ACC4"
+        highlightLight: "#63ACC4",
+        btn: "#4DB2D4",
+        btnHover: "#5CCCF1",
       },
     },
   },

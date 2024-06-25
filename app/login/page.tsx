@@ -25,7 +25,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
             return redirect("/login?message=Error - could not authenticate user. Please check your credentials and try again.");
         }
 
-        return redirect("/");
+        return redirect("/dashboard");
     };
     
     return (
@@ -52,7 +52,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
                     <Link
                         aria-label="Forgot Password Link"
                         href="/forgot-password"
-                        className="text-sm lg:text-md w-fit text-background font-medium underline hover:text-green-500 ease-in-out duration-300 pb-4 text-underline"
+                        className="text-sm lg:text-base w-fit text-background font-medium underline hover:text-green-500 ease-in-out duration-300 pb-4 text-underline"
                     >
                         Forgot Password?
                     </Link>
@@ -80,7 +80,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
                 </form>
                 <OAuthButton provider="google" />
                 <OAuthButton provider="github" />
-                <p className="text-background text-sm xl:text-md text-center">
+                <p className="text-background text-sm xl:text-base text-center">
                     Having problems? Please contact us at <a href="mailto:contact@terrahacks.ca" className="underline hover:text-green-500 ease-in-out duration-300">contact@terrahacks.ca</a> to get help.
                 </p>
             </div>

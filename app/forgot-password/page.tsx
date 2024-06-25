@@ -22,7 +22,7 @@ export default function ForgotPassword({ searchParams }: { searchParams: { messa
                 </h2>
 
                 <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-                <label className="text-md text-background" htmlFor="email">
+                <label className="text-base text-background" htmlFor="email">
                     Email
                 </label>
                 <input

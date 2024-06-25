@@ -34,7 +34,7 @@ export default async function NewPasswordPage({ searchParams }: { searchParams: 
           <input type="hidden" name="code" value={code} />
           <PasswordField name="confirm-password" />
 
-          <p className="text-sm lg:text-md text-background pb-4"><span className="font-semibold">Note:</span> Passwords must be at least 6 characters long.</p>
+          <p className="text-sm lg:text-base text-background pb-4"><span className="font-semibold">Note:</span> Passwords must be at least 6 characters long.</p>
 
           <SubmitButton
             className="bg-green-700 rounded-md px-4 py-2 text-background mb-2 ease-in-out duration-300 hover:bg-green-800"

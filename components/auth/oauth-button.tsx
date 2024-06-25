@@ -13,7 +13,7 @@ export default function OAuthButton({
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: `http://localhost:3000/auth/callback`,
+        redirectTo: `${location.origin}/auth/callback`,
       },
     });
   };
@@ -24,7 +24,7 @@ export default function OAuthButton({
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `http://localhost:3000/auth/callback`,
+        redirectTo: `${location.origin}/auth/callback`,
       },
     });
 
@@ -49,7 +49,7 @@ export default function OAuthButton({
   return (
     <button
       aria-label={`Continue with ${provider}`}
-      className="border flex flex-row justify-center items-center bg-background rounded-md px-4 py-2 text-black mb-2 w-full hover:bg-gray-200 ease-out duration-300"
+      className="border flex flex-row justify-center items-center bg-background rounded-md px-4 py-2 text-foreground mb-2 w-full hover:bg-gray-200 ease-out duration-300"
       onClick={signInWithOAuth}
     >
       <Image

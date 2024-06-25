@@ -9,7 +9,7 @@
     {
         "id": 2,
         "name": "My Application",
-        "path": "/dashboard/application",
+        "path": "/dashboard/application?page=1",
         "icon": "<IoDocumentsOutline />",
         "status": "Not Applied"
     },
@@ -46,6 +46,13 @@
         "name": "Contact",
         "path": "/dashboard/contact",
         "icon": "<IoMailOpenOutline />",
+        "status": "Not Applied"
+    },
+    {
+        "id": 8,
+        "name": "Data Request",
+        "path": "/dashboard/data-request",
+        "icon": "<AiOutlineDatabase />",
         "status": "Not Applied"
     }
 ]

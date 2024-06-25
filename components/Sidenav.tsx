@@ -5,7 +5,7 @@ import Link from "next/link";
 import SignoutButton from "@/components/SignoutButton";
 import Loading from "@/components/Loading";
 import { IoHomeOutline, IoCalendarClearOutline, IoTicketOutline, IoLocationOutline, IoDocumentsOutline, IoMailOpenOutline, IoLockClosedOutline } from 'react-icons/io5';
-import { AiOutlineTeam } from 'react-icons/ai';
+import { AiOutlineTeam, AiOutlineDatabase } from 'react-icons/ai';
 import { Twirl as Hamburger } from 'hamburger-react';
 import { useClickAway } from "react-use";
 
@@ -16,7 +16,8 @@ const iconMapping: Record<string, ReactNode> = {
     "<AiOutlineTeam />": <AiOutlineTeam size={28} />,
     "<IoTicketOutline />": <IoTicketOutline size={28} />,
     "<IoLocationOutline />": <IoLocationOutline size={28} />,
-    "<IoMailOpenOutline />": <IoMailOpenOutline size={28} />
+    "<IoMailOpenOutline />": <IoMailOpenOutline size={28} />,
+    "<AiOutlineDatabase />": <AiOutlineDatabase size={28} />,
 };
 
 export default function Sidenav() {
@@ -52,11 +53,10 @@ export default function Sidenav() {
             try {
                 const response = await fetch("/data/nav-items.json");
                 const data = await response.json();
-                console.log("Nav items: ", data);
                 setNavItems(data);
             }
             catch (error) {
-                console.log("Error fetching nav items: ", error);
+                console.error("Error fetching nav items: ", error);
             }
         };
 
@@ -118,7 +118,8 @@ export default function Sidenav() {
                                     width={3000}
                                     height={500}
                                     className="w-full h-auto"
-                                    priority={true}
+                                    blurDataURL="/assets/th-text.png"
+                                    placeholder="blur"
                                 />
                             </a>
                         </div>

@@ -1,7 +1,7 @@
 export default function EmailField() {
     return (
         <>
-            <label className="text-md text-background" htmlFor="email">
+            <label className="text-base text-background" htmlFor="email">
                 Email
             </label>
             <input
