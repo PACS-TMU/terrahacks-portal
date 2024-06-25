@@ -247,6 +247,9 @@ export default function ApplicationForm() {
                                     hover:cursor-pointer"
                             />
                         </div >
+                        <p className='text-background text-sm lg:text-base 2xl:text-lg pt-4'>
+                            <span className='font-semibold'>Note:</span> Once you submit your application, you will not be able to make any changes. Please ensure all information is correct before submitting.
+                        </p>
 
                         <div className='flex flex-col lg:flex-row lg:justify-between'>
                             <button
