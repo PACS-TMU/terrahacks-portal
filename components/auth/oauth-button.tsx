@@ -7,13 +7,18 @@ export default function OAuthButton({
 }: {
   provider: string;
 }): JSX.Element {
+
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL
+    ? `https://${process.env.NEXT_PUBLIC_BASE_URL}`
+    : "http://localhost:3000";
+
   const signInWithGitHub = async () => {
     const supabase = createClient();
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${baseURL}/auth/callback`,
       },
     });
   };
@@ -24,7 +29,7 @@ export default function OAuthButton({
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${baseURL}/auth/callback`,
       },
     });
 
