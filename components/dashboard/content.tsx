@@ -1,3 +1,5 @@
+import moment from 'moment-timezone';
+
 export default function Content({ applicationStatus, applicationInformation, applicationId, dateApplied, rsvpStatus }:
   { applicationStatus: any, applicationInformation: any, applicationId: any, dateApplied: any, rsvpStatus: any }
 ) {
@@ -32,7 +34,7 @@ export default function Content({ applicationStatus, applicationInformation, app
                       </span>
                       <br />
                       <span className="font-mono text-lg lg:text-xl">
-                        {new Date(dateApplied).toLocaleString()}
+                        {moment(dateApplied).tz('America/Toronto').format('YYYY-MM-DD hh:mm A')} EST
                       </span>
                     </p>
                   </div>
@@ -69,7 +71,6 @@ export default function Content({ applicationStatus, applicationInformation, app
                   {rsvpStatus === 'Rescinded' ? `RSVP rescinded, sorry to see you go!` : (
                     rsvpStatus === "Yes" ? `RSVP submitted, see you at TerraHacks!` : applicationStatus
                   )}
-
                 </span>
               </p>
             ) :
