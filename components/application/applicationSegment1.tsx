@@ -61,6 +61,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
         accommodationsBool,
         accommodationsDescription,
         dietaryRestrictions,
+        otherDietaryRestriction,
         githubURL,
         linkedinURL,
     } = formData;
@@ -674,7 +675,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                             id="otherDietaryRestriction"
                             className="rounded-md px-4 py-2 bg-background  mb-4 placeholder-gray-400 w-full lg:w-1/2"
                             name="otherDietaryRestriction"
-                            value={accommodationsDescription}
+                            value={otherDietaryRestriction}
                             onChange={handleInputChange}
                             placeholder="Please describe dietary restrictions"
                             required

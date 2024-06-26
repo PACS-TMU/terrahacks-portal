@@ -64,7 +64,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
 
         if (error) {
             console.error(error);
-            return redirect("/signup?message=Error - haha An error occurred, please try again later. If issue persists, contact us.");
+            return redirect("/signup?message=Error - An error occurred, please try again later. We recommend logging in with Google/GitHub. If issue persists, contact us.");
         }
 
         if (!signUpData.user) {
