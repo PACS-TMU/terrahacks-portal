@@ -9,31 +9,30 @@ export default async function submitPageOne(formData: FormData) {
         let isPhoneValid = false;
         let isGithubValid = false;
         let isLinkedInValid = false;
-
+    
         // Check if TMU email is valid
         const uni = formData.get('school') === "Other" ? formData.get('otherSchool') : formData.get('school');
         if (uni === "Toronto Metropolitan (Ryerson) University") {
             // Add your validation logic here
             const emailPattern = /^[a-z0-9._%+-]+@torontomu\.ca$/;
             const studentIdPattern = /^\d{9}$/;
-
+    
             const tmuEmail = formData.get('tmuEmail') as string;
             const studentID = formData.get('tmuStudentID') as string;
-
+    
             isTMUEmailValid = emailPattern.test(tmuEmail);
             isStudentNumValid = studentIdPattern.test(studentID);
-
+    
             if (!isStudentNumValid) {
                 return { valid: false, message: "Error - Please enter a valid TMU student number." }
             }
             if (!isTMUEmailValid) {
                 return { valid: false, message: "Error - Please enter a valid TMU email." }
             }
-        }
-        else {
+        } else {
             isTMUEmailValid = true;
         }
-
+    
         // Check if phone number is valid
         const phonePattern = /\([0-9]{3}\) [0-9]{3}-[0-9]{4}/;
         const phoneNumber = formData.get('phoneNumber') as string;
@@ -41,41 +40,35 @@ export default async function submitPageOne(formData: FormData) {
         if (!isPhoneValid) {
             return { valid: false, message: "Error - Please enter a valid phone number." }
         }
-
+    
         // Check if Github URL is valid
-        const githubPattern = /^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9-]+$/;
+        const githubPattern = /^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9-]+$/i;
         const githubURL = formData.get('githubURL') as string;
         if (githubURL === "") {
             isGithubValid = true;
-        }
-        else {
+        } else {
             isGithubValid = githubPattern.test(githubURL);
             if (!isGithubValid) {
                 return { valid: false, message: "Error - Please enter a valid Github URL." }
             }
         }
-
+    
         // Check if LinkedIn URL is valid
-        const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+$/;
+        const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+$/i;
         const linkedinURL = formData.get('linkedinURL') as string;
         if (linkedinURL === "") {
             isLinkedInValid = true;
-        }
-        else {
+        } else {
             isLinkedInValid = linkedinPattern.test(linkedinURL);
             if (!isLinkedInValid) {
                 return { valid: false, message: "Error - Please enter a valid LinkedIn URL." }
             }
-
-            if (isTMUEmailValid && isPhoneValid && isGithubValid && isLinkedInValid) {
-                return { valid: true, message: "" }
-            }
         }
-
+    
         if (isTMUEmailValid && isPhoneValid && isGithubValid && isLinkedInValid) {
             return { valid: true, message: "" }
         }
-    };
+    };    
 
     // Validate the form data
     const validation = validate(formData);
@@ -158,8 +151,8 @@ export default async function submitPageOne(formData: FormData) {
     const accommodationsBool = formData.get('accommodationsBool') === "Yes" ? true : false;
     const accommodationsDescription = accommodationsBool ? formData.get('accommodationsDescription') : null;
     const dietaryRestrictions = formData.get('dietaryRestrictions') === "Other" ? formData.get('otherDietaryRestriction') : formData.get('dietaryRestrictions');
-    const githubURL = formData.get('githubURL') ? formData.get('githubURL') : "N/A";
-    const linkedinURL = formData.get('linkedinURL') ? formData.get('linkedinURL') : "N/A";
+    const githubURL = formData.get('githubURL') ? formData.get('githubURL')!.toString().toLowerCase() : "N/A";
+    const linkedinURL = formData.get('linkedinURL') ? formData.get('linkedinURL')!.toString().toLowerCase() : "N/A";
 
     // Check if the user has already submitted their application details
     const { data: oldApplicationDetailsData, error: oldApplicationDetailsError } = await supabase.from('applicant_details').select().eq('account_id', userID);
