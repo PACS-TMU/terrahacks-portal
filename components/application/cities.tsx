@@ -75,6 +75,7 @@ export const canadianCities: string[] = [
     "Oshawa",
     "Paradise",
     "Peterborough",
+    "Pickering",
     "Port-Cartier",
     "Portage la Prairie",
     "Prince Albert",
