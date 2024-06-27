@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
+import { isWebView } from "@/utils/detectWebView";
 
 export default function OAuthButton({
   provider,
@@ -51,11 +52,13 @@ export default function OAuthButton({
     }
   }
 
+  const webView = isWebView();
+
   return (
     <button
       aria-label={`Continue with ${provider}`}
-      className="border flex flex-row justify-center items-center bg-background rounded-md px-4 py-2 text-foreground mb-2 w-full hover:bg-gray-200 ease-out duration-300"
-      onClick={signInWithOAuth}
+      className={`border flex flex-row justify-center items-center bg-background rounded-md px-4 py-2 text-foreground mb-2 w-full hover:bg-gray-200 ease-out duration-300 ${webView && provider === "google" && 'cursor-not-allowed opacity-50'}`}
+      onClick={!webView || provider !== "google" ? signInWithOAuth : undefined}
     >
       <Image
         src={`/assets/${provider}-logo.png`}
@@ -64,7 +67,10 @@ export default function OAuthButton({
         height={500}
         className="mr-4 w-6 h-6"
       />
-      Continue with {providerToText(provider)}
+      {webView && provider === "google" ?
+        "Google Sign In is not supported in WebView" :
+        `Continue with ${providerToText(provider)}`
+      }
     </button>
   );
 }
