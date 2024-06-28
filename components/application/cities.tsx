@@ -7,6 +7,7 @@ export const canadianCities: string[] = [
     "Barrie",
     "Beloeil",
     "Blainville",
+    "Bradford",
     "Brampton",
     "Brandon",
     "Bridgewater",

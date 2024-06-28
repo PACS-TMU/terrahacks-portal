@@ -42,7 +42,7 @@ export default async function submitPageOne(formData: FormData) {
         }
     
         // Check if Github URL is valid
-        const githubPattern = /^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9-]+$/i;
+        const githubPattern = /^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9-]+$\/?/i;
         const githubURL = formData.get('githubURL') as string;
         if (githubURL === "") {
             isGithubValid = true;
@@ -54,7 +54,7 @@ export default async function submitPageOne(formData: FormData) {
         }
     
         // Check if LinkedIn URL is valid
-        const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+$/i;
+        const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/i;
         const linkedinURL = formData.get('linkedinURL') as string;
         if (linkedinURL === "") {
             isLinkedInValid = true;
