@@ -1,20 +1,16 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
-import  Calender  from '@/components/dashboard/schedule/calendar';
+import  Calendar  from '@/components/dashboard/schedule/calendar.jsx';
 // Imports for Scheduler
-
-
 
 export default async function Schedule() {
 
+    // Check that the user is authenticated
     const supabase = createClient();
-
     const { data: { user } } = await supabase.auth.getUser();
-
     if (!user) {
         return redirect('/login');
     }
-
 
     return (
         <>
@@ -44,12 +40,9 @@ export default async function Schedule() {
             </div>
 
             {/* Div for the schedule  */}
-            <div className=''>
-
-               <Calender />
-                
+            <div>
+               <Calendar />
             </div>
-
         </>
     );
 }
