@@ -5,6 +5,7 @@ export const schedulerData = [
         startDate: '2024-08-02T20:00',
         endDate: '2024-08-02T21:00',
         title: 'Opening Ceremony',
+        room: 'DCC 204',
         details: 'Join us for the opening ceremony to kick off the event!'
     },
     {
@@ -12,6 +13,7 @@ export const schedulerData = [
         startDate: '2024-08-02T21:00',
         endDate: '2024-08-02T22:00',
         title: 'Dinner',
+        room: 'DCC 103/104',
         details: 'Enjoy a delicious dinner with fellow participants.'
     },
     {
@@ -19,6 +21,7 @@ export const schedulerData = [
         startDate: '2024-08-02T18:00',
         endDate: '2024-08-02T23:00',
         title: 'Check-In',
+        room: 'Outside DCC 103/104',
         details: 'Check in and get your event materials and welcome package.'
     },
 
@@ -28,6 +31,7 @@ export const schedulerData = [
         startDate: '2024-08-03T01:00',
         endDate: '2024-08-03T02:00',
         title: 'Karaoke',
+        room: 'DCC 350/352',
         details: 'Come join us for a karaoke session for a fun destressor!'
     },
     {
@@ -35,6 +39,7 @@ export const schedulerData = [
         startDate: '2024-08-03T09:30',
         endDate: '2024-08-03T10:30',
         title: 'Breakfast',
+        room: 'DCC 103/104',
         details: 'Start your day with a hearty breakfast.'
     },
     {
@@ -42,6 +47,7 @@ export const schedulerData = [
         startDate: '2024-08-03T11:00',
         endDate: '2024-08-03T12:00',
         title: 'Cup Stacking',
+        room: 'DCC 350',
         details: 'Compete in a fun cup stacking tournament for a chance to win prizes.'
     },
     {
@@ -49,6 +55,7 @@ export const schedulerData = [
         startDate: '2024-08-03T11:00',
         endDate: '2024-08-03T12:00',
         title: 'Bingo',
+        room: 'DCC 352',
         details: 'Join us for a game of Bingo with exciting prizes.'
     },
     {
@@ -56,6 +63,7 @@ export const schedulerData = [
         startDate: '2024-08-03T14:00',
         endDate: '2024-08-03T15:30',
         title: 'Lunch',
+        room: 'Outside DCC 204',
         details: 'Take a break and enjoy lunch with fellow participants.'
     },
     {
@@ -63,6 +71,7 @@ export const schedulerData = [
         startDate: '2024-08-03T15:00',
         endDate: '2024-08-03T17:00',
         title: 'Networking Block',
+        room: 'DCC 103/104',
         details: 'Network with other attendees and sponsors and make new connections.'
     },
     {
@@ -70,6 +79,7 @@ export const schedulerData = [
         startDate: '2024-08-03T18:00',
         endDate: '2024-08-03T19:30',
         title: 'Intro to React Workshop',
+        room: 'DCC 204',
         details: 'Learn the basics of React in this introductory session.'
     },
     {
@@ -77,6 +87,7 @@ export const schedulerData = [
         startDate: '2024-08-03T21:00',
         endDate: '2024-08-03T22:30',
         title: 'Dinner',
+        room: 'DCC 103/104',
         details: 'Enjoy a relaxing dinner after a day of activities.'
     },
     {
@@ -84,6 +95,7 @@ export const schedulerData = [
         startDate: '2024-08-03T23:00',
         endDate: '2024-08-03T24:00',
         title: 'Super Smash Tournament',
+        room: 'DCC 350/352',
         details: 'Compete in our Super Smash Bros. tournament for a chance to win prizes.'
     },
 
@@ -93,6 +105,7 @@ export const schedulerData = [
         startDate: '2024-08-04T01:30',
         endDate: '2024-08-04T02:30',
         title: 'Spicy Noodle Challenge',
+        room: 'DCC 350/352',
         details: 'Test your limits in the spicy noodle challenge for a chance to win prizes.'
     },
     {
@@ -100,6 +113,7 @@ export const schedulerData = [
         startDate: '2024-08-04T11:00',
         endDate: '2024-08-04T16:30',
         title: 'Judging',
+        room: 'DCC 458/460',
         details: 'Present your projects for our judges.'
     },
     {
@@ -107,6 +121,7 @@ export const schedulerData = [
         startDate: '2024-08-04T13:00',
         endDate: '2024-08-04T15:00',
         title: 'Lunch',
+        room: 'Outside DCC 204',
         details: 'Enjoy lunch while networking with others.'
     },
     {
@@ -114,13 +129,15 @@ export const schedulerData = [
         startDate: '2024-08-04T13:00',
         endDate: '2024-08-04T15:00',
         title: 'Networking Block',
-        details: 'Continue networking and building connections.'
+        room: 'DCC 103/104',
+        details: 'Continue networking and building connections with peers and sponsors.'
     },
     {
         id: 16,
         startDate: '2024-08-04T15:00',
         endDate: '2024-08-04T16:00',
         title: 'Board Games',
+        room: 'DCC 350/352',
         details: 'Relax and destress with some board games.'
     },
     {
@@ -128,13 +145,15 @@ export const schedulerData = [
         startDate: '2024-08-04T15:00',
         endDate: '2024-08-04T16:00',
         title: 'Typing Contest',
-        details: 'Compete in a typing speed contest.'
+        room: 'DCC 103/104',
+        details: 'Compete in a typing speed contest for a chance to win prizes.'
     },
     {
         id: 18,
         startDate: '2024-08-04T17:00',
         endDate: '2024-08-04T18:00',
         title: 'Closing Ceremony',
+        room: 'DCC 204',
         details: 'Join us for the closing ceremony to wrap up the event and announce the winners!'
     },
 ];

@@ -12,20 +12,21 @@ import { format } from 'date-fns';
 
 const CustomTooltipContent = ({ appointmentData, ...restProps }) => {
     if (!appointmentData) {
-      return null;
+        return null;
     }
-  
+
     return (
-      <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
-        <div style={{ marginTop: 8 }}>
-          <div><strong>Title:</strong> {appointmentData.title}</div>
-          <div><strong>Start Date:</strong> {format(new Date(appointmentData.startDate), 'PPPpp')}</div>
-          <div><strong>End Date:</strong> {format(new Date(appointmentData.endDate), 'PPPpp')}</div>
-          <div><strong>Details:</strong> {appointmentData.details}</div>
-        </div>
-      </AppointmentTooltip.Content>
+        <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+            <div style={{ marginTop: 8 }}>
+                <div><strong>Title:</strong> {appointmentData.title}</div>
+                <div><strong>Start Date:</strong> {format(new Date(appointmentData.startDate), 'PPPpp')}</div>
+                <div><strong>End Date:</strong> {format(new Date(appointmentData.endDate), 'PPPpp')}</div>
+                <div><strong>Room:</strong> {appointmentData.room}</div>
+                <div><strong>Details:</strong> {appointmentData.details}</div>
+            </div>
+        </AppointmentTooltip.Content>
     );
-  };
+};
 
 export default function Calendar({ data = schedulerData, currentDate = '2024-08-02' }) {
     if (process.env.NODE_ENV === 'production') {
