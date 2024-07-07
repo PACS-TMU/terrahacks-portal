@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import ApplicationForm from "@/components/application/applicationForm";
-import ApplicationError from "@/components/application/applicationError";
+import ApplicationForm from "@/components/dashboard/application/applicationForm";
+import ApplicationError from "@/components/dashboard/application/applicationError";
 
 export default async function Application({ searchParams }: { searchParams: {page: string, message: string } }) {
 

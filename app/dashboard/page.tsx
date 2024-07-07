@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Homepage from "@/components/dashboard/homepage";
-import ApplicationError from "@/components/application/applicationError";
+import ApplicationError from "@/components/dashboard/application/applicationError";
 
 export default async function Dashboard({ searchParams }: { searchParams: { message: string } }) {
   const supabase = createClient();
