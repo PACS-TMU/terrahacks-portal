@@ -31,7 +31,7 @@ export default async function Applied() {
             <div className="bg-highlight p-6 lg:p-12 rounded-md shadow-md">
                 <h1 className="text-2xl lg:text-4xl text-center font-semibold text-primary text-background mb-8">Thank you for applying to TerraHacks 2024!</h1>
                 <p className="lg:text-lg text-center text-background font-mono">
-                    Your application has been recieved!
+                    Your application has been received!
                     If you have any questions or concerns, please don't hesitate to contact us
                     at <a href="mailto:contact@terrahacks.ca" className="underline hover:text-gray-400 ease-in-out duration-300">contact@terrahacks.ca</a>.
                 </p>

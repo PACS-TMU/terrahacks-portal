@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import ApplicationSegment1 from './applicationSegment1';
 import ApplicationSegment2 from './applicationSegment2';
-import { SubmitButton } from '../forms/submit-button';
+import { SubmitButton } from '../../forms/submit-button';
 import submitPageOne from '@/server/submitPageOne';
 import submitPageTwo from '@/server/submitPageTwo';
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from "react-icons/io";
