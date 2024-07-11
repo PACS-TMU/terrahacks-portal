@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/server";
+  import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Homepage from "@/components/dashboard/homepage";
 import ApplicationError from "@/components/dashboard/application/applicationError";
