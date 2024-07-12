@@ -28,14 +28,15 @@ export default async function Schedule() {
                     >
                         contact@terrahacks.ca
                     </a>, or join our {" "}
-
                     <a
                         aria-label="Discord Server Link"
                         href="https://discord.gg/kTXWhTMs2f"
                         target="_blank"
                         rel="nooppener noreferrer"
                         className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
-                    >Discord Server</a> for the latest updates and information!
+                    >
+                        Discord Server
+                    </a> for the latest updates and information!
                 </p>
             </div>
 
