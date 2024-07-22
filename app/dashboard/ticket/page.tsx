@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import Ticket from "@/components/ticket";
 
 export default async function Team() {
     const supabase = createClient();
@@ -38,12 +39,8 @@ export default async function Team() {
                     </a> for the latest updates and information!
                 </p>
             </div>
-            <div className="flex items-center justify-center py-10 min-h-[50vh]">
-                <div className="bg-white p-6 rounded-lg shadow-lg w-[80%] py-20 text-center">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4">We're working on your ticket!</h2>
-                    <p className="text-gray-700 mb-2">Check again closer to the event date to view it...</p>
-                    <p className="text-gray-600 text-sm">Thank you for your patience, and see you in August!</p>
-                </div>
+            <div>
+                <Ticket user_id={user.id} />
             </div>
         </>
     );
