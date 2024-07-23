@@ -8,29 +8,6 @@ import Link from "next/link";
 
 export default function Ticket({user_id}: {user_id: string}) {
     return (
-        // <CardContainer className="bg-[#306c84] rounded">
-        //     <CardBody className={''}>
-        //         <CardItem translateZ={20} className={'flex flex-row justify-between w-full mx-2 my-4'}>
-        //             <Image src={'/assets/th-text.png'} alt={'terrahacks-logo'} width={200} height={200} />
-        //             <div className={'flex flex-row'}>
-        //                 <div>
-        //                     Date
-        //                 </div>
-        //                 <div>
-        //                     Time
-        //                 </div>
-        //             </div>
-        //         </CardItem>
-        //         <CardItem>
-        //             <Image src={'/assets/tmu.jpg'} alt={'SLC'} width={200} height={50} />
-        //         </CardItem>
-        //         <CardItem translateZ={100} className={'w-full flex justify-center'}>
-        //             <div className={'bg-white p-4 rounded'}>
-        //                 <QRCode value={`https://admin.terrahacks.ca/log/${user_id}`} fgColor={'#306c84'} />
-        //             </div>
-        //         </CardItem>
-        //     </CardBody>
-        // </CardContainer>
         <CardContainer className="inter-var">
             <CardBody className="bg-[#306c84] relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#306c84] dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded text-white space-y-4">
                 <CardItem
@@ -78,7 +55,7 @@ export default function Ticket({user_id}: {user_id: string}) {
                 </CardItem>
                 <CardItem translateZ={100} className={'mx-auto pb-6'}>
                     <div className={'bg-white p-2 rounded'}>
-                        <QRCode value={`https://admin.terrahacks.ca/log/${user_id}`} fgColor={'#306c84'} />
+                        <QRCode value={`https://admin.terrahacks.ca/dashboard/log/${user_id}`} fgColor={'#306c84'} />
                     </div>
                 </CardItem>
             </CardBody>
