@@ -128,8 +128,9 @@ export default function Sidenav() {
 
                         <div className="p-4">
                             Welcome,
-                            <span className="ml-1 font-bold"> {user!.user_metadata.full_name}</span>
+                            <span className="ml-1 font-bold"> {user!.user_metadata.full_name == null ? "User" : user!.user_metadata.full_name}</span>
                             !
+                            
                         </div>
 
                         <aside className="flex flex-col items-start justify-between h-[83%] overflow-y-auto">
