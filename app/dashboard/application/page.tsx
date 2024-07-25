@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import ApplicationForm from "@/components/dashboard/application/applicationForm";
 import ApplicationError from "@/components/dashboard/application/applicationError";
 
-export default async function Application({ searchParams }: { searchParams: {page: string, message: string } }) {
+export default async function Application({ searchParams }: { searchParams: { page: string, message: string } }) {
 
     // Check that the user is authenticated
     const supabase = createClient();
@@ -23,7 +23,7 @@ export default async function Application({ searchParams }: { searchParams: {pag
         console.error("Error fetching application: ", error);
     }
 
-    
+
     if (!appliedData || appliedData.length === 0) {
         return redirect("/dashboard/application?page=1");
     }
@@ -33,6 +33,10 @@ export default async function Application({ searchParams }: { searchParams: {pag
     if (applicationStatus === "Applied") {
         return redirect("/dashboard/application/applied");
     }
+    else if (applicationStatus === "Not Applied" || applicationStatus === "In Progress") {
+        return redirect("/dashboard/application/closed");
+    }
+
 
     return (
         <>
@@ -41,6 +45,6 @@ export default async function Application({ searchParams }: { searchParams: {pag
                 <ApplicationError key={Date.now()} searchParams={searchParams} />
             )}
         </>
-        
+
     );
 }
