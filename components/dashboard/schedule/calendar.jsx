@@ -22,7 +22,8 @@ const CustomTooltipContent = ({ appointmentData, ...restProps }) => {
                 <div><strong>Start Date:</strong> {format(new Date(appointmentData.startDate), 'PPPpp')}</div>
                 <div><strong>End Date:</strong> {format(new Date(appointmentData.endDate), 'PPPpp')}</div>
                 <div><strong>Room:</strong> {appointmentData.room}</div>
-                <div><strong>Details:</strong> {appointmentData.details}</div>
+                <div><strong>Details:</strong> {appointmentData.details}</div> 
+                {appointmentData.form && <div><strong>Sign-up Form:</strong> {appointmentData.form}</div>}
             </div>
         </AppointmentTooltip.Content>
     );
