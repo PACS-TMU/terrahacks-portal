@@ -47,16 +47,18 @@ export const schedulerData = [
         startDate: '2024-08-03T11:00',
         endDate: '2024-08-03T12:00',
         title: 'Cup Stacking',
-        room: 'DCC 350',
-        details: 'Compete in a fun cup stacking tournament for a chance to win prizes.'
+        room: 'DCC 204',
+        details: 'Compete in a fun cup stacking tournament for a chance to win prizes.',
+        form: 'Coming Soon'
     },
     {
         id: 6,
         startDate: '2024-08-03T11:00',
         endDate: '2024-08-03T12:00',
         title: 'Bingo',
-        room: 'DCC 352',
-        details: 'Join us for a game of Bingo with exciting prizes.'
+        room: 'DCC 208',
+        details: 'Join us for a game of Bingo with exciting prizes.',
+        form: 'Coming Soon'
     },
     {
         id: 7,
@@ -95,8 +97,9 @@ export const schedulerData = [
         startDate: '2024-08-03T23:00',
         endDate: '2024-08-03T24:00',
         title: 'Super Smash Tournament',
-        room: 'DCC 350/352',
-        details: 'Compete in our Super Smash Bros. tournament for a chance to win prizes.'
+        room: 'DCC 208',
+        details: 'Compete in our Super Smash Bros. tournament for a chance to win prizes.', 
+        form: 'Coming Soon'
     },
 
     // Sunday
@@ -105,8 +108,9 @@ export const schedulerData = [
         startDate: '2024-08-04T01:30',
         endDate: '2024-08-04T02:30',
         title: 'Spicy Noodle Challenge',
-        room: 'DCC 350/352',
-        details: 'Test your limits in the spicy noodle challenge for a chance to win prizes.'
+        room: 'DCC 208',
+        details: 'Test your limits in the spicy noodle challenge for a chance to win prizes.', 
+        form: 'Coming Soon'
     },
     {
         id: 13,
@@ -130,14 +134,15 @@ export const schedulerData = [
         endDate: '2024-08-04T15:00',
         title: 'Networking Block',
         room: 'DCC 103/104',
-        details: 'Continue networking and building connections with peers and sponsors.'
+        details: 'Continue networking and building connections with peers and sponsors.',
+        form: "https://forms.gle/8"
     },
     {
         id: 16,
         startDate: '2024-08-04T15:00',
         endDate: '2024-08-04T16:00',
         title: 'Board Games',
-        room: 'DCC 350/352',
+        room: 'DCC 350',
         details: 'Relax and destress with some board games.'
     },
     {
@@ -145,8 +150,9 @@ export const schedulerData = [
         startDate: '2024-08-04T15:00',
         endDate: '2024-08-04T16:00',
         title: 'Typing Contest',
-        room: 'DCC 103/104',
-        details: 'Compete in a typing speed contest for a chance to win prizes.'
+        room: 'DCC 352',
+        details: 'Compete in a typing speed contest for a chance to win prizes.',
+        form: 'Coming Soon'
     },
     {
         id: 18,
@@ -156,4 +162,12 @@ export const schedulerData = [
         room: 'DCC 204',
         details: 'Join us for the closing ceremony to wrap up the event and announce the winners!'
     },
+    {
+        id: 19,
+        startDate: '2024-08-02T22:30',
+        endDate: '2024-08-02T23:30',
+        title: 'Just Dance',
+        room: 'DCC 350/352',
+        details: 'Play Just Dance with your friends and show off your moves!'
+    }
 ];
