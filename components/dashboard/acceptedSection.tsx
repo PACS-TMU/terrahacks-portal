@@ -1,6 +1,7 @@
 import { SubmitButton } from "../forms/submit-button";
 import submitRSVP from "@/server/submitRSVP";
 import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
 
 export default async function AcceptedSection() {
@@ -14,6 +15,7 @@ export default async function AcceptedSection() {
 
     if (error) {
         console.error(error);
+        return redirect("/dashboard?error=Error retrieving RSVP data, please contact support if issue persists.");
     }
     const rsvpDisabled = (yesCount !== null && yesCount >= maxRSVPs)
     // console.log("rsvpDisabled: " + rsvpDisabled);
