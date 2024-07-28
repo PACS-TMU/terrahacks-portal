@@ -54,7 +54,7 @@ export default async function submitPageOne(formData: FormData) {
             }
 
             //appends "https://" to github urls starting with www.
-            if (githubURL.slice(0,8) !== "https://") {
+            if (githubURL.slice(0,8) !== "https://" && githubURL.slice(0,8) !== "http://") {
                 githubURL = "https://" + githubURL;
                 formData.set('githubURL', githubURL);
             }
@@ -70,9 +70,9 @@ export default async function submitPageOne(formData: FormData) {
             if (!isLinkedInValid) {
                 return { valid: false, message: "Error - Please enter a valid LinkedIn URL." }
             }
-        
+            
             //appends "https://" to linkedin urls starting with www.
-            if (linkedinURL.slice(0,8) !== "https://") {
+            if (linkedinURL.slice(0,8) !== "https://" && linkedinURL.slice(0,8) !== "http://") {
                 linkedinURL = "https://" + linkedinURL;
                 formData.set('linkedinURL', linkedinURL);
             }
