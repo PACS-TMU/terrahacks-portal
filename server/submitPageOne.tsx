@@ -1,5 +1,6 @@
 "use server"
 import { createClient } from "@/utils/supabase/server";
+import { link } from "fs";
 import { redirect } from "next/navigation";
 
 export default async function submitPageOne(formData: FormData) {
@@ -43,7 +44,7 @@ export default async function submitPageOne(formData: FormData) {
     
         // Check if Github URL is valid
         const githubPattern = /^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9-]+$\/?/i;
-        const githubURL = formData.get('githubURL') as string;
+        let githubURL = formData.get('githubURL') as string;
         if (githubURL === "") {
             isGithubValid = true;
         } else {
@@ -51,17 +52,29 @@ export default async function submitPageOne(formData: FormData) {
             if (!isGithubValid) {
                 return { valid: false, message: "Error - Please enter a valid Github URL." }
             }
+
+            //appends "https://" to github urls starting with www.
+            if (githubURL.slice(0,8) !== "https://") {
+                githubURL = "https://" + githubURL;
+                formData.set('githubURL', githubURL);
+            }
         }
     
         // Check if LinkedIn URL is valid
         const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9-]+\/?$/i;
-        const linkedinURL = formData.get('linkedinURL') as string;
+        let linkedinURL = formData.get('linkedinURL') as string;
         if (linkedinURL === "") {
             isLinkedInValid = true;
         } else {
             isLinkedInValid = linkedinPattern.test(linkedinURL);
             if (!isLinkedInValid) {
                 return { valid: false, message: "Error - Please enter a valid LinkedIn URL." }
+            }
+        
+            //appends "https://" to linkedin urls starting with www.
+            if (linkedinURL.slice(0,8) !== "https://") {
+                linkedinURL = "https://" + linkedinURL;
+                formData.set('linkedinURL', linkedinURL);
             }
         }
     
