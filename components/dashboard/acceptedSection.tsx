@@ -24,7 +24,7 @@ export default async function AcceptedSection() {
             </p>
             <p className="md:text-xl whitespace-pre-line text-center my-2">
                 {rsvpDisabled ?
-                    "Unfortunately, the RSVP period has ended. Please contact us if you have any questions." :
+                    "Unfortunately, the RSVP capacity is full. Please contact us if you have any questions." :
                     "RSVP below as soon as possible to guarantee yourself a spot. \nWe look forward to seeing you in August!"
                 }
             </p>
@@ -38,7 +38,7 @@ export default async function AcceptedSection() {
                     className={`font-semibold  p-3 rounded-md text-foreground text-lg md:text-xl duration-300 ease-in-out ${rsvpDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-background hover:bg-gray-200'}  my-4`}
                     formAction={submitRSVP}
                 >
-                    {rsvpDisabled ? "RSVP period has ended :(" : "RSVP Now!"}
+                    {rsvpDisabled ? "RSVP is full :(" : "RSVP Now!"}
                 </SubmitButton>
             </form>
         </div>
