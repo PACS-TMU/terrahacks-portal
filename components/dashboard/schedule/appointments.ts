@@ -80,7 +80,7 @@ export const schedulerData = [
         id: 9,
         startDate: '2024-08-03T18:00',
         endDate: '2024-08-03T19:30',
-        title: 'Intro to React Workshop',
+        title: 'Intro to Next.js Workshop',
         room: 'DCC 204',
         details: 'Learn the basics of React in this introductory session.'
     },
