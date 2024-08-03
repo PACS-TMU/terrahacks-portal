@@ -49,7 +49,7 @@ export const schedulerData = [
         title: 'Cup Stacking',
         room: 'DCC 204',
         details: 'Compete in a fun cup stacking tournament for a chance to win prizes.',
-        form: 'Coming Soon'
+        form: 'https://forms.gle/fN3xVw9GFTWyVHCg9'
     },
     {
         id: 6,
@@ -58,7 +58,7 @@ export const schedulerData = [
         title: 'Bingo',
         room: 'DCC 208',
         details: 'Join us for a game of Bingo with exciting prizes.',
-        form: 'Coming Soon'
+    
     },
     {
         id: 7,
@@ -99,7 +99,7 @@ export const schedulerData = [
         title: 'Super Smash Tournament',
         room: 'DCC 208',
         details: 'Compete in our Super Smash Bros. tournament for a chance to win prizes.', 
-        form: 'Coming Soon'
+        form: 'https://forms.gle/o4D5GxodLwgL5Ybw7'
     },
 
     // Sunday
@@ -110,7 +110,7 @@ export const schedulerData = [
         title: 'Spicy Noodle Challenge',
         room: 'DCC 208',
         details: 'Test your limits in the spicy noodle challenge for a chance to win prizes.', 
-        form: 'Coming Soon'
+        form: 'https://forms.gle/UJ72KLVXag4sx2Rd8'
     },
     {
         id: 13,
@@ -152,7 +152,7 @@ export const schedulerData = [
         title: 'Typing Contest',
         room: 'DCC 352',
         details: 'Compete in a typing speed contest for a chance to win prizes.',
-        form: 'Coming Soon'
+        form: 'https://forms.gle/NPAueC9vrbmU33XMA'
     },
     {
         id: 18,
