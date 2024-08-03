@@ -33,9 +33,9 @@ export default async function Application({ searchParams }: { searchParams: { pa
     if (applicationStatus === "Applied") {
         return redirect("/dashboard/application/applied");
     }
-    // else if (applicationStatus === "Not Applied" || applicationStatus === "In Progress") {
-    //     return redirect("/dashboard/application/closed");
-    // }
+    else if (applicationStatus === "Not Applied" || applicationStatus === "In Progress") {
+        return redirect("/dashboard/application/closed");
+    }
 
     return (
         <>
