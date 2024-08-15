@@ -9,7 +9,7 @@ import ErrorMessage from "@/components/auth/error-message";
 import EmailField from "@/components/forms/email-field";
 
 export default function Login({ searchParams }: { searchParams: { message: string } }) {
-    const signIn = async (formData: FormData) => {
+    /*const signIn = async (formData: FormData) => {
         "use server";
 
         const email = formData.get("email") as string;
@@ -26,7 +26,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
         }
 
         return redirect("/dashboard");
-    };
+    };*/
     
     return (
         // background gradient
@@ -43,8 +43,11 @@ export default function Login({ searchParams }: { searchParams: { message: strin
                     height={400}
                     className="w-full h-auto mx-auto"
                 />
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold py-[5%] text-left text-background">Application Portal</h2>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold py-[5%] text-center text-background">
+                    TerraHacks 2024 has concluded. Join us again next year!
+                </h2>
 
+                {/*
                 <form className="flex flex-col w-full justify-center gap-2 text-foreground">
                     <EmailField />
                     <PasswordField name="password" />
@@ -83,6 +86,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
                 <p className="text-background text-sm xl:text-base text-center">
                     Having problems? Please contact us at <a href="mailto:contact@terrahacks.ca" className="underline hover:text-green-500 ease-in-out duration-300">contact@terrahacks.ca</a> to get help.
                 </p>
+                */}
             </div>
             {searchParams?.message && (
                 <ErrorMessage key={Date.now()} searchParams={searchParams} />
