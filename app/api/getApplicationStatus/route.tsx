@@ -15,7 +15,7 @@ export async function GET() {
 
     // Fetch the application status for the user
     const { data: applicationData, error: applicationError } = await supabase
-        .from('applications')
+        .from('applicant_details')
         .select('*')
         .eq('account_id', userId)
         .single();

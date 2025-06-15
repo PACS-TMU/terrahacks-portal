@@ -4,11 +4,11 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function AcceptedSection() {
-    const maxRSVPs = 250;
+    const maxRSVPs = 280;
 
     const supabase = createClient();
-    const { count: yesCount, error } = await supabase.from("applications").select("rsvp", { count: 'exact' })
-        .eq("rsvp", "Yes");
+    const { count: yesCount, error } = await supabase.from("rsvp").select("status", { count: 'exact' })
+        .eq("status", "Yes");
 
     if (error) {
         console.error(error);
@@ -33,7 +33,7 @@ export default async function AcceptedSection() {
                 <SubmitButton
                     disabled={rsvpDisabled}
                     pendingText="RSVPing..."
-                    aria-label="RSVP to TerraHacks 2024"
+                    aria-label="RSVP to TerraHacks 2025"
                     type="submit"
                     className={`font-semibold  p-3 rounded-md text-foreground text-lg md:text-xl duration-300 ease-in-out ${rsvpDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-background hover:bg-gray-200'}  my-4`}
                     formAction={submitRSVP}

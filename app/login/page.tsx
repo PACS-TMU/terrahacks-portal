@@ -8,8 +8,11 @@ import PasswordField from "../../components/forms/password-field";
 import ErrorMessage from "@/components/auth/error-message";
 import EmailField from "@/components/forms/email-field";
 
-export default function Login({ searchParams }: { searchParams: { message: string } }) {
-    /*const signIn = async (formData: FormData) => {
+export default async function Login({ searchParams }: { searchParams: Promise<{ message: string }> }) {
+    // Await searchParams
+    const resolvedSearchParams = await searchParams;
+
+    const signIn = async (formData: FormData) => {
         "use server";
 
         const email = formData.get("email") as string;
@@ -26,14 +29,14 @@ export default function Login({ searchParams }: { searchParams: { message: strin
         }
 
         return redirect("/dashboard");
-    };*/
+    };
     
     return (
         // background gradient
         <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex flex-col items-center lg:text-lg xl:text-xl justify-center text-background">
             <div className="flex flex-col w-full px-8 sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl items-center justify-center gap-2 animate-in">
                 {/* h1 is hidden for SEO purposes */}
-                <h1 className="opacity-0">TerraHacks</h1>
+                {/* <h1 className="opacity-0">TerraHacks</h1>
 
                 <Image
                     src="/assets/th-text.png"
@@ -45,9 +48,9 @@ export default function Login({ searchParams }: { searchParams: { message: strin
                 />
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold py-[5%] text-center text-background">
                     TerraHacks 2024 has concluded. Join us again next year!
-                </h2>
+                </h2> */}
 
-                {/*
+                
                 <form className="flex flex-col w-full justify-center gap-2 text-foreground">
                     <EmailField />
                     <PasswordField name="password" />
@@ -86,10 +89,10 @@ export default function Login({ searchParams }: { searchParams: { message: strin
                 <p className="text-background text-sm xl:text-base text-center">
                     Having problems? Please contact us at <a href="mailto:contact@terrahacks.ca" className="underline hover:text-green-500 ease-in-out duration-300">contact@terrahacks.ca</a> to get help.
                 </p>
-                */}
+               
             </div>
-            {searchParams?.message && (
-                <ErrorMessage key={Date.now()} searchParams={searchParams} />
+            {resolvedSearchParams?.message && (
+                <ErrorMessage key={Date.now()} searchParams={resolvedSearchParams} />
             )}
         </div>
     );

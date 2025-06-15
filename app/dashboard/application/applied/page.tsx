@@ -16,7 +16,7 @@ export default async function Applied() {
     }
 
     // Check if user has submitted an application
-    const { data: application, error } = await supabase.from("applications").select().eq("account_id", user.id);
+    const { data: application, error } = await supabase.from("applicant_details").select().eq("account_id", user.id);
 
     if (error) {
         console.error("Error fetching application: ", error);

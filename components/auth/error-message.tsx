@@ -2,8 +2,13 @@
 import { useState, useEffect } from "react";
 
 export default function ErrorMessage({ searchParams }: { searchParams: { message: string } }) {
-    const [showMessage, setShowMessage] = useState(true);
+    // Add safety checks
+    if (!searchParams || !searchParams.message) {
+        return null;
+    }
 
+    const [showMessage, setShowMessage] = useState(true);
+    
     useEffect(() => {
         setShowMessage(true);
         if (searchParams.message === "") return;

@@ -19,7 +19,7 @@ export default async function submitPageTwo(formData: FormData) {
     const resume = formData.get('resume') as File;
 
     // Add the long answer questions to the database
-    const { data: applicationData, error: applicationDataError } = await supabase.from('applications').select().eq('account_id', userID);
+    const { data: applicationData, error: applicationDataError } = await supabase.from('applicant_details').select().eq('account_id', userID);
 
     if (applicationDataError) {
         console.error(applicationDataError);

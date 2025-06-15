@@ -102,7 +102,7 @@ export default async function submitPageOne(formData: FormData) {
     const userID = user.data.user!.id;
 
     // Check if the user has already submitted an application
-    const { data: oldApplicationData, error: oldApplicationError } = await supabase.from('applications').select().eq('account_id', userID);
+    const { data: oldApplicationData, error: oldApplicationError } = await supabase.from('applicant_details').select().eq('account_id', userID);
 
     if (oldApplicationError) {
         console.error(oldApplicationError);
@@ -126,7 +126,7 @@ export default async function submitPageOne(formData: FormData) {
         }
 
         // Get the application id
-        const { data: newApplicationData, error: newApplicationError } = await supabase.from('applications').select().eq('account_id', userID);
+        const { data: newApplicationData, error: newApplicationError } = await supabase.from('applicant_details').select().eq('account_id', userID);
 
         if (newApplicationError) {
             console.error(newApplicationError);

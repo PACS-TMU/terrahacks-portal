@@ -14,7 +14,7 @@ export default async function Team() {
         return redirect("/login");
     }
 
-    const { data: details, error } = await supabase.from("applications").select('rsvp').eq('account_id', user.id).single();
+    const { data: details, error } = await supabase.from("rsvp").select('status').eq('account_id', user.id).single();
 
     if (error) {
         console.error(error);
@@ -47,7 +47,7 @@ export default async function Team() {
                     </a> for the latest updates and information!
                 </p>
             </div>
-            {details.rsvp === 'N/A' ? (
+            {details.status === 'N/A' ? (
                 <div className="flex items-center justify-center w-11/12 md:w-3/4 lg:w-1/2 mx-auto my-[20vh] py-10 bg-highlight rounded-md shadow-sm">
                     <p className="text-xl text-background font-bold font-sans">
                         You have not RSVP'd yet. Please RSVP in the {" "}
@@ -60,7 +60,7 @@ export default async function Team() {
                         to get your ticket.
                     </p>
                 </div>
-            ) : details.rsvp === 'Rescinded' ? (
+            ) : details.status === 'Rescinded' ? (
                 <div className="flex items-center justify-center w-11/12 md:w-3/4 lg:w-1/2 mx-auto my-[20vh] py-10 bg-highlight rounded-md shadow-sm">
                     <p className="text-xl text-background font-bold font-sans">
                         You RSVP has been rescinded. Please contact us if you think this is a mistake.
