@@ -11,14 +11,14 @@ import EmailField from "@/components/forms/email-field";
 export default async function Login(props: { searchParams: Promise<{ message: string }> }) {
     const searchParams = await props.searchParams;
     // Await searchParams
-    const resolvedSearchParams = await searchParams;
+    const resolvedSearchParams = searchParams;
 
     const signIn = async (formData: FormData) => {
         "use server";
 
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
-        const supabase = createClient();
+        const supabase = await createClient();
 
         const { error } = await supabase.auth.signInWithPassword({
             email,

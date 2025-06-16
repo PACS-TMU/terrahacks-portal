@@ -7,7 +7,7 @@ export default async function Application(props: { searchParams: Promise<{ page:
     const searchParams = await props.searchParams;
 
     // Check that the user is authenticated
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const {
         data: { user },

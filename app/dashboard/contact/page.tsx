@@ -5,7 +5,7 @@ import Item from "@/components/contact/Item";
 // import { IoLogoDiscord, IoLogoInstagram } from "react-icons/io5";
 
 export default async function Contact() {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     //Check with Supabase to see if user is logged in by getUser() call. 
     //If logged in, does nothing

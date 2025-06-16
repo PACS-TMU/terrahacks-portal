@@ -5,7 +5,7 @@ import ApplicationError from "@/components/dashboard/application/applicationErro
 
 export default async function Dashboard(props: { searchParams: Promise<{ message: string }> }) {
   const searchParams = await props.searchParams;
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },

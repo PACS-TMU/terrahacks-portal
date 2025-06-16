@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 export default async function Closed() {
     // Create a new Supabase server client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Make sure the user is authenticated
     const {

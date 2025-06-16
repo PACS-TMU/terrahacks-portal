@@ -31,7 +31,7 @@ export default async function Signup(props: { searchParams: Promise<{ message: s
         }
 
         // Create a Supabase client
-        const supabase = createClient();
+        const supabase = await createClient();
 
         // Check if email is already in use
         const { data: existingUser, error: getUserError } = await supabase
