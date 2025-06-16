@@ -29,7 +29,7 @@ export default async function Applied() {
     return (
         <div className="flex flex-col justify-center items-center w-11/12 lg:w-1/2 min-h-[50vh] my-4 mx-auto">
             <div className="bg-highlight p-6 lg:p-12 rounded-md shadow-md">
-                <h1 className="text-2xl lg:text-4xl text-center font-semibold text-primary text-background mb-8">Thank you for applying to TerraHacks 2024!</h1>
+                <h1 className="text-2xl lg:text-4xl text-center font-semibold text-primary text-background mb-8">Thank you for applying to TerraHacks 2025!</h1>
                 <p className="lg:text-lg text-center text-background font-mono">
                     Your application has been received!
                     If you have any questions or concerns, please don't hesitate to contact us

@@ -47,7 +47,7 @@ export default async function Dashboard({ searchParams }: { searchParams: { mess
 
     if (application && application.length > 0) {
       applicationInformation = "Thank you for applying! You can view your application details below:";
-      applicationStatus = application[0].status;
+      applicationStatus = application[0].app_status;
       applicationId = application[0].application_id;
       dateApplied = application[0].applied_date;
       rsvpStatus = application[0].rsvp;

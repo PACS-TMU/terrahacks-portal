@@ -56,7 +56,7 @@ export default function Intro({ user, applicationStatus, formattedDeadline, rsvp
                         decision={"Congratulations, your RSVP has been recorded!"}
                         blurb={"We look forward to seeing you at TerraHacks in August! If you wish to rescind your RSVP, please contact us."}
                     />
-                ) : ( rsvpStatus === "N/A" ? (
+                ) : ( rsvpStatus === "Rescinded" ? (
                         <AcceptedSection />
                     // If RSVP is rescinded, show the following message
                     ) : (

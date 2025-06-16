@@ -38,6 +38,7 @@ interface ApplicationFormData {
     questionOne: string;
     questionTwo: string;
     resume: File | null;
+    
 }
 
 export default function ApplicationForm() {

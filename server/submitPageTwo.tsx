@@ -23,12 +23,12 @@ export default async function submitPageTwo(formData: FormData) {
 
     if (applicationDataError) {
         console.error(applicationDataError);
-        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+        return redirect('/dashboard/application?page=1&message=Error - YALLAG.');
     }
 
     if (!applicationData || applicationData.length === 0) {
         console.error('Application data not found');
-        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+        return redirect('/dashboard/application?page=1&message=Error - THIS ONE');
     }
 
     const applicationID = applicationData[0].application_id;
@@ -50,7 +50,7 @@ export default async function submitPageTwo(formData: FormData) {
 
     if (longAnswerError) {
         console.error(longAnswerError);
-        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+        return redirect('/dashboard/application?page=1&message=Error - LEA.');
     }
 
     // All the logic for submitting a resume will go here
