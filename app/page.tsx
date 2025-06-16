@@ -29,7 +29,7 @@ export default function ProtectedPage() {
     };
 
     fetchUserData();
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (user !== null) {
@@ -37,7 +37,7 @@ export default function ProtectedPage() {
     } else if (!loading) {
       router.push('/login');
     }
-  }, [user, loading]);
+  }, [user, loading, router]);
 
   if (loading) {
     return <Loading />;

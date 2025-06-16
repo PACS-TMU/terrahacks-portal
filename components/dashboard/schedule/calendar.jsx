@@ -1,67 +1,20 @@
 'use client';
+import React from 'react';
 import Paper from '@mui/material/Paper';
-import { ViewState } from '@devexpress/dx-react-scheduler';
-import { schedulerData } from './appointments';
-import {
-    Scheduler,
-    DayView,
-    Appointments,
-    AppointmentTooltip
-} from '@devexpress/dx-react-scheduler-material-ui';
-import { format } from 'date-fns';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
-const CustomTooltipContent = ({ appointmentData, ...restProps }) => {
-    if (!appointmentData) {
-        return null;
-    }
-
+export default function Calendar() {
     return (
-        <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
-            <div style={{ marginTop: 8 }}>
-                <div><strong>Title:</strong> {appointmentData.title}</div>
-                <div><strong>Start Date:</strong> {format(new Date(appointmentData.startDate), 'PPPpp')}</div>
-                <div><strong>End Date:</strong> {format(new Date(appointmentData.endDate), 'PPPpp')}</div>
-                <div><strong>Room:</strong> {appointmentData.room}</div>
-                <div><strong>Details:</strong> {appointmentData.details}</div> 
-                {appointmentData.form && <div>
-          <strong>Sign-up Form:</strong> 
-          <a 
-            href={appointmentData.form} 
-            style={{ color: 'blue', textDecoration: 'underline' }}
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            {appointmentData.form}
-          </a>
-        </div>}
-            </div>
-        </AppointmentTooltip.Content>
-    );
-};
-
-export default function Calendar({ data = schedulerData, currentDate = '2024-08-02' }) {
-    if (process.env.NODE_ENV === 'production') {
-        console.error = () => {
-            return;
-        };
-    }
-
-    return (
-        <Paper>
-            <Scheduler data={schedulerData}>
-                <ViewState currentDate={currentDate} />
-                <DayView
-                    startDayHour={0}
-                    endDayHour={24}
-                    intervalCount={3}
-                    cellDuration={60}
-                />
-                <Appointments />
-                <AppointmentTooltip
-                    contentComponent={CustomTooltipContent}
-                    showCloseButton
-                />
-            </Scheduler>
+        <Paper elevation={3} style={{ padding: 32, minHeight: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Box textAlign="center">
+                <Typography variant="h3" gutterBottom>
+                    Coming Soon
+                </Typography>
+                <Typography variant="subtitle1">
+                    The calendar feature is under development. Please check back later!
+                </Typography>
+            </Box>
         </Paper>
     );
-};
+}

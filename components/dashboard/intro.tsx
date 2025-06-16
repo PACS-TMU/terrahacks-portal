@@ -3,12 +3,12 @@ import Section from "./section";
 import AcceptedSection from "./acceptedSection";
 
 export default function Intro({ user, applicationStatus, formattedDeadline, rsvpStatus }:
-    { user: any, applicationStatus: any, formattedDeadline: any, rsvpStatus: any }
+    { user: Record<string, any>, applicationStatus: string | null, formattedDeadline: string, rsvpStatus: string | null }
 ) {
     let userFirstName = user.user_metadata.full_name;
     try {
         userFirstName = `${user.user_metadata.full_name.split(' ')[0]}'s`;
-    } catch (e) {
+    } catch {
         userFirstName = "Your";
     }
     return (
@@ -77,7 +77,7 @@ export default function Intro({ user, applicationStatus, formattedDeadline, rsvp
                     blurb={"If spots free up, your application status will be updated accordingly. ALSO, while we cannot guarantee you a spot, you will have priority for walk-ins. We hope to see you at TerraHacks!"}
                 />
             ) : (
-                <p className="text-base md:text-lg text-gray-800 whitespace-pre-line my-2">Whoa, this shouldn't be here! Please contact support and help us fix this.</p>
+                <p className="text-base md:text-lg text-gray-800 whitespace-pre-line my-2">Whoa, this shouldn&apos;t be here! Please contact support and help us fix this.</p>
             )))))}
         </div>
     );

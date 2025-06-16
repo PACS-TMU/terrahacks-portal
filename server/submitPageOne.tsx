@@ -228,7 +228,7 @@ export default async function submitPageOne(formData: FormData) {
     if (tmuStudentBool) {
         const { data: existingTMUStudent, error: tmuCheckError } = await supabase
             .from('tmu_students')
-            .select('id')
+            .select('account_id')
             .eq('account_id', userID)
             .single();
 

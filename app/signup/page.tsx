@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../../components/forms/submit-button";

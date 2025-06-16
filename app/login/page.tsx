@@ -75,7 +75,7 @@ export default async function Login(props: { searchParams: Promise<{ message: st
                     </SubmitButton>
 
                     <p className="pb-4 text-background">
-                        Don't have an account? {" "}
+                        Don&apos;t have an account? {" "}
                         <span>
                             <Link
                                 aria-label="Sign Up Link"

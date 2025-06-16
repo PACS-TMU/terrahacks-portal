@@ -2,34 +2,30 @@
 import { useState, useEffect } from "react";
 
 export default function ErrorMessage({ searchParams }: { searchParams: { message: string } }) {
-    // Add safety checks
-    if (!searchParams || !searchParams.message) {
-        return null;
-    }
-
     const [showMessage, setShowMessage] = useState(true);
-    
+
     useEffect(() => {
         setShowMessage(true);
-        if (searchParams.message === "") return;
+        if (!searchParams || !searchParams.message || searchParams.message === "") return;
         if (searchParams.message.slice(0, 5) === "Error") {
-            // Scroll to the beginning of message when the component appears
-            const scrollToMessage = document.getElementById('message')?.offsetTop! - 200;
+            const scrollToMessage = (document.getElementById('message')?.offsetTop ?? 0) - 200;
             window.scrollTo({ top: scrollToMessage, behavior: "smooth" });
             const timer = setTimeout(() => {
                 setShowMessage(false);
             }, 5000);
             return () => clearTimeout(timer);
-        }
-        else {
-            // Scroll to the bottom when the component appears
+        } else {
             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
             const timer = setTimeout(() => {
                 setShowMessage(false);
             }, 15000);
             return () => clearTimeout(timer);
         }
-    }, []);
+    }, [searchParams, searchParams.message]);
+
+    if (!searchParams || !searchParams.message) {
+        return null;
+    }
 
     return (
         <>
@@ -47,6 +43,5 @@ export default function ErrorMessage({ searchParams }: { searchParams: { message
                 </div>
             )}
         </>
-
     );
 }

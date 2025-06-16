@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/client";
 import { useState, useEffect } from "react";
-
+import ConsentCheckbox from "@/components/dashboard/application/consentCheckbox";
 
 type ApplicationSegment2Props = {
     formData: {
@@ -10,8 +10,13 @@ type ApplicationSegment2Props = {
         checkbox2: boolean;
         checkbox3: boolean;
         checkbox4: boolean;
-    },
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement> ) => void;
+    };
+    handleInputChange: (
+        e:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLTextAreaElement>
+    ) => void;
 };
 
 interface Question {
@@ -19,8 +24,12 @@ interface Question {
     question: string;
 }
 
-export default function ApplicationSegment2({ formData, handleInputChange } : ApplicationSegment2Props) {
+export default function ApplicationSegment2({
+    formData,
+    handleInputChange,
+}: ApplicationSegment2Props) {
     const [questions, setQuestions] = useState<Question[]>([]);
+
     useEffect(() => {
         const fetchQuestions = async () => {
             const supabase = createClient();
@@ -36,16 +45,23 @@ export default function ApplicationSegment2({ formData, handleInputChange } : Ap
         fetchQuestions();
     }, []);
 
-    const { questionOne, questionTwo, checkbox1, checkbox2, checkbox3, checkbox4 } = formData;
-
-    // Helper to check if all checkboxes are checked (for required validation)
-    const allChecked = checkbox1 && checkbox2;
+    const {
+        questionOne,
+        questionTwo,
+        checkbox1,
+        checkbox2,
+        checkbox3,
+        checkbox4,
+    } = formData;
 
     return (
-        <div className='flex flex-col gap-6 font-medium'>
-            <div id='questionOne' className='flex flex-col'>
-                <label className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500" htmlFor="questionOneText">
-                    {/* Why do you want to participate in TerraHacks? (3-5 sentences) */}
+        <div className="flex flex-col gap-6 font-medium">
+            {/* Question 1 */}
+            <div id="questionOne" className="flex flex-col">
+                <label
+                    htmlFor="questionOneText"
+                    className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
+                >
                     {questions[0]?.question}
                 </label>
                 <textarea
@@ -59,9 +75,12 @@ export default function ApplicationSegment2({ formData, handleInputChange } : Ap
                 />
             </div>
 
-            <div id='questionTwo' className='flex flex-col'>
-                <label className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500" htmlFor="questionTwoText">
-                    {/* Describe any relevant experience you have that would assist you with TerraHacks. (3-5 sentences) */}
+            {/* Question 2 */}
+            <div id="questionTwo" className="flex flex-col">
+                <label
+                    htmlFor="questionTwoText"
+                    className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
+                >
                     {questions[1]?.question}
                 </label>
                 <textarea
@@ -75,62 +94,86 @@ export default function ApplicationSegment2({ formData, handleInputChange } : Ap
                 />
             </div>
 
-            <div id='checkboxes' className='flex flex-col'>
+            {/* Checkboxes */}
+            <div id="checkboxes" className="flex flex-col">
                 <label className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500">
                     Please confirm all of the following:
                 </label>
-                <label className="flex items-center gap-2 mb-2 text-white">
-                    <input
-                        type="checkbox"
-                        name="checkbox1"
-                        checked={!!checkbox1}
-                        onChange={handleInputChange}
-                        required
-                        className="accent-[#2a6c82] w-5 h-5"
-                    />
-                   I have read and agree to the <a className="underline" href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" target="_blank" rel="noopener noreferrer">MLH Code of Conduct</a>.
-                </label>
-               <label className="flex items-start gap-2 mb-2 text-white">
-                    <input
-                        type="checkbox"
-                        name="checkbox2"
-                        checked={!!checkbox2}
-                        onChange={handleInputChange}
-                        required
-                        className="accent-[#2a6c82] w-5 h-5 mt-1"
-                    />
-                    <span>
-                        I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the&nbsp;
-                        <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md" target="_blank" rel="noopener noreferrer" className="underline">MLH Privacy Policy</a>.&nbsp;
-                        I further agree to the terms of both the&nbsp;
-                        <a href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md" target="_blank" rel="noopener noreferrer" className="underline">MLH Contest Terms and Conditions</a>
-                        &nbsp;and the&nbsp;
-                        <a href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md" target="_blank" rel="noopener noreferrer" className="underline">MLH Privacy Policy</a>.
-                    </span>
-                </label>
-                <label className="flex items-center gap-2 mb-2 text-white">
-                    <input
-                        type="checkbox"
-                        name="checkbox3"
-                        checked={!!checkbox3}
-                        onChange={handleInputChange}
-                   
-                        className="accent-[#2a6c82] w-5 h-5"
-                    />
-                    (Optional) I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements
-                </label>
-                <label className="flex items-center gap-2 mb-2 text-white">
-                    <input
-                        type="checkbox"
-                        name="checkbox4"
-                        checked={!!checkbox4}
-                        onChange={handleInputChange}
-                     
-                        className="accent-[#2a6c82] w-5 h-5"
-                    />
-                    (Optional) I consent to share my email address, name, and other information with event sponsors and partners after the event
-                </label>
+
+                <ConsentCheckbox
+                    name="checkbox1"
+                    checked={checkbox1}
+                    onChange={handleInputChange}
+                    required
+                >
+                    I have read and agree to the{" "}
+                    <a
+                        className="underline"
+                        href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        MLH Code of Conduct
+                    </a>
+                    .
+                </ConsentCheckbox>
+
+                <ConsentCheckbox
+                    name="checkbox2"
+                    checked={checkbox2}
+                    onChange={handleInputChange}
+                    required
+                >
+                    I authorize you to share my application/registration information with
+                    Major League Hacking for event administration, ranking, and MLH
+                    administration in-line with the{" "}
+                    <a
+                        className="underline"
+                        href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        MLH Privacy Policy
+                    </a>
+                    . I further agree to the{" "}
+                    <a
+                        className="underline"
+                        href="https://github.com/MLH/mlh-policies/blob/main/contest-terms.md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        MLH Contest Terms
+                    </a>{" "}
+                    and{" "}
+                    <a
+                        className="underline"
+                        href="https://github.com/MLH/mlh-policies/blob/main/privacy-policy.md"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Privacy Policy
+                    </a>
+                    .
+                </ConsentCheckbox>
+
+                <ConsentCheckbox
+                    name="checkbox3"
+                    checked={checkbox3}
+                    onChange={handleInputChange}
+                >
+                    (Optional) I authorize MLH to send me occasional emails about relevant
+                    events, career opportunities, and community announcements.
+                </ConsentCheckbox>
+
+                <ConsentCheckbox
+                    name="checkbox4"
+                    checked={checkbox4}
+                    onChange={handleInputChange}
+                >
+                    (Optional) I consent to share my email address, name, and other
+                    information (such as resume and LinkedIn profile) with event sponsors and partners after the event.
+                </ConsentCheckbox>
             </div>
         </div>
-    )
+    );
 }
