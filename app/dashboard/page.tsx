@@ -3,7 +3,8 @@ import { redirect } from "next/navigation";
 import Homepage from "@/components/dashboard/homepage";
 import ApplicationError from "@/components/dashboard/application/applicationError";
 
-export default async function Dashboard({ searchParams }: { searchParams: { message: string } }) {
+export default async function Dashboard(props: { searchParams: Promise<{ message: string }> }) {
+  const searchParams = await props.searchParams;
   const supabase = createClient();
 
   const {

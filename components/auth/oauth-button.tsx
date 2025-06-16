@@ -1,7 +1,9 @@
-"use client";
+"use client";;
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { isWebView } from "@/utils/detectWebView";
+
+import type { JSX } from "react";
 
 export default function OAuthButton({
   provider,
