@@ -38,7 +38,7 @@ export default async function Dashboard({ searchParams }: { searchParams: { mess
     console.error("Error fetching user application: ", userApplicationError);
   }
 
-  if (userApplication![0].applied === "Applied") {
+  if (userApplication && userApplication.length > 0 && userApplication[0].applied === "Applied") {
     const { data: application, error } = await supabase.from("applicant_details").select().eq("account_id", user.id);
 
     if (error) {
