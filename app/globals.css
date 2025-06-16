@@ -1,15 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f7fafc;
+  --color-foreground: #1e1e1e;
+  --color-highlight: #2a6c82;
+  --color-highlightLight: #63ACC4;
+  --color-btn: #4DB2D4;
+  --color-btnHover: #5CCCF1;
+}
 
 @layer base {
   :root {
     --background: #f7fafc;
     --foreground: #1e1e1e;
     --highlight: #2a6c82;
-    --highlightLight: "#63ACC4";
-    --btn: "#4DB2D4";
-    --btnHover: "#5CCCF1";
+    --highlightLight: #63ACC4;
+    --btn: #4DB2D4;
+    --btnHover: #5CCCF1;
   }
 
   /* @media (prefers-color-scheme: dark) {
