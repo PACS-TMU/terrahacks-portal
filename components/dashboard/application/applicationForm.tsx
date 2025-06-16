@@ -38,6 +38,10 @@ interface ApplicationFormData {
     questionOne: string;
     questionTwo: string;
     resume: File | null;
+    checkbox1: boolean;
+    checkbox2: boolean;
+    checkbox3: boolean;
+    checkbox4: boolean;
 }
 
 export default function ApplicationForm() {
@@ -117,6 +121,10 @@ export default function ApplicationForm() {
         questionOne: '',
         questionTwo: '',
         resume: null,
+        checkbox1: false,
+        checkbox2: false,
+        checkbox3: false,
+        checkbox4: false,
     });
 
     const searchParams = useSearchParams();
@@ -129,12 +137,18 @@ export default function ApplicationForm() {
         page = parseInt(searchParams.get('page')!);
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+    const handleInputChange = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    ) => {
+      const { name, type, value } = e.target;
+      let fieldValue: string | boolean = value;
+      if (type === "checkbox" && e.target instanceof HTMLInputElement) {
+        fieldValue = e.target.checked;
+      }
+      setFormData(prev => ({
+        ...prev,
+        [name]: fieldValue,
+      }));
     };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,6 +169,8 @@ export default function ApplicationForm() {
             });
         }
     };
+
+    
 
     return (
         <>
@@ -202,7 +218,7 @@ export default function ApplicationForm() {
             </div>
             <div id='container' className='bg-[#2A6C82] rounded-lg p-8 m-8 pt-16 pb-8'>
                 <h3 className='text-background font-semibold lg:text-lg xl:text-xl 2xl:text-2xl pb-2'>IMPORTANT: If you leave this page, you will lose your progress.</h3>
-                <p className='text-background text-sm lg:text-base 2xl:text-lg pb-4'>Don't worry, your progress is saved between pages!</p>
+                <p className='text-background text-sm lg:text-base 2xl:text-lg pb-4'>Don&apos;t worry, your progress is saved between pages!</p>
                 {page === 1 ? (
                     <form className='font-mono' id='section-one'>
                         <ApplicationSegment1 formData={formData} handleInputChange={handleInputChange} />

@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 export default async function Application() {
 
     // Check that the user is authenticated
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const {
         data: { user },

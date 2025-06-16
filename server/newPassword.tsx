@@ -8,7 +8,7 @@ export default async function newPassword(formData: FormData) {
     const code = formData.get("code") as string;
 
     // Create a new Supabase server client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Get the new password and confirm password from the form data
     const newPassword = formData.get("password") as string;

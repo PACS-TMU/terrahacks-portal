@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 export default async function resetPassword(formData: FormData) {
     const origin = process.env.NEXT_PUBLIC_BASE_URL ? `https://${process.env.NEXT_PUBLIC_BASE_URL}` : "http://localhost:3000";
     const email = formData.get("email") as string;
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Query the Supabase database to check if the email is valid
     const { data: existingUser, error: getUserError } = await supabase

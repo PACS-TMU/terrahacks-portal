@@ -1,25 +1,24 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "^4.0.8",
-    "@devexpress/dx-react-scheduler": "^4.0.8",
-    "@devexpress/dx-react-scheduler-material-ui": "^4.0.8",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.16.0",
+    "@mui/system": "^7.1.1",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
-    "autoprefixer": "10.4.17",
+    "autoprefixer": "10.4.21",
     "clsx": "^2.1.1",
     "date-fns": "^2.30.0",
     "framer-motion": "^11.3.8",
     "geist": "^1.2.1",
     "hamburger-react": "^2.5.1",
+    "lightningcss": "^1.30.1",
     "moment-timezone": "^0.5.45",
     "next": "^14.2.5",
     "postcss": "8.4.33",
@@ -35,10 +34,18 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "@types/node": "20.11.5",
-    "@types/react": "18.2.48",
-    "@types/react-dom": "18.2.18",
-    "@types/uuid": "^9.0.8",
-    "encoding": "^0.1.13"
+    "@tailwindcss/postcss": "^4.1.10",
+    "@types/node": "24.0.3",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@types/uuid": "^10.0.0",
+    "encoding": "^0.1.13",
+    "eslint": "9.29.0",
+    "eslint-config-next": "15.3.3",
+    "tailwindcss": "^4.0.0"
+  },
+  "overrides": {
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6"
   }
 }

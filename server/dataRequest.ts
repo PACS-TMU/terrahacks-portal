@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 export default async function dataRequest(formData: FormData) {
     // Create a Supabase client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Get the user from the session
     const { data: { user } } = await supabase.auth.getUser();
