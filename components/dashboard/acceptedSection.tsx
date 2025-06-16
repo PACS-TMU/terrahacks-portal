@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 export default async function AcceptedSection() {
     const maxRSVPs = 280;
 
-    const supabase = createClient();
+    const supabase = await createClient();
     const { count: yesCount, error } = await supabase.from("rsvp").select("status", { count: 'exact' })
         .eq("status", "Yes");
 

@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 export default async function submitRSVP() {
     // Create a supabase server client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Get the user's id
     const user = await supabase.auth.getUser();

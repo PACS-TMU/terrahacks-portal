@@ -93,7 +93,7 @@ export default async function submitPageOne(formData: FormData) {
     }
 
     // Create a new Supabase server client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Get the user's id
     const user = await supabase.auth.getUser();
