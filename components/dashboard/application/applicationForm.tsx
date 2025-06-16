@@ -176,7 +176,7 @@ export default function ApplicationForm() {
         <>
             <div className="lg:sticky z-30 top-0 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
                 <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">My Application</h1>
-                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">Welcome to your TerraHacks 2024 application!</p>
+                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">Welcome to your TerraHacks 2025 application!</p>
                 <p className="text-gray-800 mt-2">Having trouble? Please contact us at through {" "}
                     <a
                         aria-label="Send us an email"

@@ -49,7 +49,7 @@ export default async function Login(props: { searchParams: Promise<{ message: st
                 />
                 {/* 
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold py-[5%] text-center text-background">
-                    TerraHacks 2024 has concluded. Join us again next year!
+                    TerraHacks 2025 has concluded. Join us again next year!
                 </h2> 
                 */}
 
