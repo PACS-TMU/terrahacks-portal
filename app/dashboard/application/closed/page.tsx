@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 export default async function Closed() {
     // Create a new Supabase server client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Make sure the user is authenticated
     const {
@@ -33,7 +33,7 @@ export default async function Closed() {
                 <h1 className="text-2xl lg:text-4xl text-center font-semibold text-primary text-background mb-8">Applications for TerraHacks 2024 Are Now <span className="text-red-400">Closed!</span></h1>
                 <p className="lg:text-lg text-center text-background font-mono">
                     Thank you to everyone who applied! <br /> We appreciate your interest and enthusiasm.
-                    If you have any questions or concerns, please don't hesitate to contact us
+                    If you have any questions or concerns, please don&apos;t hesitate to contact us
                     at <a href="mailto:contact@terrahacks.ca" className="underline hover:text-gray-400 ease-in-out duration-300">contact@terrahacks.ca</a>.
                 </p>
             </div>

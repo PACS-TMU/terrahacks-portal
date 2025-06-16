@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 export default async function submitPageTwo(formData: FormData) {
     // Create a new Supabase server client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Get the user's id
     const user = await supabase.auth.getUser();
@@ -18,17 +18,23 @@ export default async function submitPageTwo(formData: FormData) {
     const questionTwo = formData.get('questionTwo') as string;
     const resume = formData.get('resume') as File;
 
+    // Get checkbox values (they come as "on" if checked, or null/undefined if not)
+    const checkbox1 = formData.get('checkbox1') === 'on';
+    const checkbox2 = formData.get('checkbox2') === 'on';
+    const checkbox3 = formData.get('checkbox3') === 'on';
+    const checkbox4 = formData.get('checkbox4') === 'on';
+
     // Add the long answer questions to the database
-    const { data: applicationData, error: applicationDataError } = await supabase.from('applications').select().eq('account_id', userID);
+    const { data: applicationData, error: applicationDataError } = await supabase.from('applicant_details').select().eq('account_id', userID);
 
     if (applicationDataError) {
         console.error(applicationDataError);
-        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+        return redirect('/dashboard/application?page=1&message=Error - YALLAG.');
     }
 
     if (!applicationData || applicationData.length === 0) {
         console.error('Application data not found');
-        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+        return redirect('/dashboard/application?page=1&message=Error - THIS ONE');
     }
 
     const applicationID = applicationData[0].application_id;
@@ -50,7 +56,7 @@ export default async function submitPageTwo(formData: FormData) {
 
     if (longAnswerError) {
         console.error(longAnswerError);
-        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+        return redirect('/dashboard/application?page=1&message=Error - LEA.');
     }
 
     // All the logic for submitting a resume will go here
@@ -90,6 +96,22 @@ export default async function submitPageTwo(formData: FormData) {
         }
     }
 
+    // After handling resume upload, update applicant_details with checkboxes:
+    const { data: updateCheckboxData, error: updateCheckboxError } = await supabase
+        .from('applicant_details')
+        .update({
+            mlh1: checkbox1,
+            mlh2: checkbox2,
+            mlh3: checkbox3,
+            share_email: checkbox4,
+            app_state: "Applied", // <-- add this line
+        })
+        .match({ account_id: userID });
+
+    if (updateCheckboxError) {
+        console.error(updateCheckboxError);
+        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
+    }
 
     // If all data is successfully submitted, update user application status
     const { data: updateStatusData, error: updateStatusError } = await supabase.from('users').update({

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "../../components/forms/submit-button";
@@ -9,7 +8,8 @@ import PasswordField from "../../components/forms/password-field";
 import EmailField from "@/components/forms/email-field";
 import ErrorMessage from "@/components/auth/error-message";
 
-export default function Signup({ searchParams }: { searchParams: { message: string } }) {
+export default async function Signup(props: { searchParams: Promise<{ message: string }> }) {
+    const searchParams = await props.searchParams;
     const signUp = async (formData: FormData) => {
         "use server";
 
@@ -30,7 +30,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
         }
 
         // Create a Supabase client
-        const supabase = createClient();
+        const supabase = await createClient();
 
         // Check if email is already in use
         const { data: existingUser, error: getUserError } = await supabase
@@ -77,7 +77,7 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
 
     return (
         //background gradient
-        <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center text-background">
+        (<div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center text-background">
             <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl items-center justify-center gap-2">
                 {/* h1 is hidden for SEO purposes */}
                 <h1 className="opacity-0 h-0">TerraHacks</h1>
@@ -160,6 +160,6 @@ export default function Signup({ searchParams }: { searchParams: { message: stri
             {searchParams?.message && (
                 <ErrorMessage key={Date.now()} searchParams={searchParams} />
             )}
-        </div>
+        </div>)
     );
 }

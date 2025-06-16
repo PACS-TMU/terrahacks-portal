@@ -2,7 +2,7 @@ import Image from "next/image";
 import resetPassword from "@/server/resetPassword";
 import { SubmitButton } from "../../components/forms/submit-button";
 
-export default function ForgotPassword({ searchParams }: { searchParams: { message: string } }) {
+export default function ForgotPassword() {
     return (
         <div className="bg-gradient-to-b from-[#afd6e3] from-20% via-[#c3aa8e] via-50% to-[#432c2b] to-90% min-h-screen w-full flex items-center lg:text-lg xl:text-xl justify-center">
             <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl items-center justify-center gap-2">

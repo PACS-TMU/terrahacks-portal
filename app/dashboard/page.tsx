@@ -3,8 +3,9 @@ import { redirect } from "next/navigation";
 import Homepage from "@/components/dashboard/homepage";
 import ApplicationError from "@/components/dashboard/application/applicationError";
 
-export default async function Dashboard({ searchParams }: { searchParams: { message: string } }) {
-  const supabase = createClient();
+export default async function Dashboard(props: { searchParams: Promise<{ message: string }> }) {
+  const searchParams = await props.searchParams;
+  const supabase = await createClient();
 
   const {
     data: { user },
@@ -15,7 +16,7 @@ export default async function Dashboard({ searchParams }: { searchParams: { mess
   }
 
   // Get the application deadline and format it
-  const deadline = new Date("2024-07-25T23:59:59");
+  const deadline = new Date("2025-07-20T23:59:59");
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
@@ -38,8 +39,8 @@ export default async function Dashboard({ searchParams }: { searchParams: { mess
     console.error("Error fetching user application: ", userApplicationError);
   }
 
-  if (userApplication![0].applied === "Applied") {
-    const { data: application, error } = await supabase.from("applications").select().eq("account_id", user.id);
+  if (userApplication && userApplication.length > 0 && userApplication[0].applied === "Applied") {
+    const { data: application, error } = await supabase.from("applicant_details").select().eq("account_id", user.id);
 
     if (error) {
       console.error("Error fetching application: ", error);
@@ -47,7 +48,7 @@ export default async function Dashboard({ searchParams }: { searchParams: { mess
 
     if (application && application.length > 0) {
       applicationInformation = "Thank you for applying! You can view your application details below:";
-      applicationStatus = application[0].status;
+      applicationStatus = application[0].app_status;
       applicationId = application[0].application_id;
       dateApplied = application[0].applied_date;
       rsvpStatus = application[0].rsvp;

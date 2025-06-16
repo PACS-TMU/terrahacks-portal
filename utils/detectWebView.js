@@ -1,5 +1,8 @@
 export const isWebView = () => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (typeof navigator === "undefined" || typeof window === "undefined") {
+        return false;
+    }
+    const userAgent = navigator.userAgent || window.opera || "";
     return (
         (/iPhone|iPod|iPad/.test(userAgent) &&
             /AppleWebKit/.test(userAgent) &&

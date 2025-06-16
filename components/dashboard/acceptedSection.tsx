@@ -4,11 +4,11 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function AcceptedSection() {
-    const maxRSVPs = 250;
+    const maxRSVPs = 280;
 
-    const supabase = createClient();
-    const { count: yesCount, error } = await supabase.from("applications").select("rsvp", { count: 'exact' })
-        .eq("rsvp", "Yes");
+    const supabase = await createClient();
+    const { count: yesCount, error } = await supabase.from("rsvp").select("status", { count: 'exact' })
+        .eq("status", "Yes");
 
     if (error) {
         console.error(error);
@@ -20,7 +20,7 @@ export default async function AcceptedSection() {
         <div className="bg-highlight text-background rounded-md my-2 md:mb-0 md:mt-4 font-sans p-2 flex flex-col justify-center items-center w-[90%] md:w-2/3 xl:w-1/2 mx-auto">
 
             <p className="md:text-xl whitespace-pre-line text-center my-2">
-                Congratulations, you've been accepted!
+                Congratulations, you&apos;ve been accepted!
             </p>
             <p className="md:text-xl whitespace-pre-line text-center my-2">
                 {rsvpDisabled ?
@@ -33,7 +33,7 @@ export default async function AcceptedSection() {
                 <SubmitButton
                     disabled={rsvpDisabled}
                     pendingText="RSVPing..."
-                    aria-label="RSVP to TerraHacks 2024"
+                    aria-label="RSVP to TerraHacks 2025"
                     type="submit"
                     className={`font-semibold  p-3 rounded-md text-foreground text-lg md:text-xl duration-300 ease-in-out ${rsvpDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-background hover:bg-gray-200'}  my-4`}
                     formAction={submitRSVP}

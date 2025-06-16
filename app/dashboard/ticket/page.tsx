@@ -4,7 +4,7 @@ import Ticket from "@/components/ticket";
 import Link from "next/link";
 
 export default async function Team() {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const {
         data: { user },
@@ -14,7 +14,7 @@ export default async function Team() {
         return redirect("/login");
     }
 
-    const { data: details, error } = await supabase.from("applications").select('rsvp').eq('account_id', user.id).single();
+    const { data: details, error } = await supabase.from("rsvp").select('status').eq('account_id', user.id).single();
 
     if (error) {
         console.error(error);
@@ -25,7 +25,7 @@ export default async function Team() {
         <>
             <div className="md:sticky top-0 z-10 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
                 <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">TerraHacks Ticket</h1>
-                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">You've been accepted, congratulations! Show this at check-in to get admitted.</p>
+                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">You&apos;ve been accepted, congratulations! Show this at check-in to get admitted.</p>
                 <p className="text-gray-800 mt-2">If you already submitted and you would like to update your team, please contact us at {" "}
                     <a
                         aria-label="Send us an email"
@@ -47,10 +47,10 @@ export default async function Team() {
                     </a> for the latest updates and information!
                 </p>
             </div>
-            {details.rsvp === 'N/A' ? (
+            {details.status === 'N/A' ? (
                 <div className="flex items-center justify-center w-11/12 md:w-3/4 lg:w-1/2 mx-auto my-[20vh] py-10 bg-highlight rounded-md shadow-sm">
                     <p className="text-xl text-background font-bold font-sans">
-                        You have not RSVP'd yet. Please RSVP in the {" "}
+                        You have not RSVP&apos;d yet. Please RSVP in the {" "}
                         <Link
                             href={'/dashboard'}
                             rel="noopener noreferrer"
@@ -60,7 +60,7 @@ export default async function Team() {
                         to get your ticket.
                     </p>
                 </div>
-            ) : details.rsvp === 'Rescinded' ? (
+            ) : details.status === 'Rescinded' ? (
                 <div className="flex items-center justify-center w-11/12 md:w-3/4 lg:w-1/2 mx-auto my-[20vh] py-10 bg-highlight rounded-md shadow-sm">
                     <p className="text-xl text-background font-bold font-sans">
                         You RSVP has been rescinded. Please contact us if you think this is a mistake.

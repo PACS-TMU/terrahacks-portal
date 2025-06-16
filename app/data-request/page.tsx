@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 
 export default async function DataRequest() {
     // Create a new Supabase client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const { data: { user } } = await supabase.auth.getUser();
 
