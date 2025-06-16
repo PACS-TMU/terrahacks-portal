@@ -38,7 +38,10 @@ interface ApplicationFormData {
     questionOne: string;
     questionTwo: string;
     resume: File | null;
-    
+    checkbox1: boolean;
+    checkbox2: boolean;
+    checkbox3: boolean;
+    checkbox4: boolean;
 }
 
 export default function ApplicationForm() {
@@ -118,6 +121,10 @@ export default function ApplicationForm() {
         questionOne: '',
         questionTwo: '',
         resume: null,
+        checkbox1: false,
+        checkbox2: false,
+        checkbox3: false,
+        checkbox4: false,
     });
 
     const searchParams = useSearchParams();
@@ -130,12 +137,18 @@ export default function ApplicationForm() {
         page = parseInt(searchParams.get('page')!);
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+    const handleInputChange = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    ) => {
+      const { name, type, value } = e.target;
+      let fieldValue: string | boolean = value;
+      if (type === "checkbox" && e.target instanceof HTMLInputElement) {
+        fieldValue = e.target.checked;
+      }
+      setFormData(prev => ({
+        ...prev,
+        [name]: fieldValue,
+      }));
     };
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -156,6 +169,8 @@ export default function ApplicationForm() {
             });
         }
     };
+
+    
 
     return (
         <>

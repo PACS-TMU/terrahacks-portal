@@ -16,7 +16,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ message
   }
 
   // Get the application deadline and format it
-  const deadline = new Date("2024-07-25T23:59:59");
+  const deadline = new Date("2025-07-20T23:59:59");
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',

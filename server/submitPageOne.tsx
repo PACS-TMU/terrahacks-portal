@@ -190,7 +190,8 @@ export default async function submitPageOne(formData: FormData) {
         resume_path: "added soon",
         dietary_restrictions: dietaryRestrictions,
         applied_date: appliedDate,
-        app_status: 'In Progress',
+        app_state: 'In Progress',
+        
     };
 
     let applicationID: string;
