@@ -3,12 +3,12 @@ import Section from "./section";
 import AcceptedSection from "./acceptedSection";
 
 export default function Intro({ user, applicationStatus, formattedDeadline, rsvpStatus }:
-    { user: any, applicationStatus: any, formattedDeadline: any, rsvpStatus: any }
+    { user: Record<string, any>, applicationStatus: string | null, formattedDeadline: string, rsvpStatus: string | null }
 ) {
     let userFirstName = user.user_metadata.full_name;
     try {
         userFirstName = `${user.user_metadata.full_name.split(' ')[0]}'s`;
-    } catch (e) {
+    } catch {
         userFirstName = "Your";
     }
     return (
@@ -51,19 +51,19 @@ export default function Intro({ user, applicationStatus, formattedDeadline, rsvp
             ) : (applicationStatus === "Under Review" ? (
                 <p className="text-base md:text-lg text-gray-800 whitespace-pre-line my-2">We got your application! Review the details below.</p>
             ) : (applicationStatus === "Accepted" ? 
-                (rsvpStatus === "Yes" ? (
+                (rsvpStatus === "Yes"  ? (
                     <Section 
                         decision={"Congratulations, your RSVP has been recorded!"}
                         blurb={"We look forward to seeing you at TerraHacks in August! If you wish to rescind your RSVP, please contact us."}
                     />
-                ) : ( rsvpStatus === "N/A" ? (
-                        <AcceptedSection />
-                    // If RSVP is rescinded, show the following message
-                    ) : (
+                ) : ( rsvpStatus === "Rescinded" ? (
                         <Section
                             decision={"We're sorry to see you go! Your RSVP has been rescinded."}
                             blurb={"While we cannot guarantee you a spot, you can still attend as a walk-in. We hope to see you at TerraHacks next year, if not this one!"}
                         />
+                    ) : (
+                        // Show RSVP button if not Yes or Rescinded
+                        <AcceptedSection />
                     )
                 )
             ) : (applicationStatus === "Rejected" ? (
@@ -77,7 +77,7 @@ export default function Intro({ user, applicationStatus, formattedDeadline, rsvp
                     blurb={"If spots free up, your application status will be updated accordingly. ALSO, while we cannot guarantee you a spot, you will have priority for walk-ins. We hope to see you at TerraHacks!"}
                 />
             ) : (
-                <p className="text-base md:text-lg text-gray-800 whitespace-pre-line my-2">Whoa, this shouldn't be here! Please contact support and help us fix this.</p>
+                <p className="text-base md:text-lg text-gray-800 whitespace-pre-line my-2">Whoa, this shouldn&apos;t be here! Please contact support and help us fix this.</p>
             )))))}
         </div>
     );

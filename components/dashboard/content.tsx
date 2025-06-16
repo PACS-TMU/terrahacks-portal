@@ -1,7 +1,13 @@
 import moment from 'moment-timezone';
 
 export default function Content({ applicationStatus, applicationInformation, applicationId, dateApplied, rsvpStatus }:
-  { applicationStatus: any, applicationInformation: any, applicationId: any, dateApplied: any, rsvpStatus: any }
+  { 
+    applicationStatus: string | null, 
+    applicationInformation: string | null,
+    applicationId: string | null, 
+    dateApplied: string | Date, 
+    rsvpStatus: string | null 
+  }
 ) {
   return (
     <div className="px-6 py-6">
@@ -25,7 +31,7 @@ export default function Content({ applicationStatus, applicationInformation, app
                       </span>
                       <br />
                       <span className="font-mono text-lg lg:text-xl">
-                        {applicationId.toUpperCase()}
+                        {applicationId!.toUpperCase()}
                       </span>
                     </p>
                     <p>

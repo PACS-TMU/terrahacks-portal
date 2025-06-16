@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 
 export async function GET() {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Get the user from the auth session
     const { data: userData, error: userError } = await supabase.auth.getUser();
@@ -15,7 +15,7 @@ export async function GET() {
 
     // Fetch the application status for the user
     const { data: applicationData, error: applicationError } = await supabase
-        .from('applications')
+        .from('applicant_details')
         .select('*')
         .eq('account_id', userId)
         .single();

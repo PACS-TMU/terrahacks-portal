@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   const origin = process.env.NEXT_PUBLIC_BASE_URL ? `https://${process.env.NEXT_PUBLIC_BASE_URL}` : "http://localhost:3000";
 
   if (code) {
-    const supabase = createClient();
+    const supabase = await createClient();
     await supabase.auth.exchangeCodeForSession(code);
   }
 

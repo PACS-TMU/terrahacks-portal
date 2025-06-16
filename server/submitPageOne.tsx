@@ -3,6 +3,8 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export default async function submitPageOne(formData: FormData) {
+    console.log('FormData entries:', Array.from(formData.entries()));
+    
     const validate = (formData: FormData) => {
         let isStudentNumValid = false;
         let isTMUEmailValid = false;
@@ -13,7 +15,6 @@ export default async function submitPageOne(formData: FormData) {
         // Check if TMU email is valid
         const uni = formData.get('school') === "Other" ? formData.get('otherSchool') : formData.get('school');
         if (uni === "Toronto Metropolitan (Ryerson) University") {
-            // Add your validation logic here
             const emailPattern = /^[a-z0-9._%+-]+@torontomu\.ca$/;
             const studentIdPattern = /^\d{9}$/;
     
@@ -92,7 +93,7 @@ export default async function submitPageOne(formData: FormData) {
     }
 
     // Create a new Supabase server client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Get the user's id
     const user = await supabase.auth.getUser();
@@ -101,47 +102,7 @@ export default async function submitPageOne(formData: FormData) {
     }
     const userID = user.data.user!.id;
 
-    // Check if the user has already submitted an application
-    const { data: oldApplicationData, error: oldApplicationError } = await supabase.from('applications').select().eq('account_id', userID);
-
-    if (oldApplicationError) {
-        console.error(oldApplicationError);
-    }
-
-    let applicationID = null;
-
-    // If the user has already submitted an application, get the application id
-    if (oldApplicationData && oldApplicationData.length > 0) {
-        applicationID = oldApplicationData[0].application_id;
-    }
-    else {
-        // Insert the application data into the database
-        const { data: applicationData, error: applicationDataError } = await supabase.from('applications').insert({
-            account_id: userID,
-        });
-
-        if (applicationDataError) {
-            console.error(applicationDataError);
-            return redirect('/dashboard/application?message=Error - please try again later. If the problem persists, contact support.');
-        }
-
-        // Get the application id
-        const { data: newApplicationData, error: newApplicationError } = await supabase.from('applications').select().eq('account_id', userID);
-
-        if (newApplicationError) {
-            console.error(newApplicationError);
-            return redirect('/dashboard/application?message=Error - please try again later. If the problem persists, contact support.');
-        }
-
-        if (!newApplicationData) {
-            console.error('New application data not found');
-            return redirect('/dashboard/application?message=Error - please try again later. If the problem persists, contact support.');
-        }
-
-        applicationID = newApplicationData[0].application_id;
-    }
-
-    // All the logic for submitting an application will go here
+    // Extract all form data upfront
     const firstName = formData.get('firstName');
     const lastName = formData.get('lastName');
     const pronouns = formData.get('pronouns') === "Other" ? formData.get('otherPronouns') : formData.get('pronouns');
@@ -158,205 +119,228 @@ export default async function submitPageOne(formData: FormData) {
     const fieldOfStudy = formData.get('fieldOfStudy');
     const school = formData.get('school') === "Other" ? formData.get('otherSchool') : formData.get('school');
     const tmuStudentBool = school === "Toronto Metropolitan (Ryerson) University" ? true : false;
-    const tmuStudentID = tmuStudentBool ? formData.get('tmuStudentID') : 'Error retrieving student number.';
+    const tmuStudentID = tmuStudentBool ? formData.get('tmuStudentID') : null;
     const email = tmuStudentBool ? formData.get('tmuEmail') : formData.get('email');
     const accommodationsBool = formData.get('accommodationsBool') === "Yes" ? true : false;
     const accommodationsDescription = accommodationsBool ? formData.get('accommodationsDescription') : null;
     const dietaryRestrictions = formData.get('dietaryRestrictions') === "Other" ? formData.get('otherDietaryRestriction') : formData.get('dietaryRestrictions');
     const githubURL = formData.get('githubURL') ? formData.get('githubURL')!.toString().toLowerCase() : "N/A";
     const linkedinURL = formData.get('linkedinURL') ? formData.get('linkedinURL')!.toString().toLowerCase() : "N/A";
+    const appliedDate = new Date().toISOString();
 
-    // Check if the user has already submitted their application details
-    const { data: oldApplicationDetailsData, error: oldApplicationDetailsError } = await supabase.from('applicant_details').select().eq('account_id', userID);
+    console.log("Submitting application with the following data:");
+    console.log({
+        firstName,
+        lastName,
+        pronouns,
+        otherPronouns,
+        gender,
+        race,
+        sexuality,
+        phoneNumber,
+        country,
+        city,
+        province,
+        levelOfStudy,
+        graduationYear,
+        fieldOfStudy,
+        school,
+        tmuStudentID,
+        email,
+        accommodationsDescription,
+        dietaryRestrictions,
+        githubURL,
+        linkedinURL
+    });
 
-    if (oldApplicationDetailsError) {
-        console.error(oldApplicationDetailsError);
+    // Check if the user has already submitted an application
+    const { data: existingApplication, error: existingApplicationError } = await supabase
+        .from('applicant_details')
+        .select('application_id')
+        .eq('account_id', userID)
+        .single();
+
+    if (existingApplicationError && existingApplicationError.code !== 'PGRST116') {
+        console.error('Error checking existing application:', existingApplicationError);
+        return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
     }
 
-    // If the user has already submitted their application details, update the details
-    if (oldApplicationDetailsData && oldApplicationDetailsData.length > 0) {
-        const { data: applicationDetailsUpdate, error: applicationDetailsUpdateError } = await supabase.from('applicant_details').update({
-            application_id: applicationID,
-            account_id: userID,
-            gender,
-            first_name: firstName,
-            last_name: lastName,
-            email,
-            pronouns: pronouns,
-            race,
-            sexuality,
-            field_of_study: fieldOfStudy,
-            phone_number: phoneNumber,
-            school,
-            level_of_study: levelOfStudy,
-            grad_year: graduationYear,
-            city,
-            province_state: province,
-            country,
-            tmu_student: tmuStudentBool,
-            accommodation: accommodationsBool,
-            github: githubURL,
-            linkedin: linkedinURL,
-            resume_path: "added soon",
-            dietary_restrictions: dietaryRestrictions,
-        }).match({ account_id: userID });
+    // Prepare the complete application data
+    const applicationData = {
+        account_id: userID,
+        gender,
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        pronouns: pronouns,
+        race,
+        sexuality,
+        field_of_study: fieldOfStudy,
+        phone_number: phoneNumber,
+        school,
+        level_of_study: levelOfStudy,
+        grad_year: graduationYear,
+        city,
+        province_state: province,
+        country,
+        tmu_student: tmuStudentBool,
+        accommodation: accommodationsBool,
+        github: githubURL,
+        linkedin: linkedinURL,
+        resume_path: "added soon",
+        dietary_restrictions: dietaryRestrictions,
+        applied_date: appliedDate,
+        app_state: 'In Progress',
+        
+    };
 
-        // Check for errors
-        if (applicationDetailsUpdateError) {
-            console.error(applicationDetailsUpdateError);
+    let applicationID: string;
+
+    if (existingApplication) {
+        // Update existing application
+        applicationID = existingApplication.application_id;
+        const { error: updateError } = await supabase
+            .from('applicant_details')
+            .update(applicationData)
+            .eq('account_id', userID);
+
+        if (updateError) {
+            console.error('Error updating application:', updateError);
             return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
         }
     } else {
-        // If the user has not submitted their application details, insert the details
-        const { data: applicationDetailsInsert, error: applicationDetailsInsertError } = await supabase.from('applicant_details').insert({
-            application_id: applicationID,
-            account_id: userID,
-            gender,
-            first_name: firstName,
-            last_name: lastName,
-            email,
-            pronouns: pronouns === "Other" ? otherPronouns : pronouns,
-            race,
-            sexuality,
-            field_of_study: fieldOfStudy,
-            phone_number: phoneNumber,
-            school,
-            level_of_study: levelOfStudy,
-            grad_year: graduationYear,
-            city,
-            province_state: province,
-            country,
-            tmu_student: tmuStudentBool,
-            accommodation: accommodationsBool,
-            github: githubURL,
-            linkedin: linkedinURL,
-            resume_path: "added soon",
-            dietary_restrictions: dietaryRestrictions,
-        });
+        // Insert new application
+        const { data: newApplication, error: insertError } = await supabase
+            .from('applicant_details')
+            .insert(applicationData)
+            .select('application_id')
+            .single();
 
-        if (applicationDetailsInsertError) {
-            console.error(applicationDetailsInsertError);
+        if (insertError || !newApplication) {
+            console.error('Error creating application:', insertError);
             return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
         }
+
+        applicationID = newApplication.application_id;
     }
 
-    // Always handle TMU student logic separately
+    // Handle TMU student logic
     if (tmuStudentBool) {
-        const { data: tmuStudent, error: tmuStudentError } = await supabase.from('tmu_students').select().eq('account_id', userID);
+        const { data: existingTMUStudent, error: tmuCheckError } = await supabase
+            .from('tmu_students')
+            .select('account_id')
+            .eq('account_id', userID)
+            .single();
 
-        if (tmuStudentError) {
-            console.error(tmuStudentError);
+        if (tmuCheckError && tmuCheckError.code !== 'PGRST116') {
+            console.error('Error checking TMU student:', tmuCheckError);
             return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
         }
 
-        // If they are in the tmu_students table, update them
-        if (tmuStudent && tmuStudent.length > 0) {
-            const { data: tmuStudentUpdate, error: tmuStudentUpdateError } = await supabase.from('tmu_students').update({
-                application_id: applicationID,
-                account_id: userID,
-                student_num: tmuStudentID,
-                email: email,
-            }).match({ account_id: userID });
+        const tmuStudentData = {
+            application_id: applicationID,
+            account_id: userID,
+            student_num: tmuStudentID,
+            email: email,
+        };
 
-            if (tmuStudentUpdateError) {
-                console.error(tmuStudentUpdateError);
+        if (existingTMUStudent) {
+            // Update existing TMU student record
+            const { error: tmuUpdateError } = await supabase
+                .from('tmu_students')
+                .update(tmuStudentData)
+                .eq('account_id', userID);
+
+            if (tmuUpdateError) {
+                console.error('Error updating TMU student:', tmuUpdateError);
                 return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
             }
         } else {
-            // Else, insert them
-            const { data: tmuStudentInsert, error: tmuStudentInsertError } = await supabase.from('tmu_students').insert({
-                application_id: applicationID,
-                account_id: userID,
-                student_num: tmuStudentID,
-                email: email,
-            });
+            // Insert new TMU student record
+            const { error: tmuInsertError } = await supabase
+                .from('tmu_students')
+                .insert(tmuStudentData);
 
-            if (tmuStudentInsertError) {
-                console.error(tmuStudentInsertError);
+            if (tmuInsertError) {
+                console.error('Error inserting TMU student:', tmuInsertError);
                 return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
             }
         }
     } else {
-        // Remove them from the tmu_students table if they are not a TMU student
-        const { data: tmuStudent, error: tmuStudentError } = await supabase.from('tmu_students').select().eq('account_id', userID);
+        // Remove from tmu_students table if not a TMU student
+        const { error: tmuDeleteError } = await supabase
+            .from('tmu_students')
+            .delete()
+            .eq('account_id', userID);
 
-        if (tmuStudentError) {
-            console.error(tmuStudentError);
+        if (tmuDeleteError) {
+            console.error('Error removing TMU student:', tmuDeleteError);
             return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
-        }
-
-        // If they are in the tmu_students table, remove them
-        if (tmuStudent && tmuStudent.length > 0) {
-            const { data: tmuStudentDelete, error: tmuStudentDeleteError } = await supabase.from('tmu_students').delete().match({ account_id: userID });
-
-            if (tmuStudentDeleteError) {
-                console.error(tmuStudentDeleteError);
-                return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
-            }
         }
     }
 
     // Handle accommodations logic
     if (accommodationsBool) {
-        const { data: accommodations, error: accommodationsError } = await supabase.from('accommodations').select().eq('account_id', userID);
+        const { data: existingAccommodations, error: accommodationsCheckError } = await supabase
+            .from('accommodations')
+            .select('account_id')
+            .eq('account_id', userID)
+            .single();
 
-        if (accommodationsError) {
-            console.error(accommodationsError);
+        if (accommodationsCheckError && accommodationsCheckError.code !== 'PGRST116') {
+            console.error('Error checking accommodations:', accommodationsCheckError);
             return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
         }
 
-        // If they are in the accommodations table, update them
-        if (accommodations && accommodations.length > 0) {
-            const { data: accommodationsUpdate, error: accommodationsUpdateError } = await supabase.from('accommodations').update({
-                application_id: applicationID,
-                account_id: userID,
-                description: accommodationsDescription,
-            }).match({ account_id: userID });
+        const accommodationsData = {
+            application_id: applicationID,
+            account_id: userID,
+            description: accommodationsDescription,
+        };
+
+        if (existingAccommodations) {
+            // Update existing accommodations record
+            const { error: accommodationsUpdateError } = await supabase
+                .from('accommodations')
+                .update(accommodationsData)
+                .eq('account_id', userID);
 
             if (accommodationsUpdateError) {
-                console.error(accommodationsUpdateError);
+                console.error('Error updating accommodations:', accommodationsUpdateError);
                 return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
             }
         } else {
-            // Else, insert them
-            const { data: accommodationsInsert, error: accommodationsInsertError } = await supabase.from('accommodations').insert({
-                application_id: applicationID,
-                account_id: userID,
-                description: accommodationsDescription,
-            });
+            // Insert new accommodations record
+            const { error: accommodationsInsertError } = await supabase
+                .from('accommodations')
+                .insert(accommodationsData);
 
             if (accommodationsInsertError) {
-                console.error(accommodationsInsertError);
+                console.error('Error inserting accommodations:', accommodationsInsertError);
                 return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
             }
         }
     } else {
-        // Remove them from the accommodations table if they don't require accommodations
-        const { data: accommodations, error: accommodationsError } = await supabase.from('accommodations').select().eq('account_id', userID);
+        // Remove from accommodations table if no accommodations needed
+        const { error: accommodationsDeleteError } = await supabase
+            .from('accommodations')
+            .delete()
+            .eq('account_id', userID);
 
-        if (accommodationsError) {
-            console.error(accommodationsError);
+        if (accommodationsDeleteError) {
+            console.error('Error removing accommodations:', accommodationsDeleteError);
             return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
-        }
-
-        // If they are in the accommodations table, remove them
-        if (accommodations && accommodations.length > 0) {
-            const { data: accommodationsDelete, error: accommodationsDeleteError } = await supabase.from('accommodations').delete().match({ account_id: userID });
-
-            if (accommodationsDeleteError) {
-                console.error(accommodationsDeleteError);
-                return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
-            }
         }
     }
 
     // Update application status to in progress
-    const { data: updateStatusData, error: updateStatusError } = await supabase.from('users').update({
-        applied: 'In Progress',
-    }).match({ id: userID });
+    const { error: updateStatusError } = await supabase
+        .from('users')
+        .update({ applied: 'In Progress' })
+        .eq('id', userID);
 
     if (updateStatusError) {
-        console.error(updateStatusError);
+        console.error('Error updating status:', updateStatusError);
         return redirect('/dashboard/application?page=1&message=Error - please try again later. If the problem persists, contact support.');
     }
 

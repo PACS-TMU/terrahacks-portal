@@ -1,7 +1,9 @@
-"use client";
+"use client";;
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { isWebView } from "@/utils/detectWebView";
+
+import type { JSX } from "react";
 
 export default function OAuthButton({
   provider,
@@ -16,7 +18,7 @@ export default function OAuthButton({
   const signInWithGitHub = async () => {
     const supabase = createClient();
 
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
         redirectTo: `${baseURL}/auth/callback`,
@@ -27,7 +29,7 @@ export default function OAuthButton({
   const signInWithGoogle = async () => {
     const supabase = createClient();
 
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${baseURL}/auth/callback`,
