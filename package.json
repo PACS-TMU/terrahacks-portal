@@ -6,9 +6,6 @@
     "start": "next start"
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "^4.0.8",
-    "@devexpress/dx-react-scheduler": "^4.0.8",
-    "@devexpress/dx-react-scheduler-material-ui": "^4.0.8",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.16.0",
@@ -20,6 +17,7 @@
     "framer-motion": "^11.3.8",
     "geist": "^1.2.1",
     "hamburger-react": "^2.5.1",
+    "lightningcss": "^1.30.1",
     "moment-timezone": "^0.5.45",
     "next": "^14.2.5",
     "postcss": "8.4.33",
