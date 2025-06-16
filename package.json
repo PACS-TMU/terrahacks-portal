@@ -10,6 +10,7 @@
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.16.0",
     "@mui/system": "^7.1.1",
+    "@supabase/realtime-js": "^2.11.10",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "autoprefixer": "10.4.21",
