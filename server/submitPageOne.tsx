@@ -283,7 +283,7 @@ export default async function submitPageOne(formData: FormData) {
     if (accommodationsBool) {
         const { data: existingAccommodations, error: accommodationsCheckError } = await supabase
             .from('accommodations')
-            .select('id')
+            .select('account_id')
             .eq('account_id', userID)
             .single();
 
