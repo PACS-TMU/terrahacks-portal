@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Section from "./section";
 import AcceptedSection from "./acceptedSection";
+import type { User } from "@supabase/auth-js";
 
 export default function Intro({ user, applicationStatus, formattedDeadline, rsvpStatus }:
-    { user: Record<string, any>, applicationStatus: string | null, formattedDeadline: string, rsvpStatus: string | null }
+    { user: User, applicationStatus: string | null, formattedDeadline: string, rsvpStatus: string | null }
 ) {
     let userFirstName = user.user_metadata.full_name;
     try {
