@@ -5,7 +5,8 @@ import newPassword from "@/server/newPassword";
 import { redirect } from "next/navigation";
 import ErrorMessage from "@/components/auth/error-message";
 
-export default async function NewPasswordPage({ searchParams }: { searchParams: { code?: string, message: string } }) {
+export default async function NewPasswordPage(props: { searchParams: Promise<{ code?: string, message: string }> }) {
+  const searchParams = await props.searchParams;
   // Get the authorization code from the search params
   const code = searchParams.code;
 

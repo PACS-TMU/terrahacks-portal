@@ -4,7 +4,7 @@ import Ticket from "@/components/ticket";
 import Link from "next/link";
 
 export default async function Team() {
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const {
         data: { user },

@@ -6,7 +6,7 @@ import  Calendar  from '@/components/dashboard/schedule/calendar.jsx';
 export default async function Schedule() {
 
     // Check that the user is authenticated
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         return redirect('/login');

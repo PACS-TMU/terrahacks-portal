@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 
 export default async function Location() {
     // Check if user is logged in
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const { data: { user } } = await supabase.auth.getUser();
 

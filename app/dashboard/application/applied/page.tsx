@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Applied() {
     // Create a new Supabase server client
-    const supabase = createClient();
+    const supabase = await createClient();
 
     // Make sure the user is authenticated
     const {

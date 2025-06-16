@@ -3,10 +3,11 @@ import { redirect } from "next/navigation";
 import ApplicationForm from "@/components/dashboard/application/applicationForm";
 import ApplicationError from "@/components/dashboard/application/applicationError";
 
-export default async function Application({ searchParams }: { searchParams: { page: string, message: string } }) {
+export default async function Application(props: { searchParams: Promise<{ page: string, message: string }> }) {
+    const searchParams = await props.searchParams;
 
     // Check that the user is authenticated
-    const supabase = createClient();
+    const supabase = await createClient();
 
     const {
         data: { user },

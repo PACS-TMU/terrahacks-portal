@@ -4,8 +4,9 @@ import dataRequest from '@/server/dataRequest';
 import { SubmitButton } from '@/components/forms/submit-button';
 import ErrorMessage from '@/components/auth/error-message';
 
-export default async function DataRequest({ searchParams }: { searchParams: { message: string } }) {
-    const supabase = createClient();
+export default async function DataRequest(props: { searchParams: Promise<{ message: string }> }) {
+    const searchParams = await props.searchParams;
+    const supabase = await createClient();
 
     const { data: { user } } = await supabase.auth.getUser();
 
