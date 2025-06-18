@@ -529,13 +529,18 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         required
                     >
                         <option value="" disabled>-- Select --</option>
-                        <option value="2024">2024</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
                         <option value="2027">2027</option>
                         <option value="2028">2028</option>
                         <option value="2029">2029</option>
-                        <option value="2030 or later">2030 or later</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2034">2034</option>
+                        <option value="2035">2035</option>
+                        <option value="2036 or later">2036 or later</option>
                     </select>
                 </div>
             </div>
