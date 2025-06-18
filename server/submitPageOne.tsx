@@ -122,6 +122,7 @@ export default async function submitPageOne(formData: FormData) {
     const tmuStudentID = tmuStudentBool ? formData.get('tmuStudentID') : null;
     const email = tmuStudentBool ? formData.get('tmuEmail') : formData.get('email');
     const accommodationsBool = formData.get('accommodationsBool') === "Yes" ? true : false;
+    const app_age = formData.get('age') ? Number(formData.get('age')) : null;
     const accommodationsDescription = accommodationsBool ? formData.get('accommodationsDescription') : null;
     const dietaryRestrictions = formData.get('dietaryRestrictions') === "Other" ? formData.get('otherDietaryRestriction') : formData.get('dietaryRestrictions');
     const githubURL = formData.get('githubURL') ? formData.get('githubURL')!.toString().toLowerCase() : "N/A";
@@ -142,6 +143,7 @@ export default async function submitPageOne(formData: FormData) {
         city,
         province,
         levelOfStudy,
+        app_age,
         graduationYear,
         fieldOfStudy,
         school,
@@ -185,6 +187,7 @@ export default async function submitPageOne(formData: FormData) {
         country,
         tmu_student: tmuStudentBool,
         accommodation: accommodationsBool,
+        age: app_age,
         github: githubURL,
         linkedin: linkedinURL,
         resume_path: "added soon",

@@ -32,6 +32,7 @@ type ApplicationSegment1Props = {
         otherDietaryRestriction: string,
         githubURL: string,
         linkedinURL: string,
+        age: number, // <-- Add this line
     },
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => void;
 };
@@ -64,6 +65,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
         otherDietaryRestriction,
         githubURL,
         linkedinURL,
+        age,
     } = formData;
 
     const [image, setImage] = useState(0);
@@ -214,7 +216,26 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         required
                     />
                 </div>
-
+                <div id="age-field" className='flex flex-col'>
+                    <label
+                        htmlFor="age"
+                        className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
+                    >
+                        Age
+                    </label>
+                    <input
+                        id="age"
+                        className="rounded-md px-4 py-2 bg-background mb-4 placeholder-gray-400 w-full lg:w-2/3"
+                        name="age"
+                        value={age}
+                        onChange={handleInputChange}
+                        placeholder="Age—just a number, but we still need it"
+                        type="number"
+                        min="13"
+                        max="120"
+                        required
+                    />
+                </div>
                 <div id="pronouns-field" className='flex flex-col'>
                     <label
                         className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
