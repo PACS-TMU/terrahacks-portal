@@ -245,7 +245,7 @@ export default function ApplicationForm() {
                                 htmlFor="resume"
                                 className="text-base lg:text-lg text-background pb-2 mt-6"
                             >
-                                Upload Your Resume (Optional, PDF Only)
+                                Upload Your Resume (Optional, PDF Only, Max 20MB)
                             </label>
                             <input
                                 type="file"

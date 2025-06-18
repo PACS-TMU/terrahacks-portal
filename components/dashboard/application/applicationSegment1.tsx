@@ -540,7 +540,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         <option value="2032">2032</option>
                         <option value="2033">2033</option>
                         <option value="2034">2034</option>
-                        <option value="2035">2034</option>
+                        <option value="2035">2035</option>
                         <option value="2036 or later">2036 or later</option>
                     </select>
                 </div>
