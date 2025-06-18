@@ -17,19 +17,23 @@ export default async function submitPageOne(formData: FormData) {
         if (uni === "Toronto Metropolitan (Ryerson) University") {
             const emailPattern = /^[a-z0-9._%+-]+@torontomu\.ca$/;
             const studentIdPattern = /^\d{9}$/;
-    
-            const tmuEmail = formData.get('tmuEmail') as string;
+
+            // Convert TMU email to lowercase before validation
+            let tmuEmail = (formData.get('tmuEmail') as string)?.toLowerCase();
             const studentID = formData.get('tmuStudentID') as string;
-    
+
             isTMUEmailValid = emailPattern.test(tmuEmail);
             isStudentNumValid = studentIdPattern.test(studentID);
-    
+
             if (!isStudentNumValid) {
                 return { valid: false, message: "Error - Please enter a valid TMU student number." }
             }
             if (!isTMUEmailValid) {
                 return { valid: false, message: "Error - Please enter a valid TMU email." }
             }
+
+            // Update the formData with the lowercased email for later use
+            formData.set('tmuEmail', tmuEmail);
         } else {
             isTMUEmailValid = true;
         }
