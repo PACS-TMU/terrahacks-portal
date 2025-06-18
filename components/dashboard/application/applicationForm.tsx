@@ -38,6 +38,7 @@ interface ApplicationFormData {
     questionOne: string;
     questionTwo: string;
     resume: File | null;
+    age: number;
     checkbox1: boolean;
     checkbox2: boolean;
     checkbox3: boolean;
@@ -120,6 +121,7 @@ export default function ApplicationForm() {
         linkedinURL: '',
         questionOne: '',
         questionTwo: '',
+        age: 0,
         resume: null,
         checkbox1: false,
         checkbox2: false,
