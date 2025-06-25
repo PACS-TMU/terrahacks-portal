@@ -28,5 +28,5 @@ export async function GET() {
         return NextResponse.json({ success: false, error: applicationError.message }, { status: 400 });
     }
 
-    return NextResponse.json({ applicationStatus: applicationData.status, success: true });
+    return NextResponse.json({ applicationStatus: applicationData.app_status, success: true });
 }

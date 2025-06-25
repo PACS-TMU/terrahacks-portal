@@ -9,7 +9,7 @@ export default async function AcceptedSection() {
     const supabase = await createClient();
     const { count: yesCount, error } = await supabase.from("rsvp").select("status", { count: 'exact' })
         .eq("status", "Yes");
-
+        
     if (error) {
         console.error(error);
         return redirect("/dashboard?message=Error - Error retrieving RSVP data, please contact support if issue persists.");
@@ -25,9 +25,9 @@ export default async function AcceptedSection() {
             <p className="md:text-xl whitespace-pre-line text-center my-2">
                 {rsvpDisabled ?
                     "Unfortunately, the RSVP period has ended. Please contact us if you have any questions." :
-                    "RSVP below as soon as possible to guarantee yourself a spot. \nWe look forward to seeing you in August!"
+                        "RSVP below as soon as possible to guarantee yourself a spot. \nWe look forward to seeing you in August!"
                 }
-            </p>
+                </p>
 
             <form>
                 <SubmitButton

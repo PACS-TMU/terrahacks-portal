@@ -12,6 +12,7 @@ export default function Intro({ user, applicationStatus, formattedDeadline, rsvp
     } catch {
         userFirstName = "Your";
     }
+    console.log(rsvpStatus);
     return (
         <div className="md:sticky top-0 z-10 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
             <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">{userFirstName} Home</h1>
@@ -52,7 +53,7 @@ export default function Intro({ user, applicationStatus, formattedDeadline, rsvp
             ) : (applicationStatus === "Under Review" ? (
                 <p className="text-base md:text-lg text-gray-800 whitespace-pre-line my-2">We got your application! Review the details below.</p>
             ) : (applicationStatus === "Accepted" ? 
-                (rsvpStatus === "Yes"  ? (
+                (rsvpStatus === "Yes" ? (
                     <Section 
                         decision={"Congratulations, your RSVP has been recorded!"}
                         blurb={"We look forward to seeing you at TerraHacks in August! If you wish to rescind your RSVP, please contact us."}
