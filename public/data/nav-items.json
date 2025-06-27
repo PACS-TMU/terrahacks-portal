@@ -29,27 +29,34 @@
     },
     {
         "id": 5,
+        "name": "Volunteer",
+        "path": "/dashboard/volunteer",
+        "icon": "<IoAccessibilityOutline  />",
+        "status": "Not Applied"
+    },
+    {
+        "id": 6,
         "name": "Ticket",
         "path": "/dashboard/ticket",
         "icon": "<IoTicketOutline />",
         "status": "Accepted"
     },
     {
-        "id": 6,
+        "id": 7,
         "name": "Location",
         "path": "/dashboard/location",
         "icon": "<IoLocationOutline />",
         "status": "Accepted"
     },
     {
-        "id": 7,
+        "id": 8,
         "name": "Contact",
         "path": "/dashboard/contact",
         "icon": "<IoMailOpenOutline />",
         "status": "Not Applied"
     },
     {
-        "id": 8,
+        "id": 9,
         "name": "Data Request",
         "path": "/dashboard/data-request",
         "icon": "<AiOutlineDatabase />",
