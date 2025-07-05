@@ -30,6 +30,8 @@ export default function TeamPage() {
     const [memberAppIds, setMemberAppIds] = useState(["", "", ""]);    const [search, setSearch] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [userApplicationId, setUserApplicationId] = useState<string | null>(null);
+    const [editingName, setEditingName] = useState(false);
+    const [newTeamName, setNewTeamName] = useState("");
 
     const fetchUserAndTeam = useCallback(async () => {
         setLoading(true);
@@ -430,7 +432,49 @@ export default function TeamPage() {
                         {team && (
                             <div className="bg-gradient-to-br from-green-50 via-white to-blue-100 rounded-xl p-6 mb-8 border border-green-200">
                                 <div className="flex items-center gap-2 mb-4">
-                                    <h2 className="text-2xl font-bold text-green-800">{team.team_name}</h2>
+                                    {editingName ? (
+                                        <form
+                                            onSubmit={async e => {
+                                                e.preventDefault();
+                                                if (!newTeamName.trim() || !team) return;
+                                                const { error } = await supabase
+                                                    .from("teams")
+                                                    .update({ team_name: newTeamName.trim() })
+                                                    .eq("team_id", team.team_id);
+                                                if (!error) {
+                                                    setTeam({ ...team, team_name: newTeamName.trim() });
+                                                    setEditingName(false);
+                                                } else {
+                                                    setError("Failed to update team name: " + error.message);
+                                                }
+                                            }}
+                                            className="flex gap-2 items-center"
+                                        >
+                                            <input
+                                                className="input input-bordered px-2 py-1 rounded border border-blue-200"
+                                                value={newTeamName}
+                                                onChange={e => setNewTeamName(e.target.value)}
+                                                autoFocus
+                                            />
+                                            <button className="btn btn-success btn-sm" type="submit">Save</button>
+                                            <button className="btn btn-ghost btn-sm" type="button" onClick={() => setEditingName(false)}>Cancel</button>
+                                        </form>
+                                    ) : (
+                                        <>
+                                            <h2 className="text-2xl font-bold text-green-800">{team.team_name}</h2>
+                                            {team.created_by === userApplicationId && (
+                                                <button
+                                                    className="ml-2 text-blue-700 underline text-sm"
+                                                    onClick={() => {
+                                                        setNewTeamName(team.team_name);
+                                                        setEditingName(true);
+                                                    }}
+                                                >
+                                                    Edit
+                                                </button>
+                                            )}
+                                        </>
+                                    )}
                                 </div>
                                 <div className="font-semibold text-green-700 mb-2">MEMBERS</div>
                                 <div className="space-y-3">
