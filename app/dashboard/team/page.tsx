@@ -27,8 +27,7 @@ export default function TeamPage() {
     const [members, setMembers] = useState<TeamMember[]>([]);
     const [teams, setTeams] = useState<Team[]>([]);
     const [teamName, setTeamName] = useState("");
-    const [memberEmails, setMemberEmails] = useState(["", "", ""]);
-    const [search, setSearch] = useState("");
+    const [memberAppIds, setMemberAppIds] = useState(["", "", ""]);    const [search, setSearch] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [userApplicationId, setUserApplicationId] = useState<string | null>(null);
 
@@ -174,27 +173,20 @@ export default function TeamPage() {
             return;
         }
 
-        // Add invited members (by email, if provided)
-        for (const email of memberEmails) {
-            if (email.trim()) {
-                const { data: foundUser } = await supabase
-                    .from("users")
-                    .select("id")
-                    .eq("email", email.trim())
+        // Add invited members (by application ID, if provided)
+        for (const appId of memberAppIds) {
+            const trimmedId = appId.trim();
+            if (trimmedId) {
+                const { data: existing } = await supabase
+                    .from("team_members")
+                    .select("*")
+                    .eq("application_id", trimmedId)
                     .maybeSingle();
-                if (foundUser?.id) {
-                    // Find their application_id
-                    const { data: foundApp } = await supabase
-                        .from("applicant_details")
-                        .select("application_id")
-                        .eq("account_id", foundUser.id)
-                        .maybeSingle();
-                    if (foundApp?.application_id) {
-                        await supabase.from("team_members").insert({
-                            application_id: foundApp.application_id,
-                            team_id: newTeam.team_id,
-                        });
-                    }
+                if (!existing) {
+                    await supabase.from("team_members").insert({
+                        application_id: trimmedId,
+                        team_id: newTeam.team_id,
+                    });
                 }
             }
         }
@@ -202,7 +194,7 @@ export default function TeamPage() {
         setTeam(newTeam);
         setError(null);
         setTeamName("");
-        setMemberEmails(["", "", ""]);
+        setMemberAppIds(["", "", ""]);
         await fetchUserAndTeam();
     }
 
@@ -380,20 +372,20 @@ export default function TeamPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block font-semibold mb-2 text-green-800">Add Members (optional)</label>
-                                    {[0, 1, 2].map(i => (
-                                        <input
-                                            key={i}
-                                            className="input input-bordered w-full px-4 py-2 rounded-lg border border-blue-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 transition mb-2"
-                                            placeholder={`Member ${i + 1} email`}
-                                            value={memberEmails[i]}
-                                            onChange={e => {
-                                                const arr = [...memberEmails];
-                                                arr[i] = e.target.value;
-                                                setMemberEmails(arr);
-                                            }}
-                                        />
-                                    ))}
+                                    <label className="block font-semibold mb-2 text-green-800">Add Members by Application ID (optional)</label>
+                                        {[0, 1, 2].map(i => (
+                                            <input
+                                                key={i}
+                                                className="input input-bordered w-full px-4 py-2 rounded-lg border border-blue-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 transition mb-2"
+                                                placeholder={`Member ${i + 1} application ID`}
+                                                value={memberAppIds[i]}
+                                                onChange={e => {
+                                                    const arr = [...memberAppIds];
+                                                    arr[i] = e.target.value;
+                                                    setMemberAppIds(arr);
+                                                }}
+                                            />
+                                        ))}
                                 </div>
                                 <button
                                     className="w-full py-3 rounded-lg bg-gradient-to-r from-green-500 to-blue-400 text-white font-bold text-lg shadow hover:scale-105 transition"
