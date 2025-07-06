@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
-import  Calendar  from '@/components/dashboard/schedule/calendar.jsx';
+import CustomScheduler from '@/components/dashboard/schedule/calendar';
 // Imports for Scheduler
 
 export default async function Schedule() {
@@ -42,7 +42,7 @@ export default async function Schedule() {
 
             {/* Div for the schedule  */}
             <div>
-               <Calendar />
+               <CustomScheduler />
             </div>
         </>
     );

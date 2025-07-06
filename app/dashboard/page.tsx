@@ -42,6 +42,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ message
   if (userApplication && userApplication.length > 0 && userApplication[0].applied === "Applied") {
     const { data: application, error } = await supabase.from("applicant_details").select().eq("account_id", user.id);
 
+    const { data: rsvpData, error: rsvpError } = await supabase.from("rsvp").select("status").eq("account_id", user.id).single();
     if (error) {
       console.error("Error fetching application: ", error);
     }
@@ -51,7 +52,7 @@ export default async function Dashboard(props: { searchParams: Promise<{ message
       applicationStatus = application[0].app_status;
       applicationId = application[0].application_id;
       dateApplied = application[0].applied_date;
-      rsvpStatus = application[0].rsvp;
+      rsvpStatus = rsvpData ? String(rsvpData.status) : 'N/A';
     }
   }
 

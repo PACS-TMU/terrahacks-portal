@@ -505,6 +505,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         required
                     >
                         <option value="" disabled>-- Select --</option>
+                        <option value="High School">High School</option>
                         <option value="1st Year">1st Year</option>
                         <option value="2nd Year">2nd Year</option>
                         <option value="3rd Year">3rd Year</option>
@@ -529,6 +530,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         required
                     >
                         <option value="" disabled>-- Select --</option>
+                        <option value="High School">High School</option>
                         <option value="2025">2025</option>
                         <option value="2026">2026</option>
                         <option value="2027">2027</option>
@@ -561,6 +563,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         required
                     >
                         <option value="" disabled>-- Select --</option>
+                        <option value="High School">High School</option>
                         <option value="Computer science">Computer Science</option>
                         <option value="Mathematics or statistics">Mathematics or statistics</option>
                         <option value="A natural science (such as biology, chemistry, physics, etc.) ">A natural science (such as biology, chemistry, physics, etc.) </option>
