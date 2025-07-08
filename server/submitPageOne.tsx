@@ -119,7 +119,7 @@ export default async function submitPageOne(formData: FormData) {
     const city = formData.get('city');
     const province = !formData.get('province') ? 'Not in Canada' : formData.get('province');
     const levelOfStudy = formData.get('levelOfStudy');
-    const graduationYear = Number(formData.get('graduationYear'));
+    const graduationYear = formData.get('graduationYear');
     const fieldOfStudy = formData.get('fieldOfStudy');
     const school = formData.get('school') === "Other" ? formData.get('otherSchool') : formData.get('school');
     const tmuStudentBool = school === "Toronto Metropolitan (Ryerson) University" ? true : false;
