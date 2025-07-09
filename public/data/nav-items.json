@@ -29,8 +29,8 @@
     },
     {
         "id": 5,
-        "name": "Volunteer",
-        "path": "/dashboard/volunteer",
+        "name": "Volunteer/Mentor",
+        "path": "/dashboard/volunteer-mentor",
         "icon": "<IoAccessibilityOutline  />",
         "status": "Not Applied"
     },
