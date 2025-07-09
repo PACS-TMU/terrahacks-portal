@@ -40,7 +40,9 @@ export default function FormSelector() {
         setSubmitted(false);
     }, [formType]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
         const target = e.target as HTMLInputElement;
         const { name, value, type, checked } = target;
 
@@ -83,7 +85,7 @@ export default function FormSelector() {
         }
     const table = formType === "volunteer" ? "volunteer_applications" : "mentor_applications";
     const currentDate = new Date().toISOString().split("T")[0];
-
+    
     // Check if email already exists
 const { data: existing, error: checkError } = await supabase
     .from(table)
@@ -101,19 +103,38 @@ if (existing && existing.length > 0) {
     alert("An application with this email has already been submitted.");
     return;
 }
+// Submit the application
+const payload = {
+  ...formData,
+  dietary_restrictions:
+    formData.dietary_restrictions === "Other"
+      ? (formData as any).dietary_restrictions_other || "Other"
+      : formData.dietary_restrictions,
+  account_id: user.id,
+  applied_date: currentDate,
+};
+
+const { error } = await supabase.from(table).insert([payload]);
+
+if (error) {
+  console.error("Submission error:", error.message, error.details);
+  alert("Submission failed. Check console for details.");
+} else {
+  setSubmitted(true);
+}
 
 
-    // Submit the application
-    const payload = { ...formData, account_id: user.id, applied_date: currentDate };
+    // // Submit the application
+    // const payload = { ...formData, account_id: user.id, applied_date: currentDate };
 
-    const { error } = await supabase.from(table).insert([payload]);
+    // const { error } = await supabase.from(table).insert([payload]);
 
-    if (error) {
-        console.error("Submission error:", error.message, error.details);
-        alert("Submission failed. Check console for details.");
-    } else {
-        setSubmitted(true);
-    } 
+    // if (error) {
+    //     console.error("Submission error:", error.message, error.details);
+    //     alert("Submission failed. Check console for details.");
+    // } else {
+    //     setSubmitted(true);
+    // } 
 
 };
 
@@ -145,21 +166,56 @@ if (existing && existing.length > 0) {
                     <input name="emergency_contact_name" placeholder="Emergency Contact Name" onChange={handleChange} required className="border p-2" />
                     <input name="emergency_contact_phone" placeholder="Emergency Contact Phone (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2" />
 
-                    <label className="flex items-center space-x-2">
-                        <input
-                            type="checkbox"
-                            name="acknowledge_physical_location"
-                            onChange={handleChange}
-                            required
-                        />
-                        <span>I acknowledge I will be physically present</span>
+                
+                    <label htmlFor="dietary_restrictions" className="font-medium">
                     </label>
-
-                    <input name="dietary_restrictions" placeholder="Dietary Restrictions" onChange={handleChange} required className="border p-2" />
-
-                    {formType === "volunteer" && (
-                        <input name="preferred_roles" placeholder="Preferred Roles" onChange={handleChange} required className="border p-2" />
+                    <p className= "-mt-5 -mb-5 px-2">Dietary Restrictions/Food Allergies</p>
+                    <select
+                    id="dietary_restrictions"
+                    name="dietary_restrictions"
+                    onChange={handleChange}
+                    required
+                    className="border p-2"
+                    >
+                    <option value="">-- Please select an option -- </option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Gluten-Free">Gluten-Free</option>
+                    <option value="Nut Allergy">Nut Allergy (Peanuts/Tree Nuts)</option>
+                    <option value="None">No dietary restrictions</option>
+                    <option value="Other">Other (please specify in the form below)</option>
+                    </select>
+                    {formData.dietary_restrictions === "Other" && (
+                    <input
+                        name="dietary_restrictions_other"
+                        placeholder="Please specify your dietary restriction"
+                        onChange={handleChange}
+                        className="border p-2"
+                    />
                     )}
+                
+                   {formType === "volunteer" && (
+                <>
+                    <label htmlFor="preferred_roles" className="-mt-2 -mb-2 px-2">Preferred Role</label>
+                    <select
+                    id="preferred_roles"
+                    name="preferred_roles"
+                    onChange={handleChange}
+                    required
+                    className="border p-2"
+                    >
+                    <option value="">-- Please select a role -- </option>
+                    <option value="Guide">Guide - Showing people how to get to rooms or spaces</option>
+                    <option value="Runner">Runner - Help grab food and other items when needed</option>
+                    <option value="Tech Support">Tech Support - Helps with general tech questions that participants might have</option>
+                    <option value="Set Up/Tear Down Crew">Set Up/Tear Down Crew - Sets up rooms for events that are happening</option>
+                    <option value="Photographer / Videographer">Photographer / Videographer - Helps take photos/videos during the event</option>
+                    <option value="Floater">Floater - Help with whatever task needs extra help</option>
+                    </select>
+                </>
+                )}
+
+                     
 
                     {formType === "mentor" && (
                         <>
@@ -170,9 +226,18 @@ if (existing && existing.length > 0) {
                             <input name="technical_skills" placeholder="Technical Skills" onChange={handleChange} required className="border p-2" />
                             <input name="expertise_areas" placeholder="Expertise Areas" onChange={handleChange} required className="border p-2" />
                             <textarea name="why_mentor" placeholder="Why do you want to be a mentor?" onChange={handleChange} required className="border p-2" />
+                            
                         </>
                     )}
-
+                    <label className="flex items-center space-x-2">
+                        <input
+                            type="checkbox"
+                            name="acknowledge_physical_location"
+                            onChange={handleChange}
+                            required
+                        />
+                        <span>I acknowledge I will be physically present</span>
+                    </label>
                     <button
                         type="submit"
                         className="bg-highlight text-background shadow-md p-4 rounded-lg rounded-lg hover:animate-pulse hover:opacity-90 ease-in-out duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
