@@ -34,24 +34,58 @@ export default function FormSelector() {
     const [formType, setFormType] = useState<FormType>("volunteer");
     const [formData, setFormData] = useState<FormData>({} as FormData);
     const [submitted, setSubmitted] = useState(false);
-
+    const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({}); //error state for form validation
     useEffect(() => {
-        // setFormData({});
-        setSubmitted(false);
+    setSubmitted(false);
+    setFormErrors({}); // Clear validation messages
+    setFormData({});   
     }, [formType]);
 
-    const handleChange = (
+    // useEffect(() => {
+    //     // setFormData({});
+    //     setSubmitted(false);
+    // }, [formType]);
+const handleChange = (
   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 ) => {
-        const target = e.target as HTMLInputElement;
-        const { name, value, type, checked } = target;
+  const target = e.target;
+  const { name, value, type } = target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
-        if (type === "checkbox") {
-            setFormData((prev) => ({ ...prev, [name]: checked }));
-        } else {
-            setFormData((prev) => ({ ...prev, [name]: value }));
-        }
-    };
+  let newValue: any = value;
+  if (type === "checkbox" && target instanceof HTMLInputElement) {
+    newValue = target.checked;
+  }
+
+  setFormData((prev) => ({ ...prev, [name]: newValue }));
+
+  // Real-time validation
+  if (name === "email") {
+    setFormErrors((prev) => ({
+      ...prev,
+      email: validateEmail(value) ? "" : "Invalid email format. Must include @ and a domain",
+    }));
+  }
+
+  if (name === "phone_number" || name === "emergency_contact_phone") {
+    setFormErrors((prev) => ({
+      ...prev,
+      [name]: validatePhone(value) ? "" : "Phone number must be XXX-XXX-XXXX",
+    }));
+  }
+};
+
+//     const handleChange = (
+//   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+// ) => {
+//         const target = e.target as HTMLInputElement;
+//         const { name, value, type, checked } = target;
+
+//         if (type === "checkbox") {
+//             setFormData((prev) => ({ ...prev, [name]: checked }));
+//         } else {
+//             setFormData((prev) => ({ ...prev, [name]: value }));
+//         }
+//     };
 
     const validatePhone = (value: string) => /^\d{3}-\d{3}-\d{4}$/.test(value);
     const validateEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -76,52 +110,52 @@ export default function FormSelector() {
             return;
         }
         if (!formData.phone_number || !validatePhone(formData.phone_number)) {
-            alert("Phone number must be in XXX-XXX-XXXX format.");
+            alert("Phone number must be in 123-456-6789 format.");
             return;
         }
         if (!formData.emergency_contact_phone || !validatePhone(formData.emergency_contact_phone)) {
-            alert("Emergency contact number must be in XXX-XXX-XXXX format.");
+            alert("Emergency contact number must be in 123-456-6789 format.");
             return;
         }
     const table = formType === "volunteer" ? "volunteer_applications" : "mentor_applications";
     const currentDate = new Date().toISOString().split("T")[0];
     
     // Check if email already exists
-const { data: existing, error: checkError } = await supabase
-    .from(table)
-    .select("account_id")
-    .eq("email", formData.email)
-    .limit(1);
+    const { data: existing, error: checkError } = await supabase
+        .from(table)
+        .select("account_id")
+        .eq("email", formData.email)
+        .limit(1);
 
-if (checkError) {
-    console.error("Email check error:", checkError.message);
-    alert("Error checking email. Please try again.");
-    return;
-}
+    if (checkError) {
+        console.error("Email check error:", checkError.message);
+        alert("Error checking email. Please try again.");
+        return;
+    }
 
-if (existing && existing.length > 0) {
-    alert("An application with this email has already been submitted.");
-    return;
-}
-// Submit the application
-const payload = {
-  ...formData,
-  dietary_restrictions:
-    formData.dietary_restrictions === "Other"
-      ? (formData as any).dietary_restrictions_other || "Other"
-      : formData.dietary_restrictions,
-  account_id: user.id,
-  applied_date: currentDate,
-};
+    if (existing && existing.length > 0) {
+        alert("An application with this email has already been submitted.");
+        return;
+    }
+    // Submit the application
+    const payload = {
+    ...formData,
+    dietary_restrictions:
+        formData.dietary_restrictions === "Other"
+        ? (formData as any).dietary_restrictions_other || "Other"
+        : formData.dietary_restrictions,
+    account_id: user.id,
+    applied_date: currentDate,
+    };
 
-const { error } = await supabase.from(table).insert([payload]);
+    const { error } = await supabase.from(table).insert([payload]);
 
-if (error) {
-  console.error("Submission error:", error.message, error.details);
-  alert("Submission failed. Check console for details.");
-} else {
-  setSubmitted(true);
-}
+    if (error) {
+    console.error("Submission error:", error.message, error.details);
+    alert("Submission failed. Check console for details.");
+    } else {
+    setSubmitted(true);
+    }
 
 
     // // Submit the application
@@ -161,10 +195,14 @@ if (error) {
                 <form onSubmit={handleSubmit} className="grid gap-4">
                     <input name="first_name" placeholder="First Name" onChange={handleChange} required className="border p-2" />
                     <input name="last_name" placeholder="Last Name" onChange={handleChange} required className="border p-2" />
-                    <input name="email" type="email" placeholder="Email" onChange={handleChange} required className="border p-2" />
-                    <input name="phone_number" placeholder="Phone Number (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2" />
+                    <input name="email" type="email" placeholder="Email" onChange={handleChange} required className="border p-2"/>
+                    {formErrors.email && (<p className="text-red-500 text-sm">{formErrors.email}</p>)}
+                    <input name="phone_number" placeholder="Phone Number (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2"/>
+                    {formErrors.phone_number && (<p className="text-red-500 text-sm">{formErrors.phone_number}</p>)}
                     <input name="emergency_contact_name" placeholder="Emergency Contact Name" onChange={handleChange} required className="border p-2" />
-                    <input name="emergency_contact_phone" placeholder="Emergency Contact Phone (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2" />
+                    <input name="emergency_contact_phone" placeholder="Emergency Contact Phone (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2"/>
+                    {formErrors.emergency_contact_phone && ( <p className="text-red-500 text-sm">{formErrors.emergency_contact_phone}</p>)}
+
 
                 
                     <label htmlFor="dietary_restrictions" className="font-medium">
