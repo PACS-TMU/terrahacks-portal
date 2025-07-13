@@ -18,7 +18,7 @@ export default async function Volunteer() {
             <div className="md:sticky top-0 z-10 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
                 <h1 className="text -xl md:text-4xl text-gray-800 font-bold font-sans">Volunteer</h1>
                 <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">Create a team of minimum 1 member (yourself) and up to 4 members!</p>
-                <p className="text-gray-800 mt-2">If you already submitted and y   nn ou would like to update your team, please contact us at {" "}
+                <p className="text-gray-800 mt-2">If you already submitted an ou would like to update your team, please contact us at {" "}
                     <a
                         aria-label="Send us an email"
                         href="mailto:contact@terrahacks.ca"

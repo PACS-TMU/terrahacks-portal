@@ -34,18 +34,47 @@ export default function FormSelector() {
     const [formType, setFormType] = useState<FormType>("volunteer");
     const [formData, setFormData] = useState<FormData>({} as FormData);
     const [submitted, setSubmitted] = useState(false);
-    const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({}); //error state for form validation
+    const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+    const [alreadySubmitted, setAlreadySubmitted] = useState<{ volunteer: boolean; mentor: boolean }>({ volunteer: false, mentor: false }); // NEW
+
     useEffect(() => {
-    setSubmitted(false);
-    setFormErrors({}); // Clear validation messages
-    setFormData({});   
+        setSubmitted(false);
+        setFormErrors({});
+        setFormData({});
     }, [formType]);
 
-    // useEffect(() => {
-    //     // setFormData({});
-    //     setSubmitted(false);
-    // }, [formType]);
-const handleChange = (
+    // Check for existing application on mount
+    useEffect(() => {
+        const checkExisting = async () => {
+            const supabase = createClient();
+            const {
+                data: { user },
+                error: userError,
+            } = await supabase.auth.getUser();
+
+            if (userError || !user) return;
+
+            const vApp = await supabase
+                .from("volunteer_applications")
+                .select("account_id")
+                .eq("account_id", user.id)
+                .limit(1);
+
+            const mApp = await supabase
+                .from("mentor_applications")
+                .select("account_id")
+                .eq("account_id", user.id)
+                .limit(1);
+
+            setAlreadySubmitted({
+                volunteer: Array.isArray(vApp.data) && vApp.data.length > 0,
+                mentor: Array.isArray(mApp.data) && mApp.data.length > 0,
+            });
+        };
+        checkExisting();
+    }, [formType]);
+
+    const handleChange = (
   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 ) => {
   const target = e.target;
@@ -191,7 +220,11 @@ const handleChange = (
                 </button>
             </div>
 
-            {!submitted ? (
+            {alreadySubmitted[formType] ? (
+                <div className="text-blue-600 font-bold text-center">
+                    You have already submitted a {formType} application.
+                </div>
+            ) : !submitted ? (
                 <form onSubmit={handleSubmit} className="grid gap-4">
                     <input name="first_name" placeholder="First Name" onChange={handleChange} required className="border p-2" />
                     <input name="last_name" placeholder="Last Name" onChange={handleChange} required className="border p-2" />
