@@ -1,6 +1,5 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
-import CustomScheduler from '@/components/dashboard/schedule/calendar';
 // Imports for Scheduler
 
 export default async function Schedule() {
@@ -16,14 +15,16 @@ export default async function Schedule() {
         <>
             <div className="md:sticky top-0 z-10 shrink-0 px-6 md:py-8 py-2 border-b-2 border-b-gray-300 bg-[#f7fafc]">
                 <h1 className="text-xl md:text-4xl text-gray-800 font-bold font-sans">TerraHacks Schedule</h1>
-                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">Congradulations on being accepted! Here are TerraHacks&aops; event schedule and meal times</p>
-                <p className="text-gray-800 mt-2">If you&apos;ve got any questions, please email us at {" "}
-
+                <p className="md:text-xl text-gray-400 md:mt-4 font-sans whitespace-pre-line">
+                    Congratulations on being accepted! Here are TerraHacks&apos; event schedule and meal times.
+                </p>
+                <p className="text-gray-800 mt-2">
+                    If you&apos;ve got any questions, please email us at{" "}
                     <a
                         aria-label="Send us an email"
                         href="mailto:contact@terrahacks.ca"
                         target="_blank"
-                        rel="nooppener noreferrer"
+                        rel="noopener noreferrer"
                         className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
                     >
                         contact@terrahacks.ca
@@ -32,17 +33,18 @@ export default async function Schedule() {
                         aria-label="Discord Server Link"
                         href="https://discord.gg/kTXWhTMs2f"
                         target="_blank"
-                        rel="nooppener noreferrer"
+                        rel="noopener noreferrer"
                         className="text-sky-600 font-bold underline hover:text-sky-400 duration-300 ease-in-out"
                     >
                         Discord Server
-                    </a> for the latest updates and information!
+                    </a>{" "}
+                    for the latest updates and information!
                 </p>
             </div>
 
-            {/* Div for the schedule  */}
-            <div>
-               <CustomScheduler />
+            {/* Coming soon message instead of the schedule component */}
+            <div className="flex items-center justify-center h-96">
+                <span className="text-3xl md:text-5xl font-bold text-gray-400">Coming soon!</span>
             </div>
         </>
     );

@@ -24,7 +24,7 @@ export default function Ticket({ user_id }: { user_id: string }) {
                     <div className="flex flex-row space-x-6">
                         <div className={'flex flex-col'}>
                             <span className={'text-sm text-gray-200 text-right'}>DATE</span>
-                            <span className={''}>Aug 2</span>
+                            <span className={''}>Aug 1</span>
                         </div>
                         <div className={'flex flex-col'}>
                             <span className={'text-sm text-gray-200 text-right'}>TIME</span>
@@ -43,7 +43,7 @@ export default function Ticket({ user_id }: { user_id: string }) {
                 </CardItem>
                 <CardItem translateZ={50} className={'px-3 md:px-6'}>
                     <div className={'text-sm text-gray-200'}>EVENT</div>
-                    <div>TerraHacks - Hackathon</div>
+                    <div>TerraHacks 2025- Hackathon</div>
                 </CardItem>
                 <CardItem translateZ={50} className={'px-3 md:px-6 flex flex-row w-full justify-between text-sm md:text-sm'}>
                     <div>
