@@ -79,7 +79,9 @@ const allEvents: Event[] = [
     id: 3,
     title: 'Dinner',
     start: new Date('2025-08-01T21:00:00'),
+
     end: new Date('2025-08-01T22:00:00'),
+
     room: 'DCC 103 / 104',
     description: 'Enjoy a complimentary dinner and network with other participants.',
   },
@@ -93,10 +95,12 @@ const allEvents: Event[] = [
   },
   {
     id: 5,
+
     title: 'Smash Bros Tournament',
     start: new Date('2025-08-02T01:00:00'),
     end: new Date('2025-08-02T03:00:00'),
     room: 'DCC 350 / 352',
+
     description: 'Enjoy a complimentary lunch and network with other participants.',
   },
   {
@@ -122,6 +126,7 @@ const allEvents: Event[] = [
     end: new Date('2025-08-02T03:00:00'),
     room: 'TBD',
     description: 'Enjoy a complimentary lunch and network with other participants.',
+
   },
   {
     id: 7,
@@ -130,6 +135,7 @@ const allEvents: Event[] = [
     end: new Date('2025-08-02T03:00:00'),
     room: 'TBD',
     description: 'Enjoy a complimentary lunch and network with other participants.',
+
   }
 ];
 
@@ -167,6 +173,7 @@ export default function CustomScheduler() {
   const pxPerHour = 64; // Fixed height for consistency
 
   return (
+
     <div>
       <h1 className="text-2xl font-bold mb-4">Coming soon!</h1>
     </div>
@@ -275,5 +282,6 @@ export default function CustomScheduler() {
     //     </div>
     //   )}
     // </div>
+
   );
 }

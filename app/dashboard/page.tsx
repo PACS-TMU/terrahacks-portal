@@ -44,7 +44,10 @@ export default async function Dashboard(props: { searchParams: Promise<{ message
 
     const { data: rsvpData, error: rsvpError } = await supabase.from("rsvp").select("status").eq("account_id", user.id).single();
     if (error) {
-      console.error("Error fetching application: ", error);
+      // You can display an error component or set an error message
+      return (
+        <ApplicationError searchParams={{ message: "Error fetching application details. Please try again later or contact support if error persists" }} />
+      );
     }
 
     if (application && application.length > 0) {
