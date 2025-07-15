@@ -24,7 +24,7 @@ export default function Ticket({ user_id }: { user_id: string }) {
                     <div className="flex flex-row space-x-6">
                         <div className={'flex flex-col'}>
                             <span className={'text-sm text-gray-200 text-right'}>DATE</span>
-                            <span className={''}>Aug 2</span>
+                            <span className={''}>Aug 1</span>
                         </div>
                         <div className={'flex flex-col'}>
                             <span className={'text-sm text-gray-200 text-right'}>TIME</span>
