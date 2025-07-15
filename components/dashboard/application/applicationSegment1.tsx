@@ -505,6 +505,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         required
                     >
                         <option value="" disabled>-- Select --</option>
+
                         <option value="High School">High School</option>
                         <option value="1st Year">1st Year</option>
                         <option value="2nd Year">2nd Year</option>
