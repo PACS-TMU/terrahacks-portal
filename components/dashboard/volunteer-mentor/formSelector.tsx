@@ -14,6 +14,7 @@ interface VolunteerFormData {
     acknowledge_physical_location?: boolean;
     preferred_roles?: string;
     dietary_restrictions?: string;
+    dietary_restrictions_other?: string; // Add this field
     applied_date?: string;
 }
 
@@ -35,7 +36,7 @@ export default function FormSelector() {
     const [formData, setFormData] = useState<FormData>({} as FormData);
     const [submitted, setSubmitted] = useState(false);
     const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
-    const [alreadySubmitted, setAlreadySubmitted] = useState<{ volunteer: boolean; mentor: boolean }>({ volunteer: false, mentor: false }); // NEW
+    const [alreadySubmitted, setAlreadySubmitted] = useState<{ volunteer: boolean; mentor: boolean }>({ volunteer: false, mentor: false });
 
     useEffect(() => {
         setSubmitted(false);
@@ -75,46 +76,33 @@ export default function FormSelector() {
     }, [formType]);
 
     const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-) => {
-  const target = e.target;
-  const { name, value, type } = target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
+        const target = e.target;
+        const { name, value, type } = target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
-  let newValue: any = value;
-  if (type === "checkbox" && target instanceof HTMLInputElement) {
-    newValue = target.checked;
-  }
+        let newValue: string | boolean = value;
+        if (type === "checkbox" && target instanceof HTMLInputElement) {
+            newValue = target.checked;
+        }
 
-  setFormData((prev) => ({ ...prev, [name]: newValue }));
+        setFormData((prev) => ({ ...prev, [name]: newValue }));
 
-  // Real-time validation
-  if (name === "email") {
-    setFormErrors((prev) => ({
-      ...prev,
-      email: validateEmail(value) ? "" : "Invalid email format. Must include @ and a domain",
-    }));
-  }
+        // Real-time validation
+        if (name === "email") {
+            setFormErrors((prev) => ({
+                ...prev,
+                email: validateEmail(value) ? "" : "Invalid email format. Must include @ and a domain",
+            }));
+        }
 
-  if (name === "phone_number" || name === "emergency_contact_phone") {
-    setFormErrors((prev) => ({
-      ...prev,
-      [name]: validatePhone(value) ? "" : "Phone number must be XXX-XXX-XXXX",
-    }));
-  }
-};
-
-//     const handleChange = (
-//   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-// ) => {
-//         const target = e.target as HTMLInputElement;
-//         const { name, value, type, checked } = target;
-
-//         if (type === "checkbox") {
-//             setFormData((prev) => ({ ...prev, [name]: checked }));
-//         } else {
-//             setFormData((prev) => ({ ...prev, [name]: value }));
-//         }
-//     };
+        if (name === "phone_number" || name === "emergency_contact_phone") {
+            setFormErrors((prev) => ({
+                ...prev,
+                [name]: validatePhone(value) ? "" : "Phone number must be XXX-XXX-XXXX",
+            }));
+        }
+    };
 
     const validatePhone = (value: string) => /^\d{3}-\d{3}-\d{4}$/.test(value);
     const validateEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -146,60 +134,48 @@ export default function FormSelector() {
             alert("Emergency contact number must be in 123-456-6789 format.");
             return;
         }
-    const table = formType === "volunteer" ? "volunteer_applications" : "mentor_applications";
-    const currentDate = new Date().toISOString().split("T")[0];
-    
-    // Check if email already exists
-    const { data: existing, error: checkError } = await supabase
-        .from(table)
-        .select("account_id")
-        .eq("email", formData.email)
-        .limit(1);
 
-    if (checkError) {
-        console.error("Email check error:", checkError.message);
-        alert("Error checking email. Please try again.");
-        return;
-    }
+        const table = formType === "volunteer" ? "volunteer_applications" : "mentor_applications";
+        const currentDate = new Date().toISOString().split("T")[0];
+        
+        // Check if email already exists
+        const { data: existing, error: checkError } = await supabase
+            .from(table)
+            .select("account_id")
+            .eq("email", formData.email)
+            .limit(1);
 
-    if (existing && existing.length > 0) {
-        alert("An application with this email has already been submitted.");
-        return;
-    }
-    // Submit the application
-    const payload = {
-    ...formData,
-    dietary_restrictions:
-        formData.dietary_restrictions === "Other"
-        ? (formData as any).dietary_restrictions_other || "Other"
-        : formData.dietary_restrictions,
-    account_id: user.id,
-    applied_date: currentDate,
+        if (checkError) {
+            console.error("Email check error:", checkError.message);
+            alert("Error checking email. Please try again.");
+            return;
+        }
+
+        if (existing && existing.length > 0) {
+            alert("An application with this email has already been submitted.");
+            return;
+        }
+
+        // Submit the application - properly typed
+        const payload = {
+            ...formData,
+            dietary_restrictions:
+                formData.dietary_restrictions === "Other"
+                ? (formData as VolunteerFormData).dietary_restrictions_other || "Other"
+                : formData.dietary_restrictions,
+            account_id: user.id,
+            applied_date: currentDate,
+        };
+
+        const { error } = await supabase.from(table).insert([payload]);
+
+        if (error) {
+            console.error("Submission error:", error.message, error.details);
+            alert("Submission failed. Check console for details.");
+        } else {
+            setSubmitted(true);
+        }
     };
-
-    const { error } = await supabase.from(table).insert([payload]);
-
-    if (error) {
-    console.error("Submission error:", error.message, error.details);
-    alert("Submission failed. Check console for details.");
-    } else {
-    setSubmitted(true);
-    }
-
-
-    // // Submit the application
-    // const payload = { ...formData, account_id: user.id, applied_date: currentDate };
-
-    // const { error } = await supabase.from(table).insert([payload]);
-
-    // if (error) {
-    //     console.error("Submission error:", error.message, error.details);
-    //     alert("Submission failed. Check console for details.");
-    // } else {
-    //     setSubmitted(true);
-    // } 
-
-};
 
     return (
         <div className="space-y-6">
@@ -236,57 +212,53 @@ export default function FormSelector() {
                     <input name="emergency_contact_phone" placeholder="Emergency Contact Phone (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2"/>
                     {formErrors.emergency_contact_phone && ( <p className="text-red-500 text-sm">{formErrors.emergency_contact_phone}</p>)}
 
-
-                
                     <label htmlFor="dietary_restrictions" className="font-medium">
                     </label>
                     <p className= "-mt-5 -mb-5 px-2">Dietary Restrictions/Food Allergies</p>
                     <select
-                    id="dietary_restrictions"
-                    name="dietary_restrictions"
-                    onChange={handleChange}
-                    required
-                    className="border p-2"
+                        id="dietary_restrictions"
+                        name="dietary_restrictions"
+                        onChange={handleChange}
+                        required
+                        className="border p-2"
                     >
-                    <option value="">-- Please select an option -- </option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Vegan">Vegan</option>
-                    <option value="Gluten-Free">Gluten-Free</option>
-                    <option value="Nut Allergy">Nut Allergy (Peanuts/Tree Nuts)</option>
-                    <option value="None">No dietary restrictions</option>
-                    <option value="Other">Other (please specify in the form below)</option>
+                        <option value="">-- Please select an option -- </option>
+                        <option value="Vegetarian">Vegetarian</option>
+                        <option value="Vegan">Vegan</option>
+                        <option value="Gluten-Free">Gluten-Free</option>
+                        <option value="Nut Allergy">Nut Allergy (Peanuts/Tree Nuts)</option>
+                        <option value="None">No dietary restrictions</option>
+                        <option value="Other">Other (please specify in the form below)</option>
                     </select>
                     {formData.dietary_restrictions === "Other" && (
-                    <input
-                        name="dietary_restrictions_other"
-                        placeholder="Please specify your dietary restriction"
-                        onChange={handleChange}
-                        className="border p-2"
-                    />
+                        <input
+                            name="dietary_restrictions_other"
+                            placeholder="Please specify your dietary restriction"
+                            onChange={handleChange}
+                            className="border p-2"
+                        />
                     )}
                 
-                   {formType === "volunteer" && (
-                <>
-                    <label htmlFor="preferred_roles" className="-mt-2 -mb-2 px-2">Preferred Role</label>
-                    <select
-                    id="preferred_roles"
-                    name="preferred_roles"
-                    onChange={handleChange}
-                    required
-                    className="border p-2"
-                    >
-                    <option value="">-- Please select a role -- </option>
-                    <option value="Guide">Guide - Showing people how to get to rooms or spaces</option>
-                    <option value="Runner">Runner - Help grab food and other items when needed</option>
-                    <option value="Tech Support">Tech Support - Helps with general tech questions that participants might have</option>
-                    <option value="Set Up/Tear Down Crew">Set Up/Tear Down Crew - Sets up rooms for events that are happening</option>
-                    <option value="Photographer / Videographer">Photographer / Videographer - Helps take photos/videos during the event</option>
-                    <option value="Floater">Floater - Help with whatever task needs extra help</option>
-                    </select>
-                </>
-                )}
-
-                     
+                    {formType === "volunteer" && (
+                        <>
+                            <label htmlFor="preferred_roles" className="-mt-2 -mb-2 px-2">Preferred Role</label>
+                            <select
+                                id="preferred_roles"
+                                name="preferred_roles"
+                                onChange={handleChange}
+                                required
+                                className="border p-2"
+                            >
+                                <option value="">-- Please select a role -- </option>
+                                <option value="Guide">Guide - Showing people how to get to rooms or spaces</option>
+                                <option value="Runner">Runner - Help grab food and other items when needed</option>
+                                <option value="Tech Support">Tech Support - Helps with general tech questions that participants might have</option>
+                                <option value="Set Up/Tear Down Crew">Set Up/Tear Down Crew - Sets up rooms for events that are happening</option>
+                                <option value="Photographer / Videographer">Photographer / Videographer - Helps take photos/videos during the event</option>
+                                <option value="Floater">Floater - Help with whatever task needs extra help</option>
+                            </select>
+                        </>
+                    )}
 
                     {formType === "mentor" && (
                         <>
@@ -297,9 +269,9 @@ export default function FormSelector() {
                             <input name="technical_skills" placeholder="Technical Skills" onChange={handleChange} required className="border p-2" />
                             <input name="expertise_areas" placeholder="Expertise Areas" onChange={handleChange} required className="border p-2" />
                             <textarea name="why_mentor" placeholder="Why do you want to be a mentor?" onChange={handleChange} required className="border p-2" />
-                            
                         </>
                     )}
+                    
                     <label className="flex items-center space-x-2">
                         <input
                             type="checkbox"
@@ -309,6 +281,7 @@ export default function FormSelector() {
                         />
                         <span>I acknowledge I will be physically present</span>
                     </label>
+                    
                     <button
                         type="submit"
                         className="bg-highlight text-background shadow-md p-4 rounded-lg rounded-lg hover:animate-pulse hover:opacity-90 ease-in-out duration-300 disabled:opacity-50 disabled:cursor-not-allowed"

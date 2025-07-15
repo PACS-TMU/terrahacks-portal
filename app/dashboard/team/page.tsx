@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Loading from "@/components/Loading";
+import type { User } from '@supabase/supabase-js'; // Add this import at the top
 
 type Team = {
     team_id: number;
@@ -20,7 +21,7 @@ type TeamMember = {
 
 export default function TeamPage() {
     const supabase = createClient();
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [tab, setTab] = useState<"create" | "join">("create");
     const [team, setTeam] = useState<Team | null>(null);
@@ -111,7 +112,7 @@ export default function TeamPage() {
     // Initial fetch
     useEffect(() => {
         fetchUserAndTeam();
-    }, []);
+    }, [fetchUserAndTeam]);
 
     // Fetch all teams for join tab
     useEffect(() => {
@@ -124,7 +125,7 @@ export default function TeamPage() {
             };
             fetchTeams();
         }
-    }, [tab, search]);
+    }, [tab, search, supabase]);
 
     // Create a team
     async function handleCreateTeam(e: React.FormEvent) {
