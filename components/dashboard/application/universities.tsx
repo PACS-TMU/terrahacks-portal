@@ -1,4 +1,8 @@
 export const canadianUniversities = [
+
+    // High School
+    "High School",
+    
     // TMU
     "Toronto Metropolitan (Ryerson) University",
 

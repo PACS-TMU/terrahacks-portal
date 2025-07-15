@@ -43,7 +43,6 @@ export default async function Dashboard(props: { searchParams: Promise<{ message
     const { data: application, error } = await supabase.from("applicant_details").select().eq("account_id", user.id);
 
     const { data: rsvpData } = await supabase.from("rsvp").select("status").eq("account_id", user.id).single();
-
     if (error) {
       // You can display an error component or set an error message
       return (
