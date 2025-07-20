@@ -158,12 +158,19 @@ export default function FormSelector() {
 
         // Submit the application - properly typed
         const payload = {
-            ...formData,
+            account_id: user.id,
+            first_name: formData.first_name,
+            last_name: formData.last_name,
+            email: formData.email,
+            phone_number: formData.phone_number,
+            acknowledge_physical_location: formData.acknowledge_physical_location,
+            preferred_roles: formData.preferred_roles,
             dietary_restrictions:
                 formData.dietary_restrictions === "Other"
-                ? (formData as VolunteerFormData).dietary_restrictions_other || "Other"
+                ? formData.dietary_restrictions_other || "Other"
                 : formData.dietary_restrictions,
-            account_id: user.id,
+            emergency_contact_name: formData.emergency_contact_name,
+            emergency_contact_phone: formData.emergency_contact_phone,
             applied_date: currentDate,
         };
 

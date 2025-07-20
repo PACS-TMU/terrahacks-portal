@@ -74,7 +74,7 @@ const allEvents: Event[] = [
     title: 'Opening Ceremony + Hacking Begins',
     start: new Date('2025-08-01T20:00:00'),
     end: new Date('2025-08-01T21:00:00'),
-    room: 'Room 204',
+    room: 'DCC 204',
     description: 'Explore the future of AI with hands-on demos and expert talks.',
   },
   {
@@ -95,7 +95,7 @@ const allEvents: Event[] = [
   },
   {
     id: 5,
-    title: 'Smash Bros Tournament',
+    title: 'Karaoke',
     start: new Date('2025-08-02T01:00:00'),
     end: new Date('2025-08-02T03:00:00'),
     room: 'DCC 350 / 352',
@@ -108,14 +108,6 @@ const allEvents: Event[] = [
     end: new Date('2025-08-02T03:00:00'),
     room: 'DCC 350 / 352',
     description: 'Enjoy a complimentary lunch and network with other participants.',
-  },
-  {
-    id: 7,
-    title: 'Snacks',
-    start: new Date('2025-08-02T07:30:00'),
-    end: new Date('2025-08-02T09:30:00'),
-    room: 'DCC 103 / 104',
-    description: 'Enjoy some snacks to kick off the day!',
   },
   {
     id: 8,
@@ -141,21 +133,21 @@ const allEvents: Event[] = [
     room: 'DCC 208',
     description: 'Get ready for a sweet challenge!',
   },
-  // {
-  //   id: 11,
-  //   title: 'Carnival Games',
-  //   start: new Date('2025-08-02T13:00:00'),
-  //   end: new Date('2025-08-02T15:00:00'),
-  //   room: 'DCC 208',
-  //   description: 'TBD',
-  // },
+  {
+    id: 11,
+    title: 'Carnival Games',
+    start: new Date('2025-08-02T13:00:00'),
+    end: new Date('2025-08-02T15:00:00'),
+    room: 'DCC 208',
+    description: 'TBD',
+  },
 
   {
     id: 12,
     title: 'Lunch',
     start: new Date('2025-08-02T13:30:00'),
     end: new Date('2025-08-02T15:00:00'),
-    room: 'DCC 208',
+    room: 'DCC 103 / 104',
     description: 'Enjoy a complimentary lunch and network with other participants.',
   },
   {
@@ -164,22 +156,22 @@ const allEvents: Event[] = [
     start: new Date('2025-08-02T15:30:00'),
     end: new Date('2025-08-02T16:30:00'),
     room: 'DCC 208',
-    description: 'Get ready for a sweet challenge!',
+    description: '',
   },
-  {
-    id: 14,
-    title: 'Resume Roast',
-    start: new Date('2025-08-02T16:30:00'),
-    end: new Date('2025-08-02T17:30:00'),
-    room: 'DCC 208',
-    description: 'TBD',
-  },
+  // {
+  //   id: 14,
+  //   title: 'Resume Roast',
+  //   start: new Date('2025-08-02T16:30:00'),
+  //   end: new Date('2025-08-02T17:30:00'),
+  //   room: 'DCC 208',
+  //   description: 'TBD',
+  // },
   {
     id: 15,
     title: 'Dinner',
     start: new Date('2025-08-02T21:00:00'),
     end: new Date('2025-08-02T22:30:00'),
-    room: 'DCC 208',
+    room: 'DCC 103 / 104',
     description: 'Enjoy a complimentary dinner and network with other participants.',
   },
   {
@@ -200,27 +192,27 @@ const allEvents: Event[] = [
   // },
   {
     id: 16,
-    title: 'Family Feud',
+    title: 'Spicy Noodle Challenge',
     start: new Date('2025-08-03T01:30:00'),
     end: new Date('2025-08-03T02:30:00'),
-    room: 'DCC 208',
-    description: 'Get ready for a sweet challenge!',
+    room: 'DCC 103 /104',
+    description: 'Think you can handle the heat? Join our spicy noodle challenge and win a prize!',
   },
   {
     id: 16,
     title: 'Breakfast',
     start: new Date('2025-08-03T09:00:00'),
     end: new Date('2025-08-03T10:00:00'),
-    room: 'DCC 208',
-    description: 'Get ready for a sweet challenge!',
+    room: 'DCC 103 / 104',
+    description: 'Enjoy a complimentary breakfast and network with other participants.',
   },
   {
     id: 16,
     title: 'Judging',
     start: new Date('2025-08-03T11:00:00'),
-    end: new Date('2025-08-03T16:00:00'),
+    end: new Date('2025-08-03T16:30:00'),
     room: 'DCC 103 / 104',
-    description: '',
+    description: 'Judging will take place in DCC 103 / 104. Please ensure your project is ready for review by the judges.',
   },
   {
     id: 17,
@@ -228,7 +220,7 @@ const allEvents: Event[] = [
     start: new Date('2025-08-03T17:00:00'),
     end: new Date('2025-08-03T:00:00'),
     room: 'DCC 208',
-    description: '',
+    description: 'Join us for the closing ceremony where we will announce the winners and celebrate the achievements of all participants!!',
   },
   {
     id: 18,
@@ -236,11 +228,18 @@ const allEvents: Event[] = [
     start: new Date('2025-08-03T18:00:00'),
     end: new Date('2025-08-03T19:00:00'),
     room: 'DCC 103 / 104',
-    description: '',
+    description: 'Enjoy a complimentary dinner and network with other participants.',
   },
-  
-  
-  
+  {
+    id: 19,
+    title: 'Wellness Workshop Board Game Cafe',
+    start: new Date('2025-08-03T18:00:00'),
+    end: new Date('2025-08-03T19:00:00'),
+    room: 'DCC 103 / 104',
+    description: 'Join us for a relaxing evening of board games and wellness activities.',
+  },
+
+
 ];
 
 const days = [
@@ -255,9 +254,17 @@ export default function CustomScheduler() {
   const [selected, setSelected] = useState<Event | null>(null);
   const [currentDay, setCurrentDay] = useState(0);
 
-  const filteredEvents = allEvents.filter(e =>
-    e.start <= endOfDay(days[currentDay]) && e.end >= startOfDay(days[currentDay])
-  );
+  const filteredEvents = allEvents.filter(e => {
+    const dayStart = startOfDay(days[currentDay]);
+    const dayEnd = endOfDay(days[currentDay]);
+    // Only include events that start before the end of the day and end after the start of the day,
+    // but exclude events that end exactly at midnight of the next day unless they also start that day.
+    return (
+      e.start <= dayEnd &&
+      e.end > dayStart &&
+      !(e.end.getTime() === dayEnd.getTime() + 1 && e.start < dayStart)
+    );
+  });
 
   const positionedEvents = filteredEvents.map((event, _, arr) => {
     const overlappingEvents = arr.filter(e =>
