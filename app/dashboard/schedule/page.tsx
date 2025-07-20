@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
+import Calendar from '@/components/dashboard/schedule/calendar';
 // Imports for Scheduler
 
 export default async function Schedule() {
@@ -43,9 +44,10 @@ export default async function Schedule() {
             </div>
 
             {/* Coming soon message instead of the schedule component */}
-            <div className="flex items-center justify-center h-96">
+            {/* <div className="flex items-center justify-center h-96">
                 <span className="text-3xl md:text-5xl font-bold text-gray-400">Coming soon!</span>
-            </div>
+            </div> */}
+            <Calendar />
         </>
     );
 }
