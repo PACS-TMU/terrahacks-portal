@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { schedulerData } from './appointments';
+// import { schedulerData } from './appointments';
 
 type Event = {
   id: number;
