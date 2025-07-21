@@ -110,7 +110,7 @@ const allEvents: Event[] = [
     description: 'Enjoy a complimentary lunch and network with other participants.',
   },
   {
-    id: 8,
+    id: 7,
     title: 'Breakfast',
     start: new Date('2025-08-02T09:30:00'),
     end: new Date('2025-08-02T10:30:00'),
@@ -118,7 +118,7 @@ const allEvents: Event[] = [
     description: 'Enjoy a complimentary breakfast and network with other participants.',
   },
   {
-    id: 9,
+    id: 8,
     title: 'Cup Stacking Competition',
     start: new Date('2025-08-02T11:00:00'),
     end: new Date('2025-08-02T12:00:00'),
@@ -126,7 +126,7 @@ const allEvents: Event[] = [
     description: 'Are you good with your hands? Join our cup stacking competition and win a prize!',
   },
   {
-    id: 10,
+    id: 9,
     title: 'Candy Chopsticks',
     start: new Date('2025-08-02T11:00:00'),
     end: new Date('2025-08-02T12:00:00'),
@@ -134,7 +134,7 @@ const allEvents: Event[] = [
     description: 'Get ready for a sweet challenge!',
   },
   {
-    id: 11,
+    id: 10,
     title: 'Carnival Games',
     start: new Date('2025-08-02T13:00:00'),
     end: new Date('2025-08-02T15:00:00'),
@@ -143,7 +143,7 @@ const allEvents: Event[] = [
   },
 
   {
-    id: 12,
+    id: 11,
     title: 'Lunch',
     start: new Date('2025-08-02T13:30:00'),
     end: new Date('2025-08-02T15:00:00'),
@@ -151,7 +151,7 @@ const allEvents: Event[] = [
     description: 'Enjoy a complimentary lunch and network with other participants.',
   },
   {
-    id: 13,
+    id: 12,
     title: 'AWS Cloud Club TMU Workshop',
     start: new Date('2025-08-02T15:30:00'),
     end: new Date('2025-08-02T16:30:00'),
@@ -159,7 +159,7 @@ const allEvents: Event[] = [
     description: '',
   },
   // {
-  //   id: 14,
+  //   id: 13,
   //   title: 'Resume Roast',
   //   start: new Date('2025-08-02T16:30:00'),
   //   end: new Date('2025-08-02T17:30:00'),
@@ -167,7 +167,7 @@ const allEvents: Event[] = [
   //   description: 'TBD',
   // },
   {
-    id: 15,
+    id: 14,
     title: 'Dinner',
     start: new Date('2025-08-02T21:00:00'),
     end: new Date('2025-08-02T22:30:00'),
@@ -175,7 +175,7 @@ const allEvents: Event[] = [
     description: 'Enjoy a complimentary dinner and network with other participants.',
   },
   {
-    id: 16,
+    id: 15,
     title: 'Family Feud',
     start: new Date('2025-08-02T23:00:00'),
     end: new Date('2025-08-02T24:00:00'),
@@ -183,7 +183,7 @@ const allEvents: Event[] = [
     description: 'Get ready for a sweet challenge!',
   },
   {
-    id: 17,
+    id: 16,
     title: 'Typing Contest',
     start: new Date('2025-08-02T23:00:00'),
     end: new Date('2025-08-02T24:00:00'),
@@ -191,7 +191,7 @@ const allEvents: Event[] = [
     description: 'Get ready for a sweet challenge!',
   },
   {
-    id: 16,
+    id: 17,
     title: 'Spicy Noodle Challenge',
     start: new Date('2025-08-03T01:30:00'),
     end: new Date('2025-08-03T02:30:00'),
@@ -199,7 +199,7 @@ const allEvents: Event[] = [
     description: 'Think you can handle the heat? Join our spicy noodle challenge and win a prize!',
   },
   {
-    id: 16,
+    id: 18,
     title: 'Breakfast',
     start: new Date('2025-08-03T09:00:00'),
     end: new Date('2025-08-03T10:00:00'),
@@ -207,7 +207,7 @@ const allEvents: Event[] = [
     description: 'Enjoy a complimentary breakfast and network with other participants.',
   },
   {
-    id: 16,
+    id: 19,
     title: 'Judging',
     start: new Date('2025-08-03T11:00:00'),
     end: new Date('2025-08-03T16:30:00'),
@@ -215,7 +215,7 @@ const allEvents: Event[] = [
     description: 'Judging will take place in DCC 103 / 104. Please ensure your project is ready for review by the judges.',
   },
   {
-    id: 17,
+    id: 20,
     title: 'Closing Ceremony',
     start: new Date('2025-08-03T17:00:00'),
     end: new Date('2025-08-03T18:00:00'),
@@ -223,7 +223,7 @@ const allEvents: Event[] = [
     description: 'Join us for the closing ceremony where we will announce the winners and celebrate the achievements of all participants!!',
   },
   {
-    id: 30,
+    id: 21,
     title: 'Lunch',
     start: new Date('2025-08-03T12:00:00'),
     end: new Date('2025-08-03T13:00:00'),
@@ -231,7 +231,7 @@ const allEvents: Event[] = [
     description: 'Enjoy a complimentary lunch and network with other participants.',
   },
   {
-    id: 18,
+    id: 22,
     title: 'Dinner',
     start: new Date('2025-08-03T18:00:00'),
     end: new Date('2025-08-03T19:00:00'),
@@ -239,7 +239,7 @@ const allEvents: Event[] = [
     description: 'Enjoy a complimentary dinner and network with other participants.',
   },
   {
-    id: 19,
+    id: 23,
     title: 'Wellness Workshop Board Game Cafe',
     start: new Date('2025-08-03T12:00:00'),
     end: new Date('2025-08-03T16:00:00'),
