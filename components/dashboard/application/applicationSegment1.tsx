@@ -494,7 +494,7 @@ export default function ApplicationSegment1({ formData, handleInputChange }: App
                         htmlFor="levelOfStudy"
                         className="text-base lg:text-lg text-background pb-2 after:content-['*'] after:ml-0.5 after:text-red-500"
                     >
-                        Level of study (as of Fall 2024)
+                        Level of study (as of Fall 2025)
                     </label>
                     <select
                         id="levelOfStudy"

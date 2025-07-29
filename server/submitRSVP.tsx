@@ -24,6 +24,17 @@ export default async function submitRSVP() {
         return redirect('/dashboard?message=Error - Something went wrong. Please contact support if this issue persists.');
     }
 
+    // Check RSVP limit
+    const rsvpCountResponse = await supabase
+        .from('rsvp')
+        .select('status', { count: 'exact' })
+        .eq('status', 'Yes');
+        console.log('RSVP count response:', rsvpCountResponse);
+    if (rsvpCountResponse.count !== null && rsvpCountResponse.count >= 280) {
+        console.error('RSVP limit reached');
+        return redirect('/dashboard?message=RSVP limit reached. Unfortunately, we cannot accept more RSVPs.');
+    }
+
     // Check if RSVP record exists
     const { data: existingRSVP, error: fetchError } = await supabase.from('rsvp').select('*').eq('account_id', userID);
     console.log('Existing RSVP record:', existingRSVP);

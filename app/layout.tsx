@@ -6,7 +6,7 @@ const defaultUrl = process.env.NEXT_PUBLIC_BASE_URL ? `https://${process.env.NEX
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "TerraHacks Portal - Hacker Dashboard",
-  description: "Everything a Hacker needs in one place! Application portal for TerraHacks 2024. Apply, view, and edit your application here; as well as view your status and other information.",
+  description: "Everything a Hacker needs in one place! Application portal for TerraHacks 2025. Apply, view, and edit your application here; as well as view your status and other information.",
 };
 
 export default function RootLayout({
