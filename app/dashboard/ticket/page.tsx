@@ -48,7 +48,7 @@ export default async function Team() {
                 </p>
             </div>
             {details.status === 'N/A' ? (
-                <div className="flex items-center justify-center w-11/12 md:w-3/4 lg:w-1/2 mx-auto my-[20vh] py-10 bg-highlight rounded-md shadow-sm">
+                <div className="flex items-center justify-center w-11/12 md:w-3/4 lg:w-1/2 mx-auto my-[20vh] py-10 px-3 bg-highlight rounded-md shadow-sm">
                     <p className="text-xl text-background font-bold font-sans">
                         You have not RSVP&apos;d yet. Please RSVP in the {" "}
                         <Link
