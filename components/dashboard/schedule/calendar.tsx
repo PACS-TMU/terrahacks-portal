@@ -107,7 +107,8 @@ const allEvents: Event[] = [
     start: new Date('2025-08-01T22:30:00'),
     end: new Date('2025-08-01T24:00:00'),
     room: 'DCC 204',
-    description: 'https://forms.gle/aXaGWNGimTAxjSvh9',
+    description: 'Join us for an epic Smash Bros tournament! Compete against other participants and show off your skills.',
+    form: 'https://forms.gle/vL9xXZuNMs7VJhcs9'
   },
   {
     id: 7,
@@ -160,11 +161,11 @@ const allEvents: Event[] = [
   },
   {
     id: 13,
-    title: 'MLH Workshop',
+    title: 'MLH GitHub Copilot Workshop',
     start: new Date('2025-08-02T16:30:00'),
     end: new Date('2025-08-02T17:00:00'),
     room: 'DCC 204',
-    description: 'DCC 204',
+    description: 'Come and learn about GitHub Copilot, the AI-powered code completion tool!',
   },
   {
     id: 14,
@@ -180,7 +181,7 @@ const allEvents: Event[] = [
     start: new Date('2025-08-02T23:00:00'),
     end: new Date('2025-08-02T24:00:00'),
     room: 'DCC 208',
-    description: 'Get ready for a sweet challenge!',
+    description: 'Join us for a fun-filled hour of Family Feud! Test your knowledge and compete against other participants in this classic game show.',
   },
   {
     id: 16,
@@ -188,7 +189,8 @@ const allEvents: Event[] = [
     start: new Date('2025-08-03T15:00:00'),
     end: new Date('2025-08-03T16:00:00'),
     room: 'DCC 204',
-    description: 'Get ready for a sweet challenge!',
+    description: 'Put your typing skills to the test in our typing contest! Compete against other participants and see who can type the fastest.',
+    form: 'https://forms.gle/dHnhym55pDD4PMLQ9'
   },
   {
     id: 17,
@@ -197,6 +199,7 @@ const allEvents: Event[] = [
     end: new Date('2025-08-03T02:30:00'),
     room: 'DCC 103 /104',
     description: 'Think you can handle the heat? Join our spicy noodle challenge and win a prize!',
+    form: 'https://forms.gle/Wcvh3SUUoRG2Gxy5A',
   },
   {
     id: 18,
@@ -227,7 +230,7 @@ const allEvents: Event[] = [
     title: 'Lunch',
     start: new Date('2025-08-03T12:30:00'),
     end: new Date('2025-08-03T13:30:00'),
-    room: 'TBD',
+    room: 'Main Hall',
     description: 'Enjoy a complimentary lunch and network with other participants.',
   },
   {
@@ -243,7 +246,7 @@ const allEvents: Event[] = [
     title: 'Movie + Board Games',
     start: new Date('2025-08-03T16:00:00'),
     end: new Date('2025-08-03T17:00:00'),
-    room: 'DCC 208',
+    room: 'DCC 103 / 1',
     description: 'Join us for a relaxing hour of board games and a movie screening.',
   },
   
@@ -355,6 +358,9 @@ export default function CustomScheduler() {
               const width = 100 / event.totalCols;
               const left = event.column * width;
 
+              // Only apply single-line style for MLH GitHub Copilot Workshop
+              const isMLH = event.title === 'MLH GitHub Copilot Workshop';
+
               return (
                 <div
                   key={event.id}
@@ -366,11 +372,29 @@ export default function CustomScheduler() {
                     width: `${width}%`,
                     left: `${left}%`,
                     minWidth: 120,
+                    ...(isMLH && {
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }),
                   }}
                 >
-                  <div className="text-xs sm:text-sm font-bold text-[#19414e] truncate">{event.title}</div>
-                  <div className="text-xs sm:text-sm font-semibold text-[#19414e] truncate">{event.room}</div>
-                  <div className="text-[12px] sm:text-xs text-[#19414e]">
+                  <div
+                    className="text-xs sm:text-sm font-bold text-[#19414e]"
+                    style={isMLH ? { display: 'inline', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '100%' } : {}}
+                  >
+                    {event.title}
+                  </div>
+                  <div
+                    className="text-xs sm:text-sm font-semibold text-[#19414e]"
+                    style={isMLH ? { display: 'inline', marginLeft: 8, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } : {}}
+                  >
+                    {event.room}
+                  </div>
+                  <div
+                    className="text-[12px] sm:text-xs text-[#19414e]"
+                    style={isMLH ? { display: 'inline', marginLeft: 8, whiteSpace: 'nowrap' } : {}}
+                  >
                     {formatDate(event.start, 'h:mm a')} - {formatDate(event.end, 'h:mm a')}
                   </div>
                 </div>
@@ -398,6 +422,16 @@ export default function CustomScheduler() {
               <span className="font-semibold">Room:</span> {selected.room}
             </p>
             <p className="mt-2 text-xs sm:text-sm text-gray-700">{selected.description}</p>
+            {selected.form && (
+              <a
+                href={selected.form}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block bg-[#63acc4] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#19414e] transition"
+              >
+                Sign Up Form
+              </a>
+            )}
           </div>
         </div>
       )}
