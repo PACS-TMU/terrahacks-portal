@@ -39,12 +39,12 @@ export default async function Volunteer() {
                     </a>.
                 </p>
             </div>
-                <div className="mt-6">
+            <div className="mt-6">
                 <h4 className="text-base md:text-xl font-bold mb-4 px-5">Volunteer/Mentor Form</h4>
 
                 <FormSelector />
-        </div>
+            </div>
         </>
     );
 }
-          
+

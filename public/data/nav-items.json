@@ -18,14 +18,14 @@
         "name": "Schedule",
         "path": "/dashboard/schedule",
         "icon": "<IoCalendarClearOutline />",
-        "status": "Accepted"
+        "status": "RSVP"
     },
     {
         "id": 4,
         "name": "Team",
         "path": "/dashboard/team",
         "icon": "<AiOutlineTeam />",
-        "status": "Accepted"
+        "status": "RSVP"
     },
     {
         "id": 5,
@@ -39,7 +39,7 @@
         "name": "Ticket",
         "path": "/dashboard/ticket",
         "icon": "<IoTicketOutline />",
-        "status": "Accepted"
+        "status": "RSVP"
     },
     {
         "id": 7,

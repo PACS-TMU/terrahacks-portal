@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SignoutButton from "@/components/SignoutButton";
 import Loading from "@/components/Loading";
-import { IoHomeOutline, IoCalendarClearOutline, IoTicketOutline, IoLocationOutline, IoDocumentsOutline, IoMailOpenOutline, IoLockClosedOutline, IoAccessibilityOutline  } from 'react-icons/io5';
+import { IoHomeOutline, IoCalendarClearOutline, IoTicketOutline, IoLocationOutline, IoDocumentsOutline, IoMailOpenOutline, IoLockClosedOutline, IoAccessibilityOutline } from 'react-icons/io5';
 import { AiOutlineTeam, AiOutlineDatabase } from 'react-icons/ai';
 import { Twirl as Hamburger } from 'hamburger-react';
 import { useClickAway } from "react-use";
@@ -18,7 +18,7 @@ const iconMapping: Record<string, ReactNode> = {
     "<IoLocationOutline />": <IoLocationOutline size={28} />,
     "<IoMailOpenOutline />": <IoMailOpenOutline size={28} />,
     "<AiOutlineDatabase />": <AiOutlineDatabase size={28} />,
-    "<IoAccessibilityOutline  />": <IoAccessibilityOutline  size={28} />,
+    "<IoAccessibilityOutline  />": <IoAccessibilityOutline size={28} />,
 };
 
 export default function Sidenav() {
@@ -40,6 +40,7 @@ export default function Sidenav() {
     const [navItems, setNavItems] = useState<NavItem[]>([]);
     const [user, setUser] = useState<User | null>(null);
     const [role, setRole] = useState<string | null>(null);
+    const [rsvpStatus, setRsvpStatus] = useState<string | null>(null);
     const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
     const [isExpandedMobile, setIsExpandedMobile] = useState(false);
     const ref = useRef(null);
@@ -82,10 +83,19 @@ export default function Sidenav() {
                 const response = await fetch('/api/getApplicationStatus');
                 const result = await response.json();
 
+                const rsvpResponse = await fetch('/api/getRSVPStatus');
+                const rsvpResult = await rsvpResponse.json();
+
                 if (response.ok) {
                     setApplicationStatus(result.applicationStatus.toLowerCase());
                 } else {
                     console.error('Failed to fetch application status: ', result.error);
+                }
+
+                if (rsvpResponse.ok) {
+                    setRsvpStatus(rsvpResult.status.toLowerCase());
+                } else {
+                    console.error('Failed to fetch RSVP status: ', rsvpResult.error);
                 }
             } catch (err) {
                 console.error('Failed to fetch application status: ', err);
@@ -131,13 +141,12 @@ export default function Sidenav() {
                             Welcome,
                             <span className="ml-1 font-bold"> {user!.user_metadata.full_name == null ? "User" : user!.user_metadata.full_name}</span>
                             !
-                            
                         </div>
 
                         <aside className="flex flex-col items-start justify-between h-[83%] overflow-y-auto">
                             <ul className="flex flex-col gap-2 w-full">
                                 {navItems.map((item) => (
-                                    <Link key={item.id} aria-label={`Path to ${item.name}`} href={item.path} className={`w-full ${item.status.toLowerCase() === "not applied" ? 'flex' : (applicationStatus === item.status.toLowerCase() ? 'flex' : 'hidden')}`} rel="noopener noreferrer">
+                                    <Link key={item.id} aria-label={`Path to ${item.name}`} href={item.path} className={`w-full ${item.status.toLowerCase() === "not applied" ? 'flex' : (applicationStatus === item.status.toLowerCase() ? 'flex' : (rsvpStatus === "yes" && item.status.toLowerCase() === "rsvp") ? 'flex' : 'hidden')}`} rel="noopener noreferrer">
                                         <li className={`p-4 hover:bg-background duration-300 ease-in-out rounded-md w-full hover:text-foreground cursor-pointer flex items-center justify-start gap-2`}>
                                             {iconMapping[item.icon]}
                                             {item.name}
@@ -172,7 +181,7 @@ export default function Sidenav() {
                         />
                     </a>
                 </div>
-                <button 
+                <button
                     onClick={handleClick}
                     aria-label="Show navigation menu"
                 >
@@ -180,7 +189,7 @@ export default function Sidenav() {
                 </button>
             </nav>
             <div ref={ref} className={`fixed md:hidden z-20 right-0 top-0 h-full max-w-full px-6 py-14 border-l border-l-gray-300 bg-highlightLight text-background backdrop-blur-xl transition-all duration-300 ease-in-out ${!isExpandedMobile ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'}`}>
-                <button 
+                <button
                     onClick={handleClick}
                     aria-label="Show navigation menu"
                     className="absolute top-2 right-2 z-30"
@@ -190,7 +199,7 @@ export default function Sidenav() {
                 <div className="flex flex-col items-start justify-between h-[90%]">
                     <ul className="flex flex-col w-full divide-y divide-gray-300">
                         {navItems.map((item) => (
-                            <Link key={item.id} aria-label={`Path to ${item.name}`} href={item.path} className={`w-full ${item.status.toLowerCase() === "not applied" ? 'flex' : (applicationStatus === item.status.toLowerCase() ? 'flex' : 'hidden')}`} rel="noopener noreferrer">
+                            <Link key={item.id} aria-label={`Path to ${item.name}`} href={item.path} className={`w-full ${item.status.toLowerCase() === "not applied" ? 'flex' : (applicationStatus === item.status.toLowerCase() ? 'flex' : (rsvpStatus === "yes" && item.status.toLowerCase() === "rsvp") ? 'flex' : 'hidden')}`} rel="noopener noreferrer">
                                 <li className={`p-4 hover:bg-background duration-300 ease-in-out rounded-md w-full hover:text-foreground cursor-pointer flex items-center justify-start gap-2`}>
                                     {iconMapping[item.icon]}
                                     {item.name}

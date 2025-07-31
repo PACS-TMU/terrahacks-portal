@@ -67,7 +67,7 @@ const allEvents: Event[] = [
     start: new Date('2025-08-01T18:00:00'),
     end: new Date('2025-08-01T23:00:00'),
     room: 'Main Hall',
-    description: 'Kick off TerraHacks with opening remarks and event overview.',
+    description: 'Check in for the hackathon, receive your swag and get ready for an exciting weekend of hacking!',
   },
   {
     id: 2,
@@ -75,7 +75,7 @@ const allEvents: Event[] = [
     start: new Date('2025-08-01T20:00:00'),
     end: new Date('2025-08-01T21:00:00'),
     room: 'DCC 204',
-    description: 'Explore the future of AI with hands-on demos and expert talks.',
+    description: 'Join us for the opening ceremony where we will introduce the hackathon, our sponsors, and the rules of the event. Hacking begins immediately after the ceremony.',
   },
   {
     id: 3,
@@ -90,8 +90,8 @@ const allEvents: Event[] = [
     title: 'Just Dance',
     start: new Date('2025-08-01T22:30:00'),
     end: new Date('2025-08-01T23:30:00'),
-    room: 'TBD',
-    description: 'Enjoy a complimentary lunch and network with other participants.',
+    room: 'DCC 350 / 352',
+    description: 'Join us for a fun-filled evening of Just Dance! Show off your dance moves and be a part of the fun!',
   },
   {
     id: 5,
@@ -99,15 +99,16 @@ const allEvents: Event[] = [
     start: new Date('2025-08-02T01:00:00'),
     end: new Date('2025-08-02T03:00:00'),
     room: 'DCC 204',
-    description: 'Enjoy a complimentary lunch and network with other participants.',
+    description: 'Unleash your inner superstar at our karaoke night! Sing your heart out and enjoy a night of music and fun.',
   },
   {
     id: 6,
     title: 'Smash Bros Tournament',
     start: new Date('2025-08-01T22:30:00'),
     end: new Date('2025-08-01T24:00:00'),
-    room: 'TBD',
-    description: 'Enjoy a complimentary lunch and network with other participants.',
+    room: 'DCC 204',
+    description: 'Join us for an epic Smash Bros tournament! Compete against other participants and show off your skills.',
+    form: 'https://forms.gle/vL9xXZuNMs7VJhcs9'
   },
   {
     id: 7,
@@ -136,16 +137,16 @@ const allEvents: Event[] = [
   {
     id: 10,
     title: 'Carnival Games',
-    start: new Date('2025-08-02T13:00:00'),
-    end: new Date('2025-08-02T15:00:00'),
-    room: 'TBD',
+    start: new Date('2025-08-02T12:30:00'),
+    end: new Date('2025-08-02T14:00:00'),
+    room: 'DCC 103 / 104',
     description: 'Join us for a fun-filled afternoon of carnival games and activities!',
   },
 
   {
     id: 11,
     title: 'Lunch',
-    start: new Date('2025-08-02T13:30:00'),
+    start: new Date('2025-08-02T14:00:00'),
     end: new Date('2025-08-02T15:00:00'),
     room: 'DCC 103 / 104',
     description: 'Enjoy a complimentary lunch and network with other participants.',
@@ -156,16 +157,16 @@ const allEvents: Event[] = [
     start: new Date('2025-08-02T15:30:00'),
     end: new Date('2025-08-02T16:30:00'),
     room: 'DCC 208',
-    description: '',
+    description: 'Learn how to use Amamzon Q with AWS Cloud Club TMU!',
   },
-  // {
-  //   id: 13,
-  //   title: 'Resume Roast',
-  //   start: new Date('2025-08-02T16:30:00'),
-  //   end: new Date('2025-08-02T17:30:00'),
-  //   room: 'DCC 208',
-  //   description: 'TBD',
-  // },
+  {
+    id: 13,
+    title: 'MLH GitHub Copilot Workshop',
+    start: new Date('2025-08-02T16:30:00'),
+    end: new Date('2025-08-02T17:00:00'),
+    room: 'DCC 204',
+    description: 'Come and learn about GitHub Copilot, the AI-powered code completion tool!',
+  },
   {
     id: 14,
     title: 'Dinner',
@@ -180,15 +181,16 @@ const allEvents: Event[] = [
     start: new Date('2025-08-02T23:00:00'),
     end: new Date('2025-08-02T24:00:00'),
     room: 'DCC 208',
-    description: 'Get ready for a sweet challenge!',
+    description: 'Join us for a fun-filled hour of Family Feud! Test your knowledge and compete against other participants in this classic game show.',
   },
   {
     id: 16,
     title: 'Typing Contest',
-    start: new Date('2025-08-02T23:00:00'),
-    end: new Date('2025-08-02T24:00:00'),
-    room: 'TBD',
-    description: 'Get ready for a sweet challenge!',
+    start: new Date('2025-08-03T15:00:00'),
+    end: new Date('2025-08-03T16:00:00'),
+    room: 'DCC 204',
+    description: 'Put your typing skills to the test in our typing contest! Compete against other participants and see who can type the fastest.',
+    form: 'https://forms.gle/dHnhym55pDD4PMLQ9'
   },
   {
     id: 17,
@@ -197,6 +199,7 @@ const allEvents: Event[] = [
     end: new Date('2025-08-03T02:30:00'),
     room: 'DCC 103 /104',
     description: 'Think you can handle the heat? Join our spicy noodle challenge and win a prize!',
+    form: 'https://forms.gle/Wcvh3SUUoRG2Gxy5A',
   },
   {
     id: 18,
@@ -210,7 +213,7 @@ const allEvents: Event[] = [
     id: 19,
     title: 'Judging',
     start: new Date('2025-08-03T11:00:00'),
-    end: new Date('2025-08-03T16:30:00'),
+    end: new Date('2025-08-03T15:00:00'),
     room: 'DCC 103 / 104',
     description: 'Judging will take place in DCC 103 / 104. Please ensure your project is ready for review by the judges.',
   },
@@ -219,15 +222,15 @@ const allEvents: Event[] = [
     title: 'Closing Ceremony',
     start: new Date('2025-08-03T17:00:00'),
     end: new Date('2025-08-03T18:00:00'),
-    room: 'DCC 208',
+    room: 'DCC 204',
     description: 'Join us for the closing ceremony where we will announce the winners and celebrate the achievements of all participants!!',
   },
   {
     id: 21,
     title: 'Lunch',
-    start: new Date('2025-08-03T12:00:00'),
-    end: new Date('2025-08-03T13:00:00'),
-    room: 'TBD',
+    start: new Date('2025-08-03T12:30:00'),
+    end: new Date('2025-08-03T13:30:00'),
+    room: 'Main Hall',
     description: 'Enjoy a complimentary lunch and network with other participants.',
   },
   {
@@ -240,12 +243,13 @@ const allEvents: Event[] = [
   },
   {
     id: 23,
-    title: 'Wellness Workshop Board Game Cafe',
-    start: new Date('2025-08-03T12:00:00'),
-    end: new Date('2025-08-03T16:00:00'),
-    room: 'TBD',
-    description: 'Join us for a relaxing evening of board games and wellness activities.',
+    title: 'Movie + Board Games',
+    start: new Date('2025-08-03T16:00:00'),
+    end: new Date('2025-08-03T17:00:00'),
+    room: 'DCC 103 / 1',
+    description: 'Join us for a relaxing hour of board games and a movie screening.',
   },
+  
 
 
 ];
@@ -354,6 +358,9 @@ export default function CustomScheduler() {
               const width = 100 / event.totalCols;
               const left = event.column * width;
 
+              // Only apply single-line style for MLH GitHub Copilot Workshop
+              const isMLH = event.title === 'MLH GitHub Copilot Workshop';
+
               return (
                 <div
                   key={event.id}
@@ -365,11 +372,29 @@ export default function CustomScheduler() {
                     width: `${width}%`,
                     left: `${left}%`,
                     minWidth: 120,
+                    ...(isMLH && {
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }),
                   }}
                 >
-                  <div className="text-xs sm:text-sm font-bold text-[#19414e] truncate">{event.title}</div>
-                  <div className="text-xs sm:text-sm font-semibold text-[#19414e] truncate">{event.room}</div>
-                  <div className="text-[12px] sm:text-xs text-[#19414e]">
+                  <div
+                    className="text-xs sm:text-sm font-bold text-[#19414e]"
+                    style={isMLH ? { display: 'inline', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', width: '100%' } : {}}
+                  >
+                    {event.title}
+                  </div>
+                  <div
+                    className="text-xs sm:text-sm font-semibold text-[#19414e]"
+                    style={isMLH ? { display: 'inline', marginLeft: 8, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } : {}}
+                  >
+                    {event.room}
+                  </div>
+                  <div
+                    className="text-[12px] sm:text-xs text-[#19414e]"
+                    style={isMLH ? { display: 'inline', marginLeft: 8, whiteSpace: 'nowrap' } : {}}
+                  >
                     {formatDate(event.start, 'h:mm a')} - {formatDate(event.end, 'h:mm a')}
                   </div>
                 </div>
@@ -397,6 +422,16 @@ export default function CustomScheduler() {
               <span className="font-semibold">Room:</span> {selected.room}
             </p>
             <p className="mt-2 text-xs sm:text-sm text-gray-700">{selected.description}</p>
+            {selected.form && (
+              <a
+                href={selected.form}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-block bg-[#63acc4] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#19414e] transition"
+              >
+                Sign Up Form
+              </a>
+            )}
           </div>
         </div>
       )}

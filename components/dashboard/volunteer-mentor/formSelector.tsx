@@ -137,7 +137,7 @@ export default function FormSelector() {
 
         const table = formType === "volunteer" ? "volunteer_applications" : "mentor_applications";
         const currentDate = new Date().toISOString().split("T")[0];
-        
+
         // Check if email already exists
         const { data: existing, error: checkError } = await supabase
             .from(table)
@@ -167,8 +167,8 @@ export default function FormSelector() {
             preferred_roles: formData.preferred_roles,
             dietary_restrictions:
                 formData.dietary_restrictions === "Other"
-                ? formData.dietary_restrictions_other || "Other"
-                : formData.dietary_restrictions,
+                    ? formData.dietary_restrictions_other || "Other"
+                    : formData.dietary_restrictions,
             emergency_contact_name: formData.emergency_contact_name,
             emergency_contact_phone: formData.emergency_contact_phone,
             applied_date: currentDate,
@@ -185,7 +185,7 @@ export default function FormSelector() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 px-6 py-4 max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <button
                     type="button"
@@ -211,17 +211,17 @@ export default function FormSelector() {
                 <form onSubmit={handleSubmit} className="grid gap-4">
                     <input name="first_name" placeholder="First Name" onChange={handleChange} required className="border p-2" />
                     <input name="last_name" placeholder="Last Name" onChange={handleChange} required className="border p-2" />
-                    <input name="email" type="email" placeholder="Email" onChange={handleChange} required className="border p-2"/>
+                    <input name="email" type="email" placeholder="Email" onChange={handleChange} required className="border p-2" />
                     {formErrors.email && (<p className="text-red-500 text-sm">{formErrors.email}</p>)}
-                    <input name="phone_number" placeholder="Phone Number (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2"/>
+                    <input name="phone_number" placeholder="Phone Number (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2" />
                     {formErrors.phone_number && (<p className="text-red-500 text-sm">{formErrors.phone_number}</p>)}
                     <input name="emergency_contact_name" placeholder="Emergency Contact Name" onChange={handleChange} required className="border p-2" />
-                    <input name="emergency_contact_phone" placeholder="Emergency Contact Phone (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2"/>
-                    {formErrors.emergency_contact_phone && ( <p className="text-red-500 text-sm">{formErrors.emergency_contact_phone}</p>)}
+                    <input name="emergency_contact_phone" placeholder="Emergency Contact Phone (XXX-XXX-XXXX)" onChange={handleChange} required className="border p-2" />
+                    {formErrors.emergency_contact_phone && (<p className="text-red-500 text-sm">{formErrors.emergency_contact_phone}</p>)}
 
                     <label htmlFor="dietary_restrictions" className="font-medium">
                     </label>
-                    <p className= "-mt-5 -mb-5 px-2">Dietary Restrictions/Food Allergies</p>
+                    <p className="-mt-2 -mb-2 font-semibold">Dietary Restrictions/Food Allergies</p>
                     <select
                         id="dietary_restrictions"
                         name="dietary_restrictions"
@@ -245,10 +245,10 @@ export default function FormSelector() {
                             className="border p-2"
                         />
                     )}
-                
+
                     {formType === "volunteer" && (
                         <>
-                            <label htmlFor="preferred_roles" className="-mt-2 -mb-2 px-2">Preferred Role</label>
+                            <label htmlFor="preferred_roles" className="mt-2 -mb-2 font-semibold">Preferred Role</label>
                             <select
                                 id="preferred_roles"
                                 name="preferred_roles"
@@ -278,7 +278,7 @@ export default function FormSelector() {
                             <textarea name="why_mentor" placeholder="Why do you want to be a mentor?" onChange={handleChange} required className="border p-2" />
                         </>
                     )}
-                    
+
                     <label className="flex items-center space-x-2">
                         <input
                             type="checkbox"
@@ -288,10 +288,10 @@ export default function FormSelector() {
                         />
                         <span>I acknowledge I will be physically present</span>
                     </label>
-                    
+
                     <button
                         type="submit"
-                        className="bg-highlight text-background shadow-md p-4 rounded-lg rounded-lg hover:animate-pulse hover:opacity-90 ease-in-out duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="bg-highlight text-background shadow-md p-4 rounded-lg hover:animate-pulse hover:opacity-90 ease-in-out duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         Submit {formType === "volunteer" ? "Volunteer" : "Mentor"} Application
                     </button>
